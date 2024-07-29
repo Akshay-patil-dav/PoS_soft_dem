@@ -118,7 +118,7 @@
 
                          ?>
                          
-                           <option value="<?php echo $row1['name'].$row1['gstin_no'] ?>"><?php echo $row1['name'].$row1['gstin_no'] ?></option>
+                           <option value="<?php echo $row1['gstin_no'] ; ?>"><?php echo $row1['name'].$row1['gstin_no'] ?></option>
                         <?php      }
                                  } ?>
                          </select>
@@ -149,7 +149,7 @@
                 </div>
               </div>
               <!-- <input type="text" value="January 20, 2019 09:00"  class="form-control"> -->
-              <input type="text" class="form-control " id="datetimepicker3" placeholder="MM/DD/YYYY">
+              <input type="text" class="form-control " name="date" id="datetimepicker3" placeholder="MM/DD/YYYY">
 
             </div>
           </div>
@@ -159,13 +159,13 @@
           <div class="col-lg" style="position: relative; right: 3.5cm; " >
           <p class="mg-b-10">Reference No </p>
 
-              <input class="form-control " style="width: 6cm;" placeholder="Reference No" type="text">
+              <input class="form-control " style="width: 6cm;" name="refcode" placeholder="Reference No" type="text">
             </div><!-- col -->
 
             <div class="col-lg" style="position: relative; right: 7.5cm; " >
           <p class="mg-b-10">Select Warehouse  </p>
 
-              <input class="form-control " style="width: 6cm;" placeholder="Select Warehouse" type="text">
+              <input class="form-control " style="width: 6cm;" name="Warehouse" placeholder="Select Warehouse" type="text">
             </div><!-- col -->
 
 
@@ -174,7 +174,7 @@
 
             <div style="position: relative; right: 11cm; " >
               <p class="mg-b-10">Status *</p>
-              <select class="form-control select2-no-search" style="width: 5cm;" required >
+              <select class="form-control select2-no-search" name="Status" style="width: 5cm;" required >
                 <option label="Choose one"></option>
                 <option value="Pending">Pending</option>
                 <option value="Pay">Pay</option>
@@ -186,7 +186,7 @@
           <p class="mg-b-10">Attach Doc </p>
 
           
-              <input class="form-control " style="width: 6cm;" placeholder="Input box" type="file">
+              <input class="form-control " style="width: 6cm;" name="filedoc" placeholder="Input box" type="file">
 
               <style>
                 .cllsub{
@@ -256,7 +256,7 @@
                     <div class="col-lg"  >
           <!-- <p class="mg-b-10">Reference No </p> -->
 
-              <input class="form-control " style="width: 2cm;" id="quantity" name="quantity" placeholder="Quentity" type="number"  >
+              <input class="form-control " style="width: 2cm;" id="quantity" name="quantity" placeholder="Quentity" type="number"   >
             </div><!-- col -->
 
             <div class="col-sm-6 col-md-3" style="position: relative; right:17.5cm;" ><button id="reloadButton"  class="btn btn-az-primary btn-block" style=" width: 3cm; border-radius: 20px; " name="add" onclick="addToCart()" >             
@@ -316,6 +316,8 @@ function addToCart() {
     document.getElementById('productForm').reset();
 }
 </script>
+
+
 <?php
 
 
@@ -607,14 +609,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         new Picker(document.querySelector('#datetimepicker3'), {
           headers: true,
-          format: 'MMMM DD, YYYY HH:mm',
+          format: 'YYYY - MMMM - DD ', 
           text: {
             title: 'Pick a Date and Time',
             year: 'Year',
             month: 'Month',
-            day: 'Day',
-            hour: 'Hour',
-            minute: 'Minute'
+            day: 'Day'
+          
           },
         });
 
