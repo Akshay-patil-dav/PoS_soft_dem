@@ -15,7 +15,7 @@
   
   <?php
             // require_once("/wamp64/www/project/template/nav.php");
-            require_once("./nav.php");
+            require_once("./navbar/nav.php");
 
             // require_once("/wamp64/www/project/conn/dbconn.php");
             

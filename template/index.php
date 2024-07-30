@@ -56,7 +56,7 @@
   <?php 
 
     // include("./nav.html");
-    require_once("./nav.php");
+    require_once("./navbar/nav.php");
 ?>
 <br><br>
     <h5 style="margin-left: 9.9cm;" ><i class="typcn typcn-chart-area-outline"></i> / Dashboard</h5>

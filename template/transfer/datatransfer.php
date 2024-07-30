@@ -31,11 +31,12 @@ require_once("../conn/dbconn.php");
               // $query2 = 'SELECT * FROM addcard';
               // $result2 = $conn->query($query2);
                       
-    $query2 = 'SELECT product_name,product_code,net_unit,SUM(quantity) AS qui , cgst ,sgst,igst,cess FROM addcard GROUP BY product_code';
+    $query2 = 'SELECT product_name,product_code,net_unit,SUM(quantity) AS qui , cgst ,sgst,igst,cess   FROM addcard GROUP BY product_code';
     $result2 = $conn->query($query2);
 
 
               if ($result2->num_rows > 0){
+                
                 while ($row2 = $result2->fetch_assoc()) {
                 
                      
@@ -47,11 +48,12 @@ require_once("../conn/dbconn.php");
                       $sgst = $row2['sgst'];
                       $igst = $row2['igst'];
                       $cess = $row2['cess'];
+                      $tot = $qui * $price;
 
 
                 
                       $sql = "INSERT INTO purchese_info (gstin_no , product_code , product_name , net_unit , quantity , cgst , sgst , igst , cess , pur_date )
-                     VALUE ('".$sup_name."','".$pro_code."','".$pro_name."'.'".$price."','".$qui."','".$cgst."','".$sgst."','".$igst."','".$cess."','".$date."')";
+                     VALUE ('".$sup_name."','".$pro_code."','".$pro_name."','".$price."','".$qui."','".$cgst."','".$sgst."','".$igst."','".$cess."','".$date."')";
                       $res = $conn->query($sql);
                 
                       if ($res === TRUE){
@@ -64,9 +66,24 @@ require_once("../conn/dbconn.php");
                       
                           if ($re === TRUE){
                           
-                           echo "<script>alert('New record created successfully');
+                          //  echo "<script>alert('New record created successfully');
+                          // window.location.href=' ../Additems.php';
+                          // </script>";
+
+
+                          
+                          $up = "UPDATE product SET quentity  = '".$qui."' + quentity  WHERE product_code = '".$pro_code."' ";
+                          $reup = $conn -> query($up);
+              
+                          if($reup == true){
+                               echo "<script>alert('New record created successfully');
                           window.location.href=' ../Additems.php';
                           </script>";
+                          }
+                      
+
+                          echo $tot."eldkjlk";
+
                           }
 
                         } 

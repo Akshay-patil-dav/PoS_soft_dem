@@ -22,7 +22,7 @@
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
-    <title></title>
+    <title>aue</title>
 
     <!-- vendor css -->
     <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -44,7 +44,7 @@
 
    <?php
 
-    require_once("./nav.php");
+    require_once("./navbar/nav.php");
 
 ?>
 
@@ -64,7 +64,7 @@
 <!-- <p class="mg-b-20">Add zebra-striping to any table row.</p> -->
  <br><br>
 <h5 style="margin-left: 9.9cm;" ><i class="typcn typcn-chart-area-outline"></i> 
- / <a href="./index.php">Dashboard</a>  /Add items</h5>
+ / <a href="./index.php">Dashboard</a>  /Add Purchese</h5>
 <style>
     .box{
         margin-left: 9.9cm;
@@ -216,7 +216,7 @@
 
 
 <!-- <form action="" method="post" > -->
-<form  id="productForm">
+<form action="./insproduct.php" method="post" id="productForm">
 
      
      <div style="display: flex;" >
@@ -263,114 +263,8 @@
                            <i class="typcn typcn-document-add" style="font-size: 16px;" ></i> Add  
             </button></div>
     
-  
-            <link rel="stylesheet" href="./doc/purchsup.php">
-<script>
-     function reloadPage() {
-            location.reload();
-        }
-
-        // Add event listener to the button
-        document.getElementById('reloadButton').addEventListener('click', reloadPage);
-    
-
-const refreshBtn = document.getElementById("btnRefresh");
-
-// function handleClick() {
-//   window.location.reload();
-// }
-
-refreshBtn.addEventListener("click", addToCart);
-
-          // Function to add product to the cart
-function addToCart() {
-    // Get the product name and quantity from the form
-    var productName = document.getElementById('productname').value;
-    var quantity = document.getElementById('quantity').value;
-
-   
-
-   
-    var xhr = new XMLHttpRequest();
-    // window.location.href=window.location.href
-    window.location.reload();
-    // location.reload();
-    // window.location.reload()
-  
-
-    xhr.open("POST", "#", true);
-    document.getElementById('productname').value = '';
-    document.getElementById('quantity').value = '';
-
-    
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log(xhr.responseText);
-        }
-    };
-
-    xhr.send("product_name=" + encodeURIComponent(productName) + "&quantity=" + encodeURIComponent(quantity));
-
-    // Clear the form fields
-    document.getElementById('productForm').reset();
-}
-</script>
 
 
-<?php
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-
-
-
-    $product_name = $_POST['product_name'];
-    $quantity = $_POST['quantity'];
-
-  
-    
-//  $sql6 = "SELECT * FROM addcard WHERE product_code = ".$product_name.";
-
-
-
-    $query = 'SELECT *  FROM product  WHERE product_code = '.$product_name.'';
-    $result = $conn->query($query);
-
-    if ($result ->num_rows > 0) {
-
-    
-        while ($row = $result -> fetch_assoc()) {
-
-          $net = $row['gstret']/2;
-
-          // $tex_price = $row['purchese_price']+$
-          $cgst_amount = ($row['purchese_price']*($row['gstret']/2))/100;
-          $sgst_amount = ($row['purchese_price']*($row['gstret']/2))/100;
-          $igst_amount = ($row['purchese_price']*$row['igst'])/100;
-          $tex_price = $row['purchese_price']+(($row['purchese_price']*$row['gstret'])/100)+(($row['purchese_price']*$row['cess'])/100);
-          $cess_amount =   (($row['purchese_price']*$row['cess'])/100);
-
-
-            $sql = "INSERT INTO `addcard`( `product_code`, `product_name`, `net_unit`, `quantity`, `cgst`, `sgst`, `igst`, `cess`, `cgst_amount`, `sgst_amount`, `igst_amout`, `cess_amount`) VALUES
-             (".$row['product_code'].",'".$row['product_name']."','".$tex_price."','".$quantity."','".$net  ."','".$net."','".$row['igst']."','".$row['cess']."','".$cgst_amount."','".$sgst_amount."','".$igst_amount."','".$cess_amount."')";
-            $stmt = $conn->prepare($sql);
-
-
-            if ($stmt->execute()) {
-                echo "Product added to cart successfully.";
-            
-            } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
-            }
-        
-            $stmt->close();
-        }
-    }
-  }
-
-?>
 
 
 </div>

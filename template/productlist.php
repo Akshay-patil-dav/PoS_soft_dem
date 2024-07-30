@@ -4,7 +4,7 @@
     // require_once("");
     // require_once("/wamp64/www/project/conn/dbconn.php");
     // require_once("./conn/dbconn.php");
-    require_once("./nav.php");
+    require_once("./navbar/nav.php");
 
 ?>
 

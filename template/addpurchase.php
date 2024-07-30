@@ -44,7 +44,7 @@
 
    <?php
 
-    require_once("./nav.php");
+    require_once("./navbar/nav.php");
 
 ?>
 

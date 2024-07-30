@@ -2,7 +2,10 @@
 <?php
 
 session_start();
-require_once("./conn/dbconn.php");
+// require_once("./conn/dbconn.php");
+require_once('./conn/dbconn.php');
+
+
 
 if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !==true)
 {
@@ -94,7 +97,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !==true)
               <a href="" class="nav-link with-sub"><i class="typcn typcn-chart-bar-outline"></i>Users </a>
               <nav class="az-menu-sub">
                 <a href="./Addsupplier.php" class="nav-link">Add Supplier </a>
-                <a href="./Addproduct.php" class="nav-link">Add items</a>
+                <a href="./Supplierlist.php" class="nav-link">Supplier List</a>
                 <a href="./productlist.php" class="nav-link">List items</a>
               </nav>
             </li>
