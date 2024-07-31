@@ -21,40 +21,59 @@
                      <div class="col-lg">
                     
 
-<script>
-      function myFunc() {
-        window.location.href=' ./Addproduct.php';
-        }
-</script>
 
-                       <input class="form-control" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+                       <input class="form-control" type="text" id="searchInput" onkeyup="mypay()" placeholder="Search for names.." title="Type in a name">
                      </div><!-- col -->
             </div>
 
+          
+           
+<script>
 
-            <script>
-        
-        function mypayment() {
-          var input, filter, table, tr, td, i, txtValue;
-          input = document.getElementById("myInput");
-          filter = input.value.toUpperCase();
-          table = document.getElementById("myTable");
-          tr = table.getElementsByTagName("tr");
-        
-        //   alert(tr.length);
-          for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-              txtValue = td.textContent || td.innerText;
-              if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-              } else {
-                tr[i].style.display = "none";
-              }
-            }       
-          }
+function mypay(){
+  /** script.js **/
+let input = document.getElementById('searchInput');
+let table = document.getElementById('myTable');
+let rows = table.getElementsByTagName('tr');
+let noMatchMessage = document.getElementById('noMatch');
+
+input.addEventListener('input', function () {
+    let filter = input
+        .value
+        .toLowerCase();
+    let matchFound = false;
+
+    for (let i = 1; i < rows.length; i++) {
+        let row = rows[i];
+        let cells = row
+            .getElementsByTagName('td');
+        let found = false;
+
+        for (let j = 0; j < cells.length; j++) {
+            let cell = cells[j];
+            if (cell.textContent.toLowerCase().indexOf(filter) > -1) {
+                found = true;
+                matchFound = true;
+                break;
+            }
         }
-        </script>
+
+        if (found) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    }
+
+    if (!matchFound) {
+        noMatchMessage.style.display = 'block';
+    } else {
+        noMatchMessage.style.display = 'none';
+    }
+});
+}
+
+</script>
 
             <div class="box">
                 <style>
@@ -81,6 +100,7 @@
                     }
                 </style>
             <div class="table-responsive">
+              
             <table class="table table-striped mg-b-0" id="myTable">
               <thead>
                 <tr>
@@ -135,16 +155,17 @@ if ($result->num_rows > 0) {
                   
      
                     <td>    <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="droprightMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="typcn typcn-edit"></i>  Edit 
-            </button>
-            <div class="dropdown-menu tx-13" aria-labelledby="droprightMenuButton">
-              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal" ><i class="far fa-eye"></i> &#160&#160View </a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div></td>
-          
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="droprightMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="typcn typcn-edit"></i>  Edit 
+                            </button>
+                            <div class="dropdown-menu tx-13" aria-labelledby="droprightMenuButton">
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal" ><i class="far fa-eye"></i> &#160&#160View </a>
+                              <a class="dropdown-item" href="#">Another action</a>
+                              <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                          </div></td>
+                  </tr>
+                  
                     <style>
                     
                       .btn-secondary{
@@ -191,7 +212,8 @@ if ($result->num_rows > 0) {
                     </style>
           
 
-                </tr>
+              
+                
 
 
                 <!-- ********************************************edit ******************************************************** -->
@@ -220,7 +242,7 @@ if ($result->num_rows > 0) {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-purple">Continue</button>
+        <!-- <button type="button" class="btn btn-purple">Continue</button> -->
       </div>
     </div>
   </div>
@@ -228,6 +250,7 @@ if ($result->num_rows > 0) {
                                 <!-- ********************************************edit ******************************************************** -->
 
 
+                                
     <?php
 
 
@@ -237,32 +260,13 @@ if ($result->num_rows > 0) {
 }
 ?></tbody>
             </table>
+            <span id="noMatch" style="display:none;">
+            No matching data is found !
+        </span>
           </div><!-- bd -->
     </div>
 </div>
 
-    <script>
-        
-function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
 
-//   alert(tr.length);
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
-</script>
 </body>
 </html>
