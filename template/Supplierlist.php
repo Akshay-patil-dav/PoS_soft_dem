@@ -26,8 +26,6 @@
                      </div><!-- col -->
             </div>
 
-          
-           
 <script>
 
 function mypay(){
@@ -122,7 +120,7 @@ input.addEventListener('input', function () {
             <?php
 // $tbl="users"; // Table name 
 // $sql = "SELECT I.company_name AS company_name, I.name AS sup_name, S.gstin AS gstin, I.email_id AS email , I.phone_no AS phone , I.city AS city, I.state AS state , I.postal_code , I.country , I.addr_comp AS  addr_comp , S.date  AS date, S.payment AS pay FROM suppro_purchese S CROSS JOIN supplier_info I GROUP BY date;";
-$sql = "SELECT *FROM akki GROUP BY gstin ,date,payment ";
+$sql = "SELECT * FROM sup_in GROUP BY refercode ";
 $result = $conn->query($sql);
 $i =1;
 if ($result->num_rows > 0) {
@@ -139,7 +137,7 @@ if ($result->num_rows > 0) {
 
                   <th scope="row"><?php echo $i++ ; ?></th>
                   <td><?php echo  $row['company_name']; ?></td>
-                  <td><?php echo  $row['name']; ?></td>
+                  <td><?php echo  $row['sup_name']; ?></td>
                   <td><?php echo  $row['gstin']; ?></td>
                   <td><?php echo  $row['email_id']; ?></td>
                   <td><?php echo  $row['phone_no']; ?></td>
@@ -147,6 +145,7 @@ if ($result->num_rows > 0) {
                   <td><?php echo  $row['state']; ?></td>
                   <td><?php echo  $row['postal_code']; ?></td>
                   <td><?php echo  $row['date']; ?></td>
+                  <td><?php echo  $row['refercode']; ?></td>
                   <td><?php  if($row['payment'] == 'Pending'){
                     echo "<p class='Pending' > Pending <p>";
                   }else{
@@ -159,8 +158,10 @@ if ($result->num_rows > 0) {
                             <i class="typcn typcn-edit"></i>  Edit 
                             </button>
                             <div class="dropdown-menu tx-13" aria-labelledby="droprightMenuButton">
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal" ><i class="far fa-eye"></i> &#160&#160View </a>
-                              <a class="dropdown-item" href="#">Another action</a>
+                            <form action="./seepurchasesup.php" method="post" >
+                              <button class="dropdown-item" value="<?php echo  $row['refercode']; ?>" name="seepur" ><i class="far fa-eye"></i> &#160&#160View </button>
+                              </form>
+                            <a class="dropdown-item" href="#">Another action</a>
                               <a class="dropdown-item" href="#">Something else here</a>
                             </div>
                           </div></td>
@@ -212,14 +213,29 @@ if ($result->num_rows > 0) {
                     </style>
           
 
-              
-                
+
+                                
+    <?php
 
 
-                <!-- ********************************************edit ******************************************************** -->
+  }
+} else {
+  echo "0 results";
+}
+?></tbody>
+            </table>
+            <span id="noMatch" style="display:none;">
+            No matching data is found !
+        </span>
+          </div><!-- bd -->
+    </div>
+</div>
 
-                          
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+<!-- ****************************************************************** -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -242,31 +258,11 @@ if ($result->num_rows > 0) {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <!-- <button type="button" class="btn btn-purple">Continue</button> -->
+        <button type="button" class="btn btn-purple">Continue</button>
       </div>
     </div>
   </div>
 </div>
-                                <!-- ********************************************edit ******************************************************** -->
-
-
-                                
-    <?php
-
-
-  }
-} else {
-  echo "0 results";
-}
-?></tbody>
-            </table>
-            <span id="noMatch" style="display:none;">
-            No matching data is found !
-        </span>
-          </div><!-- bd -->
-    </div>
-</div>
-
-
+<!-- **********/************************************************************* */ -->
 </body>
 </html>

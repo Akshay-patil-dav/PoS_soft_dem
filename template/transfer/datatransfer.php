@@ -14,6 +14,8 @@ require_once("../conn/dbconn.php");
     $Status = $_POST['Status'];
     $filedoc = $_POST['filedoc'];
 
+    $refcode = $_POST['refcode'];
+
 
     // echo $sup_name;
     // echo $date;
@@ -22,7 +24,7 @@ require_once("../conn/dbconn.php");
     // echo $Status;
     // echo $filedoc;
 
-      $sup_inf = "INSERT INTO suppro_purchese (gstin , payment , date ) VALUE ('".$sup_name."','".$Status."','".$date."') ";
+      $sup_inf = "INSERT INTO suppro_purchese (gstin , payment , date ,code ) VALUE ('".$sup_name."','".$Status."','".$date."','".$refcode."') ";
       $ressup = $conn->query($sup_inf);
 
       if($ressup == true){
@@ -52,8 +54,8 @@ require_once("../conn/dbconn.php");
 
 
                 
-                      $sql = "INSERT INTO purchese_info (gstin_no , product_code , product_name , net_unit , quantity , cgst , sgst , igst , cess , pur_date )
-                     VALUE ('".$sup_name."','".$pro_code."','".$pro_name."','".$price."','".$qui."','".$cgst."','".$sgst."','".$igst."','".$cess."','".$date."')";
+                      $sql = "INSERT INTO purchese_info (gstin_no , product_code , product_name , net_unit , quantity , cgst , sgst , igst , cess , pur_date , inv_no )
+                     VALUE ('".$sup_name."','".$pro_code."','".$pro_name."','".$price."','".$qui."','".$cgst."','".$sgst."','".$igst."','".$cess."','".$date."','".$refcode."')";
                       $res = $conn->query($sql);
                 
                       if ($res === TRUE){
