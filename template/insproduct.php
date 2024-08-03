@@ -6,7 +6,8 @@ require_once('./conn/dbconn.php');
 
 if(isset($_POST['add']) == true){
     $product_name = $_POST['productname'];
-    $quantity = $_POST['quantity'];
+    $qui = $_POST['quantity'];
+    $quantity = floatval($qui);
 
   
     

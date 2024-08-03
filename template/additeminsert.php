@@ -47,13 +47,21 @@ $productcategory = $_POST['productcategory'];
 $purcheseprice = $_POST['purcheseprice'];
 $productprice = $_POST['productprice'];
 $gst = $_POST['GSTrate'];
-$img = $_POST['imguplode'];
+// $img = $_POST['uploadfile'];
+
 $productinfo = $_POST['proinfo'];
 $CESS = $_POST['cess'];
 $igst = $_POST['igst'];
+
+$MRP = $_POST['MRP'];
 // $img = $_FILES["imguplode"]["name"];
 // $tempname = $_FILES["imguplode"]["tmp_name"];
 // $folder = "./image/" . $filename;
+$filename = $_FILES["uploadfile"]["name"];
+$tempname = $_FILES["uploadfile"]["tmp_name"];
+$folder = "./image/" . $filename;
+
+
 
 
 $query = "SELECT * FROM product WHERE product_code = $procuctcode ";
@@ -77,23 +85,38 @@ if ($result) {
       
    
           
-         $sql = "INSERT INTO product (product_type , product_name , product_code  , product_category , purchese_price , product_price , gstret , kg , img , product_info , cess , igst )
-                             VALUES ('$producttype','$productname','$procuctcode' , '$productcategory' , '$purcheseprice', '$productprice' , '$gst', '$kg' , '$img' , '$productinfo', '$CESS' , '$igst')";
+         $sql = "INSERT INTO product (product_type , product_name , product_code  , product_category , purchese_price , product_price , gstret , kg , img , product_info , cess , igst, MRP )
+                             VALUES ('$producttype','$productname','$procuctcode' , '$productcategory' , '$purcheseprice', '$productprice' , '$gst', '$kg' , '$filename' , '$productinfo', '$CESS' , '$igst' ,'$MRP')";
           // , product_code , product_type , product_category , purchese_price , product_price , gstret , kg , img , product_info 
 
 // $result = $conn->query($sql);
-                if ($conn->query($sql) === TRUE){
+                // if ($conn->query($sql) === TRUE){
                   
-                  echo "<script>alert('New record created successfully');
-                  window.location.href=' ./Addproduct.php';
-                  </script>";
+                //   echo "<script>alert('New record created successfully');
+                //   window.location.href=' ./Addproduct.php';
+                //   </script>";
                   
-                } 
-                else
-                 {
-                  echo "Error: " . $sql . "<br>" . $conn->error;
-                }
+                // } 
+                // else
+                //  {
+                //   echo "Error: " . $sql . "<br>" . $conn->error;
+                // }
 
+                    // Execute query
+    mysqli_query($conn, $sql);
+
+    // Now let's move the uploaded image into the folder: image
+    if (move_uploaded_file($tempname, $folder)) {
+        // echo "<h3>&nbsp; Image uploaded successfully!</h3>";
+            echo "<script>alert('New record created successfully');
+                  window.location.href='./Addproduct.php';
+                  </script>";
+    } else {
+        // echo "<h3>&nbsp; Failed to upload image!</h3>";
+        echo "<script>alert('New record created successfully');
+        window.location.href='./Addproduct.php';
+        </script>";
+    }
     }
 } 
  

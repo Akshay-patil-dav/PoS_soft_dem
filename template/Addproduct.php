@@ -29,7 +29,7 @@
     }
     </style>
     <div class="box">
-      <form action="./additeminsert.php" method="post" >
+      <form action="./additeminsert.php" method="post" enctype="multipart/form-data" >
     <!-- <div class="col-lg-4"  > -->
       <style>
         .select2-no-search{
@@ -133,16 +133,16 @@
               </script>
               
             <div class="col-lg" style="position: relative; right: 5.8cm; " >
-            <p class="mg-b-10">GST Rate % </p>
-              <input class="form-control" placeholder="GST Rate %  " id="textbox1" type="number" name="GSTrate" style="width: 8.2cm;"  >
-            </div><!-- col -->
+            <p class="mg-b-10">MRP Rate *</p>
+              <input class="form-control" placeholder="MRP Rate "  type="number" name="MRP" style="width: 8.2cm;" required >
+            </div>
             </div>
             
           </div><br><br>
           <div class="row row-sm" style="display: flex;" >
             <div class="col-sm-7 col-md-6 col-lg-4">
               <div class="custom-file">
-                <input type="file" class="custom-file-input" name="imguplode" id="customFile">
+                <input type="file" class="custom-file-input" name="uploadfile" id="customFile">
                 <label class="custom-file-label" for="customFile" style="width: 6cm;" >Uplode Image</label>
               </div>
           
@@ -151,9 +151,14 @@
             <p class="mg-b-10">IGST % </p>
               <input class="form-control" placeholder="IGST %  "  id="textbox2" type="number" name="igst" style="width: 8.2cm;"  >
             </div><!-- col -->
-            <div class="col-lg " style="position: relative; right: 10cm; bottom: 0.8cm; z-index: 2; " >
+            <div class="col-lg " style="position: relative; right: 5.4cm; bottom: 0.8cm; z-index: 2; " >
             <p class="mg-b-10">CESS % </p>
               <input class="form-control " placeholder="CESS %  " id="textbox2" type="number" name="cess" style="width: 8.2cm;"  >
+            </div><!-- col -->
+
+              <div class="col-lg" style="position: relative; right: 5.8cm; bottom: 0.8cm;  " >
+            <p class="mg-b-10">GST Rate % </p>
+              <input class="form-control" placeholder="GST Rate %  " id="textbox1" type="number" name="GSTrate" style="width: 8.2cm;"  >
             </div><!-- col -->
           </div><!-- row -->
 

@@ -60,6 +60,37 @@
 ?>
 <br><br>
     <h5 style="margin-left: 9.9cm;" ><i class="typcn typcn-chart-area-outline"></i> / Dashboard</h5>
+    <style>
+              #datetime{
+                font-family: Arial black;
+                margin-left: 34cm;
+                position: relative;
+                bottom: 0.8cm;
+              }
+            </style>
+            <div id="datetime"></div>
+            <script>
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit', 
+                hour12: true 
+            };
+            const dateTimeString = now.toLocaleDateString('en-US', options);
+            document.getElementById('datetime').textContent = dateTimeString;
+        }
+
+        // Update date and time every second
+        setInterval(updateDateTime, 1000);
+
+        // Initial call to display date and time immediately
+        updateDateTime();
+    </script>
     <div class="az-content az-content-dashboard">
       <div class="container">
         <div class="az-content-body">
@@ -68,6 +99,8 @@
               <h2 class="az-dashboard-title">Hi, welcome back!</h2>
               <p class="az-dashboard-text">Your web analytics dashboard template.</p>
             </div>
+
+          
             <div class="az-content-header-right">
               <div class="media">
                 <div class="media-body">

@@ -256,7 +256,7 @@
                     <div class="col-lg"  >
           <!-- <p class="mg-b-10">Reference No </p> -->
 
-              <input class="form-control " style="width: 2cm;" id="quantity" name="quantity" placeholder="Quentity" type="number"   >
+              <input class="form-control " style="width: 2cm;" id="quantity" name="quantity" placeholder="Quentity" type="text"   >
             </div><!-- col -->
 
             <div class="col-sm-6 col-md-3" style="position: relative; right:17.5cm;" ><button id="reloadButton"  class="btn btn-az-primary btn-block" style=" width: 3cm; border-radius: 20px; " name="add" onclick="addToCart()" >             
@@ -335,7 +335,7 @@
         <td><?php echo $row1['product_name'];  ?></td>
         <td><?php echo $row1['product_code'];  ?></td>
         <td><?php echo $row1['net_unit'];  ?></td>
-        <td><?php echo $row1['qui'];  ?></td>
+        <td><?php echo  round($row1['qui'] ,2);  ?></td>
         <td><?php echo $row1['cgst'];  ?></td>
         <td><?php echo $row1['cgst_amount'];  ?></td>
         <td><?php echo $row1['sgst'];  ?></td>
@@ -344,7 +344,7 @@
         <td><?php echo $row1['igst_amout'];  ?></td>
         <td><?php echo $row1['cess'];  ?></td>
         <td><?php echo $row1['cess_amount'];  ?></td>
-        <td><?php echo $row1['qui']*$row1['net_unit'];  ?></td>
+        <td><?php echo round($row1['qui']*$row1['net_unit'],3);  ?></td>
 
      
         <td>
@@ -374,7 +374,7 @@
         <th class="th" >IGST Amount</th>
         <th class="th" >CESS %</th>
         <th class="th" >CESS Amount</th>
-        <?php  $sql5 = "SELECT SUM((net_unit *quantity) ) AS total_sum FROM addcard";
+        <?php  $sql5 = "SELECT round(SUM((net_unit *quantity) ),3) AS total_sum FROM addcard";
           $resultl = $conn->query($sql5);
           
           // Check if the query was successful
@@ -383,7 +383,7 @@
               $rowl = $resultl->fetch_assoc(); ?>
         <th class="th" style="font-size: 0.4cm;" ><?php 
          
-              echo  $rowl['total_sum'];
+              echo $rowl['total_sum'];
          
         ?></th><?php }?>
         <th class="th">action</th>

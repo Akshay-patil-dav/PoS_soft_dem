@@ -1,7 +1,7 @@
 <?php
 
     // require_once("/wamp64/www/project/conn/dbconn.php");
-    require_once("./nav.php");
+    require_once("./navbar/nav.php");
 
 
     $procode = $_GET['id'];
