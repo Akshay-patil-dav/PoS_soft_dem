@@ -106,9 +106,25 @@ input.addEventListener('input', function () {
                         bottom: 1.5cm;
                     }
                 </style>
-            <div class="table-responsive">
-            <table class="table table-striped mg-b-0" id="myTable">
-              <thead>
+                <style>
+    .ex4 {
+  /* background-color: lightblue; */
+  width: 108.8%;
+  height: 15.5cm;
+  overflow: auto;
+}
+td{
+  width: 5cm;
+  text-align: center;
+}
+body{
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+</style>
+
+<table class="table table-striped mg-b-0  " >
+              <thead style="text-align: center;" >
                 <tr>
                   
                   <th>ID</th>
@@ -123,6 +139,17 @@ input.addEventListener('input', function () {
                   <th>Activity</th>
                 </tr>
               </thead>
+              </table>
+            <div class="table-responsive ex4">
+              
+            <table class="table table-striped mg-b-0  " id="myTable">
+            <thead style="text-align: center;" >
+                <tr>
+                  
+               
+                </tr>
+              </thead>
+           
               <tbody>
               
                 
@@ -200,7 +227,7 @@ if ($result->num_rows > 0) {
 } else {
   echo "0 results";
 }
-?></tbody>
+?>
             </table>
           </div><!-- bd -->
     </div>

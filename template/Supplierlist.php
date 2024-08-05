@@ -96,6 +96,9 @@ input.addEventListener('input', function () {
                         position: relative;
                         bottom: 1.5cm;
                     }
+                    th{
+                      text-align: center;
+                    }
                 </style>
             <div class="table-responsive">
               
@@ -104,14 +107,19 @@ input.addEventListener('input', function () {
                 <tr>
                   
                   <th>ID</th>
-                  <th>product_name</th>
-                  <th>product_code</th>
-                  <th>product_type</th>
-                  <th>product_category</th>
-                  <th>GST</th>
-                  <th>purchese_price</th>
-                  <th>product_price</th>
-                  <th>CESS</th>
+                  <th>company_name</th>
+                  <th>sup_name</th>
+                  <th>gstin</th>
+                  <th>email_id</th>
+                  <!-- <th>GST</th> -->
+                  <th>phone_no</th>
+                  <th>city</th>
+                  <th>state</th>
+                    <!-- <th>state</th> -->
+                    <th>postal_code</th>
+                    <th>date</th>
+                    <th>refercode</th>
+                    <th>payment</th>
                   <th>Activity</th>
                 </tr>
               </thead>
