@@ -127,9 +127,9 @@
 
                     <div style="width: 20cm;  " >
 
-                    <div class="col-sm-6 col-md-3"><button class="btn btn-az-primary btn-block" style="border-radius: 20px; position: relative; top: 29px; " >             
+                    <div class="col-sm-6 col-md-3"><a href="./Addsupplier.php" class="btn btn-az-primary btn-block" style="border-radius: 20px; position: relative; top: 29px; " >             
                            <i class="typcn typcn-document-add" style="font-size: 16px;" ></i> Add Supplier 
-                    </button></div>
+                    </a></div>
 
                     </div>
             </div>

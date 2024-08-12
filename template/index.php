@@ -120,6 +120,7 @@
                   <h6>All Categories</h6>
                 </div><!-- media-body -->
               </div><!-- media -->
+
               <input type="button" class="btn btn-purple" placeholder="POS SELL" value="POS SELL"  data-toggle="modal" data-target="#exampleModal" data-whatever="<?php echo  $_SESSION["username"]; ?>">
 
 
@@ -133,7 +134,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Recipient:</label>
             <input type="text" class="form-control" id="recipient-name" value="<?php echo  $_SESSION["username"]; ?>" placeholder="<?php echo  $_SESSION["username"]; ?>" >
@@ -142,12 +143,21 @@
             <label for="message-text" class="col-form-label">Message:</label>
             <textarea class="form-control" id="message-text"></textarea>
           </div>
-        </form>
+      
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-purple">Continue</button>
+        <form action="./p.php" >
+
+        <script>
+          function next(){
+            window.location.href=' ./p.php';
+          }
+          </script>
+        <button class="btn btn-purple" onclick="next()" >Continue</button>
+        </form>
       </div>
+      
     </div>
   </div>
 </div>

@@ -4,7 +4,7 @@
     require_once("./navbar/nav.php");
 
 
-    $procode = $_GET['id'];
+    $procode = $_GET['id']; 
     $del = "DELETE FROM product WHERE id= '$procode' ";
 
     if ($conn->query($del) === TRUE) {

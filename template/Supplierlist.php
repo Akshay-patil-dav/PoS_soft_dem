@@ -126,6 +126,7 @@ input.addEventListener('input', function () {
               <tbody>
  
             <?php
+            require_once("./conn/dbconn.php");
 // $tbl="users"; // Table name 
 // $sql = "SELECT I.company_name AS company_name, I.name AS sup_name, S.gstin AS gstin, I.email_id AS email , I.phone_no AS phone , I.city AS city, I.state AS state , I.postal_code , I.country , I.addr_comp AS  addr_comp , S.date  AS date, S.payment AS pay FROM suppro_purchese S CROSS JOIN supplier_info I GROUP BY date;";
 $sql = "SELECT * FROM sup_in GROUP BY refercode ";

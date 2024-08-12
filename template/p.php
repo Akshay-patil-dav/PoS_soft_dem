@@ -35,9 +35,18 @@
   <body>
 
                 <?php 
+
+                require_once("./conn/dbconn.php");
                       
                      require_once('./navbar/nav.php'); ?>
 <style>
+  @media print{
+    body{
+      background-color: red;
+      width: 2cm;
+      display: none;
+    }
+  }
   .col1{
     /* background-color: red; */
     width: 100%;
@@ -135,6 +144,7 @@
   width: 100%;
   height: 22cm;
   overflow: auto;
+  
 }
 
 </style>
@@ -167,6 +177,88 @@
              
 
                   <td>
+
+                  <?php
+
+                  
+
+if(isset($_POST['add']) == true){
+
+  // $product_name = $_POST['productname'];
+  // $qui = $_POST['quantity'];
+  // $quantity = floatval($qui);
+
+
+      $pro_code = $_POST['add'];
+      $qui = $_POST['qui'];
+
+    $user = $_SESSION["username"]; 
+  
+$quichk = "SELECT * FROM product WHERE product_code = ".$pro_code."";
+$quires = $conn -> query($quichk);
+
+
+if ($quires ->num_rows > 0) {
+
+
+  while ($quirow = $quires -> fetch_assoc()) {
+
+      if( $qui >= $quirow['quentity'] ){
+        
+?>
+
+<script>
+  alert('Product Not Avalable')
+  window.location.href=' ./p.php';
+</script>
+<?php
+             
+         
+      }else{
+
+
+$up = "UPDATE product SET quentity  =  quentity - '".$qui."'  WHERE product_code = '".$pro_code."' ";
+$reup = $conn -> query($up);
+
+if($reup == true){
+$query = "SELECT *  FROM users  WHERE username = '".$user."'";
+$result = $conn->query($query);
+
+if ($result ->num_rows > 0) {
+
+
+  while ($row = $result -> fetch_assoc()) {
+
+   
+
+
+      $sql = "INSERT INTO `sales`( `product_id`, `quantity`, `users`) VALUES
+       (".$pro_code.",'".$qui."','".$_SESSION["username"]."')";
+      $stmt = $conn->query($sql);
+
+
+      if ($stmt == true ) {
+          // echo "Product added to cart successfully.";
+          echo "<script>
+          window.location.href=' ./p.php';
+          </script>";
+        
+      } else {
+          echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+  
+      $stmt->close();
+  }
+}
+      
+// }
+  }
+}
+  }
+}
+}
+                  ?>
+            <form action="./p.php" method="post" >
                      <div class="card">
                                             <!-- <img src="img_avatar.png" alt="Avatar" style="width:100%"> -->
                                             <!-- <div class="container"><br> -->
@@ -193,16 +285,26 @@
                                              <p> Rs.<?php echo $row['product_price'];  ?></p> &#160 &#160
                                              <p> GST : <?php echo $row['gstret'];  ?>%</p> 
                                              </div>
+                                             
                                              <div>
-                                               Que:  <input  type="number" style="width: 1.5cm;" value="1" >
+                                               Que:  <input  type="text" style="width: 1.5cm;" value="1" name="qui" >
                                              </div>
+                                             
                                              <div>  <p> Code : <?php echo $row['product_code'];  ?></p> </div>
-                                              <div><button class="but" >ADD</button></div>
-                                            </div>
-                                            
+                                              <div><button class="btn btn-purple but"  id="add" name="add" value="<?php  echo $row['product_code']; ?>"  >ADD</button></div>
+                               </div>
+                               </form>
+                               
+<!--                                             
+                                            <script>
+                                              function a(){
+                                                  let num =document.getElementById('a').value;
+                                                  alert(num);
+                                              }
+                                            </script> -->
 
 
-                                      </div>
+                                      <!-- </div> -->
                   </td>
                   </tr>
                   <?php } }else{
@@ -233,7 +335,7 @@
                                   </div>
 
 
-                                  <!-- **************************************************** -->
+ <!-- **************************************************************************************************************************************************************************************************************** -->
                                   <div class="col2" >
 
 
@@ -243,7 +345,7 @@
                                             top: 10px;
                                         }
                                     </style>
-                                  <input class="form-control sell" type="text" id="searchInput" onkeyup="mypay()" placeholder="Search for names.." title="Type in a name">
+                                  <input class="form-control sell" type="text" id="cardinput" onkeyup="card()" placeholder="Search for names.." title="Type in a name">
 
                                                 
                                   <div class="box">
@@ -257,15 +359,16 @@
                 </style>
                 <style>
     .ex5 {
-  /* background-color: lightblue; */
+  /* background-color: lightblue;  */
   width: 101%;
   height: 6cm;
   overflow: auto;
 }
 .td{
-  width: 1%;
+  width: 1%  ;
  text-align: center;
 }
+
 /* body{
   overflow-y: hidden;
   overflow-x: hidden;
@@ -274,20 +377,20 @@
 
  
 </style>
-
+ <!-- #region -->
 <table class="table table-striped mg-b-0  " >
               <!-- <thead style="text-align: center;" > -->
                 <tr>
                   
-                  <th  >ID</th>
-                  <th style="text-align: center;" >Product_Name</th>
-                  <th  >MRP </th>
-                  <th  >Price </th>
-                  <th  >quienity</th>
-                  <th  >GST</th>
-                  <th  >Cess</th>
-                  <th  >Total</th>
-                  <th  >Total</th>
+                  <th style=" width: 2.5cm; "  >ID</th>
+                  <th style="text-align: center; width: 1cm;   " >Product_Name</th>
+                  <th style=" width: 3.2cm;  text-align: center; "  >MRP </th>
+                  <th style=" width: 3.2cm; text-align: center; "  >Price </th>
+                  <th style="  width: 2cm; text-align: center; "  >quienity</th>
+                  <th style="  width: 2.5cm;  text-align: center; " >GST</th>
+                  <th  style="  width: 1.5cm;  text-align: center; ">Cess</th>
+                  <th style="   text-align: center; " >Total</th>
+                  <th  >Action</th>
                   <!-- <th>CESS</th> -->
                   <!-- <th>Activity</th> -->
                 </tr>
@@ -295,13 +398,13 @@
 </table>
             <div class="table-responsive ex5">
               
-            <table class="table table-striped mg-b-0  " id="card" >
-            <thead style="text-align: center;" >
+            <table class="table table-striped mg-b-0  " id="mytab" >
+            <!-- <thead style="text-align: center;" > -->
                 <tr>
                   
                
                 </tr>
-              </thead>
+              <!-- </thead> -->
            
               <tbody>
               
@@ -311,32 +414,74 @@
 
 
             <?php
+            // require_once("./conn/dbconn.php"); 
 // $tbl="users"; // Table name 
-$sql = "SELECT * FROM product";
-$result = $conn->query($sql);
+// $sql = "SELECT * FROM sales  GROUP BY product_id";
+
+$sql = "SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = '".$_SESSION["username"]."' GROUP BY product_id  ;";
+
+$result =$conn ->query($sql);
 $i =1;
+
 if ($result->num_rows > 0) {
   // output data of each row
 
-  while($row = $result->fetch_assoc()) {
+  while($row1 = $result->fetch_assoc()) {
     // echo  $row["product_name"]."<br>";
 
 
-    ?>
-              <tr>
 
-                  <th  style="text-align: left; width: 1%; "  scope="row"><?php echo $i++ ; ?></th>
-                  <td class="td"><?php echo  $row['product_name']; ?></td>
-                  <td class="td"><?php echo  $row['purchese_price']; ?></td>
-                  <td class="td"><?php echo  $row['product_type']; ?></td>
-                  <td class="td"><?php echo  $row['purchese_price']; ?></td>
-                  <td class="td"><?php echo  $row['gstret']; ?></td>
-                  <td class="td"><?php echo  $row['purchese_price']; ?></td>
-                  <td class="td"><?php echo  $row['product_price']; ?></td>
-                  <td class="td"><button>X</button></td>
+    
+$query = "SELECT cess ,product_name, MRP , gstret, ( product_price * (gstret))/100 AS totcost , product_price  AS price  FROM product  WHERE product_code = ".$row1['product_id']." ";
+$resln = $conn->query($query);
+
+
+
+
+if ($resln ->num_rows > 0) {
+
+
+    while ($roln = $resln -> fetch_assoc()) {
+
+      $price = $roln['price'] + $roln['totcost'];
+      // $price =$roln['totcost'];
+
+     
+
+
+
+    ?>
+             
+             <tr>
+
+                  <td  style="text-align: left; width: 1%; "  scope="row"><?php echo $i++ ; ?></td>
+                  <td class="td"><?php echo  $roln['product_name']; ?></td>
+                  <td class="td"><?php echo  $roln['MRP']; ?></td>
+                  <td class="td"><?php echo  $price; ?></td>
+                  <td class="td"><?php echo  $row1['qui']; ?></td>
+                  <td class="td"><?php echo  $roln['gstret']; ?></td>
+                  <td class="td"><?php echo  $roln['cess']; ?></td>
+                  <td class="td"><?php echo round($row1['qui']*$price,3);  ?></td>
+                  <td class="td">  
+                    <style>
+                      .del{
+                        position: relative;
+                        /* top:0.5px ; */
+                      }
+                    </style>
+
+<?php $ppp = round( $row1['qui']*$price,3);   ?>
+
+                    <form action="./delsell.php" method="post" >
+                     <button style="position: relative; top: 0.5px; "  name=" delsell" value="<?php echo $row1['product_id']; ?>" class="btn btn-danger btn-block del" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+</svg></button>
+</form>
+</td>
                   
                    
                     <style>
+                      
                         .btn-primary{
                             pad: 0.5cm;
                             /* text-align: center; */
@@ -363,7 +508,10 @@ if ($result->num_rows > 0) {
                 </tr>
 
     <?php
-
+      
+    }
+  }
+  
   }
 } else {
   echo "0 results";
@@ -391,19 +539,238 @@ if ($result->num_rows > 0) {
 <!-- </table> -->
     </div>
 
+    <?php
+  // $view = "SELECT SUM(price_GS) AS TOTAL_VALUE , COUNT(pro_id) AS No_item FROM sell_cal WHERE users = '".$_SESSION["username"]."'  ";
+   $view = "select id AS pos_id , COUNT(pro_id) AS pro_id , users ,  round(SUM(price_GS*qui),3) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."' " ;
+
+  // $view = " SELECT users , COUNT(pro_id) AS idpro , SUM(qui) AS val , SUM(gst_price) AS TOTAL_VALUE FROM dem2 where users = '".$_SESSION["username"]."' " ;
+
+  $resview = $conn->query($view);
+
+  if ($resview ->num_rows > 0) {
+    while ($row_view = $resview -> fetch_assoc()) {
+
+
+            ?>
+            <style>
+              .total{
+                margin-left: 50px;
+              }
+            </style>
+            <br><br>
+              <h3 class="total" > Total Value : &#160  <b style=" color: green; " > <?php
+              
+              if($row_view['pro_id'] == 0){
+                  echo 0;
+              }else{
+              echo  $row_view['total'];
+              }
+              
+              ?></b> Rs</h3>
+              <h3 class="total" > Total Items : &#160  <b style=" color: blue; " > <?php   echo  $row_view['pro_id']; ?></b> </h3>
 
 
 
+              
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">POS CODE :</label>
+            <input type="text" class="form-control" id="recipient-name"  placeholder="POS/<?php echo $row_view['pos_id']; ?>"  value="POS/<?php $row_view['pos_id']; ?>"  >
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name"  placeholder="<?php echo $_SESSION["username"]; ?>"  value="<?php echo $_SESSION["username"]; ?>"  >
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"> <?php
+              
+              if($row_view['pro_id'] == 0){
+                  echo 0;
+              }else{
+              echo  $row_view['total'];
+              }
+              
+              ?> Rs</textarea>
+          </div>
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <form action="./p.php" >
+
+        <script>
+          function next(){
+            // window.location.href=' ./p.php';
+          }
+          </script>
+        <button class="btn btn-purple" onclick="next()" >Continue</button>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
 
 
+            <?php
+
+
+    }}
+
+  ?>
+
+<style>
+  .dropall{
+    /* background-color: red; */
+    padding: 10px;
+    width: 3cm;
+    border: 0px solid;
+    border-radius: 10px;
+    position: relative;
+    left: 22.7cm;
+    bottom: 1.3cm;
+  }
+ 
+</style>
+
+
+<?php
+
+if(isset($_POST['dellist']) == true){
+$p = "DELETE FROM sales WHERE  users ='".$_SESSION["username"]."'";
+ $pres= $conn->query($p);
+ echo "<script> window.location.href=' ./p.php';</script>";
+}
+
+?>
+<form action="./p.php" method="post" >
+<BUtton class="dropall  btn-danger " name="dellist"  ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="lks" viewBox="0 0 16 16">
+  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+</svg>Drop All</BUtton></form>
+
+
+<style>
+  .pay{
+    width: 15cm;
+    border-radius: 10px;
+    background-color: green;
+    font-family: Arial black;
+    height: 2cm;
+    margin: 6cm;
+  }
+</style>
+<input type="button" class="btn btn-purple pay" placeholder="POS SELL" value="POS SELL"  data-toggle="modal" data-target="#exampleModal" >
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name"  placeholder="<?php echo $_SESSION["username"]; ?>"  value="<?php echo $_SESSION["username"]; ?>"  >
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <form action="./p.php" >
+
+        <script>
+          function next(){
+            // window.location.href=' ./p.php';
+          }
+          </script>
+        <button class="btn btn-purple" onclick="next()" >Continue</button>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('Cass in hand ' + recipient)
+  modal.find('.modal-body input').val(recipient)
+})
+</script>
+
+<!-- <div class="col-sm-6 col-md-3 mg-t-10"><button class="btn btn-danger btn-block">Danger</button></div> -->
+
+
+<!-- SELECT * FROM sales AS S CROSS JOIN  product AS P ON S.product_id = P.product_code; -->
+
+
+<!-- SELECT S.product_id AS pro_id , S.quantity AS qui , P.product_price AS price , P.gstret AS GST FROM sales AS S CROSS JOIN  product AS P ON S.product_id = P.product_code; -->
+<!-- SELECT S.product_id AS pro_id , S.quantity AS qui , P.product_price AS price , P.gstret AS GST , ((P.product_price * P.gstret ) / 100) + P.product_price AS price_GST FROM sales AS S CROSS JOIN product AS P ON S.product_id = P.product_code GROUP BY S.product_id; -->
+<!--  -->
+<!-- SELECT S.product_id AS pro_id , SUM(S.quantity) AS qui , P.product_price AS price , P.gstret AS GST , ((P.product_price * P.gstret ) / 100) + P.product_price AS price_GST FROM sales AS S CROSS JOIN product AS P ON S.product_id = P.product_code GROUP BY S.product_id; -->
+
+<!-- SELECT S.product_id AS pro_id , S.quantity AS qui , P.product_price AS price , P.gstret AS GST , ((P.product_price * P.gstret ) / 100) + P.product_price AS price_GST FROM sales AS S CROSS JOIN product AS P ON S.product_id = P.product_code GROUP BY S.product_id; -->
+
+<!-- SELECT S.product_id AS pro_id , SUM(S.quantity) AS qui , P.product_price AS price , P.gstret AS GST , SUM(((P.product_price * P.gstret ) / 100) + P.product_price ) AS price_GS FROM sales AS S CROSS JOIN product AS P ON S.product_id = P.product_code GROUP BY S.product_id; -->
+
+      <!-- VIEW -->
+      <!-- CREATE VIEW sell_Cal AS SELECT S.product_id AS pro_id , SUM(S.quantity) AS qui , P.product_price AS price , P.gstret AS GST , SUM(((P.product_price * P.gstret ) / 100) + P.product_price ) AS price_GS FROM sales AS S CROSS JOIN product AS P ON S.product_id = P.product_code GROUP BY S.product_id ; -->
                                   </div>
+
+                                  <!--is not curect   ********************* CREATE VIEW dem1 AS SELECT S.product_id AS pro_id , SUM(S.quantity) AS qui , P.product_price AS price , P.gstret AS GST , (P.product_price * P.gstret ) / 100 AS gst_price FROM sales AS S CROSS JOIN product AS P ON S.product_id = P.product_code GROUP BY S.product_id; -->
+                                  <!-- SELECT qui*(price+gst_price) AS TOTAL , qui , pro_id , GST FROM dem1; -->
+
+                                  <!-- CREATE VIEW dem2 AS SELECT S.users AS users ,P.product_name As pro_name, S.product_id AS pro_id , SUM(S.quantity) AS qui , P.product_price AS price , P.gstret AS GST , SUM(S.quantity)*(P.product_price +((P.product_price * P.gstret ) / 100 )) AS gst_price  FROM sales AS S CROSS JOIN product AS P ON S.product_id = P.product_code GROUP BY S.product_id; -->
+
+                                  <!-- SELECT SUM(qui) , users , (price + gst_ret )*SUM(qui) AS Total FROM d1 WHERE pro_id = '2002' AND users = 'akki@gmail.com' GROUP BY users; -->
+
+
+
+                                  <!-- select SUM(qui) , pro_id , users price FROM sell_cal WHERE pro_id ='2002' AND users = 'akki@gmail.com'; -->
+
+
+
+
+                                  <!-- select COUNT(pro_id) AS pro_id , users , SUM(price_GS*qui) AS total FROM sell_demo WHERE users = 'akki@gmail.com'; -->
+
+
+
               </div>
+              
+              
+
+
               <script>
 
 function card(){
   /** script.js **/
-let input = document.getElementById('searchInput');
-let table = document.getElementById('myTable');
+let input = document.getElementById('cardinput');
+let table = document.getElementById('mytab');
 let rows = table.getElementsByTagName('tr');
 let noMatchMessage = document.getElementById('noMatch');
 
@@ -442,6 +809,8 @@ input.addEventListener('input', function () {
     }
 });
 }
+
+
 
 </script>
               <script>

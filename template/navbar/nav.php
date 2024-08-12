@@ -2,7 +2,7 @@
 <?php
 
 session_start();
-// require_once("./conn/dbconn.php");
+// require_once("../conn/dbconn.php");
 require_once('./conn/dbconn.php');
 
 
