@@ -2,7 +2,7 @@
 <?php
 
 require_once("./navbar/nav.php");
-  // require_once("./conn/dbconn.php");
+  require_once("./conn/dbconn.php");
   // require_once "/wamp64/www/project/conn/dbconn.php";
   // require_once("./conn/dbconn.php");
 

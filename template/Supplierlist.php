@@ -72,8 +72,20 @@ input.addEventListener('input', function () {
 }
 
 </script>
+<style>
+     div.ex4 {
+  /* background-color: lightblue; */
+  width: 100%;
+  height: 16cm;
+  overflow: auto;
+  
+}
+body{
+  overflow: hidden;
+}
+</style>
 
-            <div class="box">
+            <div class="box ">
                 <style>
                     .btn-success{
                         width: 4cm;
@@ -100,8 +112,9 @@ input.addEventListener('input', function () {
                       text-align: center;
                     }
                 </style>
-            <div class="table-responsive">
+            <div class="ex4">
               
+            <!-- <div class="ex4"> -->
             <table class="table table-striped mg-b-0" id="myTable">
               <thead>
                 <tr>
@@ -272,6 +285,40 @@ if ($result->num_rows > 0) {
     </div>
   </div>
 </div>
+
+<?php
+
+$sql = "SELECT COUNT(id) AS count FROM purchese_info  ";
+$result = $conn->query($sql);
+$i =1;
+if ($result->num_rows > 0) {
+  // output data of each row
+
+  while($row = $result->fetch_assoc()) {
+?>
+
+<style>
+  .ppcount{
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    padding: 0.2cm;
+    text-align: center;
+    width: 6cm;
+    position: relative;
+    margin-left: 5cm;
+    bottom: 26.3cm;
+  }
+</style>
+<div class="ppcount" >
+  <b>Total Purchese </b>
+  <?php
+  echo $row['count'];
+  ?>
+</div>
+
+
+<?php }} ?>
 <!-- **********/************************************************************* */ -->
 </body>
 </html>

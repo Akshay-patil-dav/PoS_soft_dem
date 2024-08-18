@@ -60,7 +60,7 @@
 
   
         
-        <div class="az-content-body pd-lg-l-40 d-flex flex-column">
+        <!-- <div class="az-content-body pd-lg-l-40 d-flex flex-column">
   
           <div class="wd-250 mg-b-20" style="display: none;" >
             <div class="input-group">
@@ -71,14 +71,11 @@
               </div>
               <input type="text" value="January 20, 2019 09:00" id="datetimepicker3" class="form-control">
             </div>
-          </div>
-
-
-          
+          </div>          
           <div class="row row-sm mg-b-20">
             <div class="col-lg-4">
              
-            </div><!-- col-4 -->
+            </div>
             <div class="col-lg-4 mg-t-20 mg-lg-t-0">
               <p class="mg-b-10">Single Select with Search</p>
               <select class="form-control select2">
@@ -89,10 +86,297 @@
                 <option value="Opera">Opera</option>
                 <option value="Internet Explorer">Internet Explorer</option>
               </select>
-            </div><!-- col-4 -->
-    
-          </div><!-- row -->
-        </div><!-- az-content-body -->
+            </div>
+          </div>
+        </div> -->
+
+
+        <div class="container">
+
+<form action="#">
+
+    <div class="row">
+
+        <div class="col">
+            <h3 class="title">
+                Billing Address
+            </h3>
+
+          
+
+            <div class=" inputBox">
+            <label for="name">
+                      Full Name:
+                  </label>
+      <select class="form-control select2">
+        <option label="Choose one"></option>
+        <option value="Firefox">Firefox</option>
+        <option value="Chrome">Chrome</option>
+        <option value="Safari">Safari</option>
+        <option value="Opera">Opera</option>
+        <option value="Internet Explorer">Internet Explorer</option>
+      </select>
+    </div>
+
+            <div class="inputBox">
+                <label for="email">
+                      Phone No :
+                  </label>
+                <input type="text" id="email" 
+                       placeholder=" Phone No " 
+                       value="00-000-000"
+                       required>
+            </div>
+
+            <div class="inputBox">
+                <label for="address">
+                      Total Price :
+                  </label>
+                <input type="text" id="address" 
+                       placeholder="Enter address" 
+                       value="2"
+                       onchange="myFunction(this.value)"
+                       required >
+
+
+
+                       <script>
+function myFunction(val) {
+  alert("The input value has changed. The new value is: " + val);
+  document.getElementById('state').innerHTML=val;
+}
+
+function GIVRS(v1) {
+    // myFunction   
+  document.getElementById('state').innerHTML=v1+myFunction();
+
+}
+
+
+</script>
+
+            </div>
+
+            <div class="inputBox">
+                <label for="city">
+                Given Rs :
+                  </label>
+                <input type="text" id="city" 
+                       placeholder="Enter city" 
+                       value=""
+                       onchange="GIVRS(this.value)"
+                       required>
+            </div>
+
+            <div class="flex">
+
+                <div class="inputBox">
+                    <label for="state">
+                    Change :
+                      </label>
+                      <style>
+                        #state{
+                            border: 1px solid;
+                            height: 1cm;
+                            font-size: 0.5cm;
+                            text-align: center;
+                        }
+                      </style>
+                    <p  id="state" >0</p>
+                </div>
+
+
+            </div>
+
+        </div>
+        <div class="col">
+            <h3 class="title">Payment</h3>
+
+          
+
+            <div class="inputBox">
+                <label for="cardName">
+                      Name On Card:
+                  </label>
+                <input type="text" id="cardName" 
+                       placeholder="Enter card name" 
+                       required>
+            </div>
+
+           
+
+            <!-- <div class="inputBox">
+                <label for="">Exp Month:</label>
+                <select name="" id="">
+                    <option value="">Choose month</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select>
+            </div> -->
+
+
+
+<!-- <div class="az-content-body pd-lg-l-40 d-flex flex-column"> -->
+  
+  <div class="wd-250 mg-b-20" style="display: none;" >
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+        </div>
+      </div>
+      <input type="text" value="January 20, 2019 09:00" id="datetimepicker3" class="form-control">
+    </div>
+  </div>          
+ 
+     
+    <!-- </div> -->
+    <div class=" inputBox">
+    <label for="">Pay :</label>
+      <select class="form-control select2">
+        <option label="Choose one"></option>
+        <option value="Firefox">Firefox</option>
+        <option value="Chrome">Chrome</option>
+        <option value="Safari">Safari</option>
+        <option value="Opera">Opera</option>
+        <option value="Internet Explorer">Internet Explorer</option>
+      </select>
+    </div>
+  
+<!-- </div> -->
+
+
+       
+
+        </div>
+
+    </div>
+
+    <input type="submit" value="Proceed to Checkout" 
+           class="submit_btn">
+</form>
+
+</div>
+<script type="text/javascript" src="index.js">
+    let cardNumInput = 
+    document.querySelector('#cardNum')
+
+cardNumInput.addEventListener('keyup', () => {
+    let cNumber = cardNumInput.value
+    cNumber = cNumber.replace(/\s/g, "")
+
+    if (Number(cNumber)) {
+        cNumber = cNumber.match(/.{1,4}/g)
+        cNumber = cNumber.join(" ")
+        cardNumInput.value = cNumber
+    }
+})
+
+</script>
+<style>
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 25px;
+    /* background: #d6eef1; */
+}
+
+.container form {
+    width: 700px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
+}
+
+.container form .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.container form .row .col {
+    flex: 1 1 250px;
+}
+
+.col .title {
+    font-size: 20px;
+    color: rgb(237, 55, 23);
+    padding-bottom: 5px;
+}
+
+.col .inputBox {
+    margin: 15px 0;
+}
+
+.col .inputBox label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.col .inputBox input,
+.col .inputBox select {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    font-size: 15px;
+}
+
+.col .inputBox input:focus,
+.col .inputBox select:focus {
+    border: 1px solid #000;
+}
+
+.col .flex {
+    display: flex;
+    gap: 15px;
+}
+
+.col .flex .inputBox {
+    flex: 1 1;
+    margin-top: 5px;
+}
+
+.col .inputBox img {
+    height: 34px;
+    margin-top: 5px;
+    filter: drop-shadow(0 0 1px #000);
+}
+
+.container form .submit_btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 17px;
+    background: rgb(1, 143, 34);
+    color: #fff;
+    margin-top: 5px;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+.container form .submit_btn:hover {
+    background: #3d17fb;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    display: none;
+}
+
+</style>
 
 
 

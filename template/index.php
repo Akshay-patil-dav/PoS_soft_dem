@@ -211,11 +211,38 @@
                   <div class="card-body-top">
                     <div>
                       <label class="mg-b-0">Users</label>
-                      <h2>13,956</h2>
+                      
+                      <?php   
+                      require_once("./conn/dbconn.php");
+
+                          $sql98 = " SELECT COUNT(id) AS PP FROM users ";
+                          $result2 = $conn->query($sql98);
+
+                           if ($result2->num_rows > 0){
+                
+                            while ($row2 = $result2->fetch_assoc()) {
+                      ?>
+                          <h2><?php echo $row2['PP']; ?></h2>
+                      <?php
+                            }}
+                      ?>
                     </div>
                     <div>
                       <label class="mg-b-0">Selling Items</label>
-                      <h2>33.50%</h2>
+                      <?php   
+                      require_once("./conn/dbconn.php");
+
+                          $sql98 = " SELECT SUM(quentity) AS PP FROM product ";
+                          $result2 = $conn->query($sql98);
+
+                           if ($result2->num_rows > 0){
+                
+                            while ($row2 = $result2->fetch_assoc()) {
+                      ?>
+                          <h2><?php echo $row2['PP']; ?></h2>
+                      <?php
+                            }}
+                      ?>
                     </div>
                     <div>
                       <label class="mg-b-0">customers</label>
@@ -223,6 +250,7 @@
                     </div>
                     <div>
                       <label class="mg-b-0">Sessions</label>
+                      
                       <h2>16,869</h2>
                     </div>
                   </div><!-- card-body-top -->
@@ -268,7 +296,7 @@
                       <small>The total number of sessions within the date range. It is the period time a user is actively engaged with your website, page or app, etc.</small>
                     </div><!-- card-header -->
                     <div class="card-body">
-                      <div class="chart"><canvas id="chartBar5"></canvas></div>
+                      <div class="chart"><canvas id="chartBar5"></canvas</div>
                     </div>
                   </div>
                 </div>
@@ -284,9 +312,21 @@
                   <p class="card-text">This report is based on 100% of sessions.</p>
                 </div><!-- card-header -->
                 <div class="card-body">
-                  <div class="az-list-item">
+                <?php   
+                      // require_once("./conn/dbconn.php");
+
+                          $sql98 = " SELECT namuser FROM users ";
+                          $result2 = $conn->query($sql98);
+
+                           if ($result2->num_rows > 0){
+                
+                            while ($row2 = $result2->fetch_assoc()) {
+                      ?>
+                          <!-- <h2></h2> -->
+
+                          <div class="az-list-item">
                     <div>
-                      <h6>Admin Home</h6>
+                      <h6><?php echo $row2['namuser']; ?></h6>
                       <span>/demo/admin/index.html</span>
                     </div>
                     <div>
@@ -294,46 +334,35 @@
                       <span>31.74% (-100.00%)</span>
                     </div>
                   </div><!-- list-group-item -->
+
+
                   <div class="az-list-item">
                     <div>
-                      <h6>Form Elements</h6>
-                      <span>/demo/admin/forms.html</span>
+                      <h6><?php echo $row2['namuser']; ?></h6>
+                      <span>/demo/admin/index.html</span>
                     </div>
                     <div>
-                      <h6 class="tx-primary">5,215</h6>
-                      <span>28.53% (-100.00%)</span>
+                      <h6 class="tx-primary">7,755</h6>
+                      <span>31.74% (-100.00%)</span>
                     </div>
                   </div><!-- list-group-item -->
+
+
+
                   <div class="az-list-item">
                     <div>
-                      <h6>Utilities</h6>
-                      <span>/demo/admin/util.html</span>
+                      <h6><?php echo $row2['namuser']; ?></h6>
+                      <span>/demo/admin/index.html</span>
                     </div>
                     <div>
-                      <h6 class="tx-primary">4,848</h6>
-                      <span>25.35% (-100.00%)</span>
+                      <h6 class="tx-primary">7,755</h6>
+                      <span>31.74% (-100.00%)</span>
                     </div>
                   </div><!-- list-group-item -->
-                  <div class="az-list-item">
-                    <div>
-                      <h6>Form Validation</h6>
-                      <span>/demo/admin/validation.html</span>
-                    </div>
-                    <div>
-                      <h6 class="tx-primary">3,275</h6>
-                      <span>23.17% (-100.00%)</span>
-                    </div>
-                  </div><!-- list-group-item -->
-                  <div class="az-list-item">
-                    <div>
-                      <h6>Modals</h6>
-                      <span>/demo/admin/modals.html</span>
-                    </div>
-                    <div>
-                      <h6 class="tx-primary">3,003</h6>
-                      <span>22.21% (-100.00%)</span>
-                    </div>
-                  </div><!-- list-group-item -->
+                      <?php
+                            }}
+                      ?>
+            
                 </div><!-- card-body -->
               </div><!-- card -->
 
@@ -448,7 +477,7 @@
                       </div><!-- col -->
                       <div class="col-6 d-sm-flex align-items-center">
                         <div class="mg-b-10 mg-sm-b-0 mg-sm-r-10">
-                          <span class="peity-donut" data-peity='{ "fill": ["#00cccc", "#cad0e8"],  "innerRadius": 14, "radius": 20 }'>2/7</span>
+                          <span class="peity-donut" data-peity='{ "fill": ["#00cccc", "#cad0e8"],  "innerRadius": 14, "radius": 20 }'>8/7</span>
                         </div>
                         <div>
                           <label>Pages/Session</label>

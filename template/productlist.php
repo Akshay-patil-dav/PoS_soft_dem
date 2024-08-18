@@ -3,8 +3,9 @@
     
     // require_once("");
     // require_once("/wamp64/www/project/conn/dbconn.php");
-    // require_once("./conn/dbconn.php");
+    require_once("./conn/dbconn.php");
     require_once("./navbar/nav.php");
+
 
 ?>
 
@@ -82,7 +83,7 @@ input.addEventListener('input', function () {
 }
 
 </script>
-            <div class="box">
+            <div class="box ">
                 <style>
                     .btn-success{
                         width: 4cm;
@@ -232,6 +233,40 @@ if ($result->num_rows > 0) {
           </div><!-- bd -->
     </div>
 </div>
+<?php
+
+
+$sql = "SELECT COUNT(id) AS count FROM product  ";
+$result = $conn->query($sql);
+$i =1;
+if ($result->num_rows > 0) {
+  // output data of each row
+
+  while($row = $result->fetch_assoc()) {
+?>
+
+<style>
+  .ppcount{
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    padding: 0.2cm;
+    text-align: center;
+    width: 6cm;
+    position: relative;
+    margin-left: 10cm;
+    bottom: 26.3cm;
+  }
+</style>
+<div class="ppcount" >
+  <b>Total Purchese </b>
+  <?php
+  echo $row['count'];
+  ?>
+</div>
+
+
+<?php }} ?>
 
     <script>
         

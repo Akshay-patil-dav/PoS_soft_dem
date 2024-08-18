@@ -110,6 +110,7 @@
                        <select class="form-control select2 Supplier" name="supname" required >
                        <option label="<?php echo $supname; ?>"><?php echo $supname; ?></option>
                          <?php 
+                         require_once('./conn/dbconn.php');
                                  $query1 = "SELECT * FROM supplier_info ";
                                  $result1 = $conn->query($query1);
 

@@ -458,7 +458,7 @@ if ($resln ->num_rows > 0) {
                   <td class="td"><?php echo  $roln['product_name']; ?></td>
                   <td class="td"><?php echo  $roln['MRP']; ?></td>
                   <td class="td"><?php echo  $price; ?></td>
-                  <td class="td"><?php echo  $row1['qui']; ?></td>
+                  <td class="td"><?php echo  round($row1['qui'],3); ?></td>
                   <td class="td"><?php echo  $roln['gstret']; ?></td>
                   <td class="td"><?php echo  $roln['cess']; ?></td>
                   <td class="td"><?php echo round($row1['qui']*$price,3);  ?></td>
@@ -477,6 +477,7 @@ if ($resln ->num_rows > 0) {
   <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
 </svg></button>
 </form>
+
 </td>
                   
                    
@@ -541,7 +542,8 @@ if ($resln ->num_rows > 0) {
 
     <?php
   // $view = "SELECT SUM(price_GS) AS TOTAL_VALUE , COUNT(pro_id) AS No_item FROM sell_cal WHERE users = '".$_SESSION["username"]."'  ";
-   $view = "select id AS pos_id , COUNT(pro_id) AS pro_id , users ,  round(SUM(price_GS*qui),3) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."' " ;
+  //  $view = "select id AS pos_id , COUNT(pro_id) AS pro_id , users ,  round(SUM(price_GS*qui),3) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."' " ;
+  $view = "SELECT id , users , COUNT(pro_id) AS coun , qui , price ,GST , SUM((price+((price*gst)/100))*qui) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."'";
 
   // $view = " SELECT users , COUNT(pro_id) AS idpro , SUM(qui) AS val , SUM(gst_price) AS TOTAL_VALUE FROM dem2 where users = '".$_SESSION["username"]."' " ;
 
@@ -560,14 +562,14 @@ if ($resln ->num_rows > 0) {
             <br><br>
               <h3 class="total" > Total Value : &#160  <b style=" color: green; " > <?php
               
-              if($row_view['pro_id'] == 0){
+              if($row_view['coun'] == 0){
                   echo 0;
               }else{
               echo  $row_view['total'];
               }
               
               ?></b> Rs</h3>
-              <h3 class="total" > Total Items : &#160  <b style=" color: blue; " > <?php   echo  $row_view['pro_id']; ?></b> </h3>
+              <h3 class="total" > Total Items : &#160  <b style=" color: blue; " > <?php   echo  $row_view['coun']; ?></b> </h3>
 
 
 
@@ -585,24 +587,77 @@ if ($resln ->num_rows > 0) {
         
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">POS CODE :</label>
-            <input type="text" class="form-control" id="recipient-name"  placeholder="POS/<?php echo $row_view['pos_id']; ?>"  value="POS/<?php $row_view['pos_id']; ?>"  >
+            <input type="text" class="form-control" id="recipient-name"  placeholder="POS/<?php echo $row_view['id']; ?>"  value="POS/<?php $row_view['id']; ?>"  >
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Recipient:</label>
             <input type="text" class="form-control" id="recipient-name"  placeholder="<?php echo $_SESSION["username"]; ?>"  value="<?php echo $_SESSION["username"]; ?>"  >
           </div>
+    
+  
+
+          <!-- *********************** -->
           <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"> <?php
+            <label for="recipient-name" class="col-form-label">Given Rs :</label>
+            <input type="text" class="form-control" id="recipient-name"  placeholder="<?php echo $_SESSION["username"]; ?>"  value="<?php echo $_SESSION["username"]; ?>"  >
+          </div>
+
+<!-- *************************************** -->
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Total:</label>
+            <input type="text" class="form-control" id="recipient-name"  placeholder="<?php
               
-              if($row_view['pro_id'] == 0){
+              if($row_view['coun'] == 0){
                   echo 0;
               }else{
               echo  $row_view['total'];
               }
               
-              ?> Rs</textarea>
+              ?>"  value="<?php
+              
+              if($row_view['coun'] == 0){
+                  echo 0;
+              }else{
+              echo  $row_view['total'];
+              }
+              
+              ?>"  >
           </div>
+          
+          <div class="form-group">
+            <style>
+              select{
+                cursor: pointer;
+              }
+              body{
+                overflow: hidden;
+              }
+              
+            </style>
+
+                      <!-- *********************** -->
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Given Change :</label>
+            <input type="text" class="form-control" id="recipient-name"  placeholder="<?php echo $_SESSION["username"]; ?>"  value="<?php echo $_SESSION["username"]; ?>"  >
+          </div>
+
+<!-- *************************************** -->
+
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <!-- <input type="text" class="form-control" id="recipient-name"  placeholder="<?php echo $_SESSION["username"]; ?>"  value="<?php echo $_SESSION["username"]; ?>"  > -->
+             <select name=""  class="form-control" id="recipient-name" >
+              <option value="">Online</option>
+              <option value="">Cash</option>
+             </select>
+          </div>
+          
+          
+
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+          
       
       </div>
       <div class="modal-footer">
@@ -648,11 +703,62 @@ if ($resln ->num_rows > 0) {
 <?php
 
 if(isset($_POST['dellist']) == true){
-$p = "DELETE FROM sales WHERE  users ='".$_SESSION["username"]."'";
- $pres= $conn->query($p);
- echo "<script> window.location.href=' ./p.php';</script>";
+// $p = "DELETE FROM sales WHERE  users ='".$_SESSION["username"]."'";
+//  $pres= $conn->query($p);
+//  echo "<script> window.location.href=' ./p.php';</script>";
+// }
+
+$sql44 = " SELECT users , pro_id , qui FROM sell_demo  Where users = '".$_SESSION["username"]."' " ;
+// SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = 'Ap2002' GROUP BY product_id  ;
+$result24 = $conn->query($sql44);
+
+if ($result24->num_rows > 0){
+        
+  while ($row24 = $result24->fetch_assoc()) {
+
+
+    
+
+    $sql98 = " SELECT users , pro_id , qui FROM sell_demo ";
+    // SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = 'Ap2002' GROUP BY product_id  ;
+    $result29 = $conn->query($sql98);
+
+        if ($result29->num_rows > 0){
+            
+          while ($row28 = $result29->fetch_assoc()) {
+
+    
+      // $qui4 = $row24['qui'];
+
+    $up4 = "UPDATE product SET quentity  =  '".$row28['qui']."' + '".$row24['qui']."'  ";
+    $reup4 = $conn -> query($up4);
+
+    if($reup4 == true){
+
+// $del = "DELETE FROM sales WHERE product_id= '$sell_id' ";
+$del4 = "DELETE FROM sales WHERE  users ='".$_SESSION["username"]."'";
+
+if ($conn->query($del4) === TRUE) {
+echo "Record deleted successfully";
+//   echo "<script>alert('Record deleted successfully');
+//               window.location.href=' ../p.php';
+//               </script>";
+
+echo "<script>;
+window.location.href=' p.php';
+</script>";
+} else {
+echo "Error deleting record: " . $conn->error;
+}
 }
 
+
+}
+        }}
+
+
+}
+}
 ?>
 <form action="./p.php" method="post" >
 <BUtton class="dropall  btn-danger " name="dellist"  ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="lks" viewBox="0 0 16 16">

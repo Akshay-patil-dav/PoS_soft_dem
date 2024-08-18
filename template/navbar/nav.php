@@ -72,12 +72,44 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !==true)
     <div class="az-header">
       <div class="container">
         <div class="az-header-left">
-          <a href="index.php" class="az-logo"><span></span> AUE</a>
+          <a href="index.php" class="az-logo"><span></span> 
+          <?php
+
+// require_once('../conn/dbconn.php');
+
+$sql98 = " SELECT * FROM company_create ";
+// SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = 'Ap2002' GROUP BY product_id  ;
+$result29 = $conn->query($sql98);
+
+if ($result29->num_rows > 0){
+
+while ($row28 = $result29->fetch_assoc()) {
+?>
+   <?php echo $row28['name']; ?>
+
+   <?php }} ?>
+        </a>
           <a href="" id="azMenuShow" class="az-header-menu-icon d-lg-none"><span></span></a>
         </div><!-- az-header-left -->
         <div class="az-header-menu">
           <div class="az-header-menu-header">
-            <a href="index.html" class="az-logo"><span></span> AUE</a>
+            <a href="index.html" class="az-logo"><span></span> 
+          
+            <?php
+
+// require_once('../conn/dbconn.php');
+
+$sql98 = " SELECT * FROM company_create ";
+// SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = 'Ap2002' GROUP BY product_id  ;
+$result29 = $conn->query($sql98);
+
+if ($result29->num_rows > 0){
+
+while ($row28 = $result29->fetch_assoc()) {
+?>
+   <?php echo $row28['name']; ?>
+
+   <?php }} ?></a>
             <a href="" class="close">&times;</a>
           </div><!-- az-header-menu-header -->
           <ul class="nav">
@@ -185,7 +217,9 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !==true)
               <a href="" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>
               <a href="" class="dropdown-item"><i class="typcn typcn-edit"></i> Edit Profile</a>
               <a href="" class="dropdown-item"><i class="typcn typcn-time"></i> Activity Logs</a>
-              <a href="" class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Account Settings</a>
+              <a href="/project/template/createcompany.php" class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Company Settings
+            
+            </a>
               <a href="./logout.php" class="dropdown-item"><i class="typcn typcn-power-outline"></i> Sign Out</a>
             </div><!-- dropdown-menu -->
           </div>
