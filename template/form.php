@@ -6,7 +6,8 @@
 
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
-    <title>Document</title>
+    <link rel="icon" href="./logo/Untitled design (1).png" type="image/icon type">
+    <title>AUE</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90680653-2"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -16,6 +17,7 @@
       gtag('config', 'UA-90680653-2');
     </script>
      <!-- vendor css -->
+      
      <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
     <link href="../lib/typicons.font/typicons.css" rel="stylesheet">

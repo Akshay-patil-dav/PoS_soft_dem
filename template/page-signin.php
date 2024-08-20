@@ -107,6 +107,7 @@ if(empty($err))
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
+    <link rel="icon" href="./logo/Untitled design (1).png" type="image/icon type">
     <title>AUE</title>
 
     <!-- vendor css -->

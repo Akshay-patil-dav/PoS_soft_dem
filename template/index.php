@@ -50,6 +50,8 @@
 
     <!-- azia CSS -->
     <link rel="stylesheet" href="../css/azia.css">
+    <link rel="icon" href="./logo/Untitled design (1).png" type="image/icon type">
+    <title>AUE</title>
 
   </head>
   <body>

@@ -55,7 +55,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !==true)
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="author" content="BootstrapDash">
 
-    <title>AUE</title>
+    <!-- <title>AUE</title> -->
 
     <!-- vendor css -->
     <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -65,6 +65,8 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !==true)
 
     <!-- azia CSS -->
     <link rel="stylesheet" href="../css/azia.css">
+    <link rel="icon" href="../logo/Untitled design (1).png" type="image/icon type">
+    <title>AUE</title>
 
   </head>
   <body>
