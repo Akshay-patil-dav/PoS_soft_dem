@@ -47,7 +47,9 @@
             <p class="mg-b-10">Company Name *</p>
               <input class="form-control" placeholder="Company Name" type="text" name="name" style="width: 8.2cm;" required >
             </div><!-- col -->
+            
             <div class="col-lg"  >
+              
             <p class="mg-b-10">City *</p>
               <input class="form-control" placeholder="City" type="text" name="City" style="width: 8.2cm;" required >
             </div><!-- col -->
@@ -55,6 +57,7 @@
             <p class="mg-b-10">State *</p>
               <input class="form-control" placeholder="State" type="text" name="State" style="width: 8.2cm;"  >
             </div><!-- col -->
+            
             
             </div>
          

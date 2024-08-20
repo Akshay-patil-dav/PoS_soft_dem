@@ -1,3 +1,72 @@
+<?php
+
+    require_once("./navbar/nav.php");
+    // require_once("./conn/dbconn.php");
+
+        if(isset($_POST['pospay']) == true){
+
+            $full_name = $_POST['full_name'];
+            $Phone_No = $_POST['Phonr_No'];
+            // $Total_price = $_POST['Total_No'];
+            $Given_Rs = $_POST['Given_Rs'];
+            // $Change = $_POST['Ch']
+            // $Pos_No = $_POST['Pos_No'];
+            $Pay = $_POST['Pay'];
+                
+            
+        
+            // $view = "SELECT SUM(price_GS) AS TOTAL_VALUE , COUNT(pro_id) AS No_item FROM sell_cal WHERE users = '".$_SESSION["username"]."'  ";
+            //  $view = "select id AS pos_id , COUNT(pro_id) AS pro_id , users ,  round(SUM(price_GS*qui),3) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."' " ;
+            $view = "SELECT id , users , COUNT(pro_id) AS coun , qui , price ,GST , round(SUM((price+((price*gst)/100))*qui)) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."'";
+          
+            // $view = " SELECT users , COUNT(pro_id) AS idpro , SUM(qui) AS val , SUM(gst_price) AS TOTAL_VALUE FROM dem2 where users = '".$_SESSION["username"]."' " ;
+          
+            $resview = $conn->query($view);
+          
+            if ($resview ->num_rows > 0) {
+              while ($row_view = $resview -> fetch_assoc()) {
+
+            $sql = " INSERT INTO `sell_info`( `full_name`, `phone_no`, `total_price`, `given_rs`,  `pos_no`, `pay`) VALUES ('".$full_name."','".$Phone_No."','".$row_view['total']."','".$Given_Rs."','".$row_view['id']."','".$Pay."') " ;
+            $res = $conn->query($sql);
+
+            if($res == true){
+                // echo "<script>
+                // window.print();
+                // </script>";
+
+                $sell_demo = "SELECT id ,users , pro_id , qui , price , GST , price_GS FROM sell_demo WHERE users = '".$_SESSION["username"]."'";
+                $sell_result = $conn->query($sell_demo);
+
+                if ($sell_result->num_rows > 0){
+                
+                    while ($sell_row = $sell_result->fetch_assoc()) {
+
+
+                        $sell_infor_insrt = "INSERT INTO `sells_information_pos`( `pro_code`, `users`,  `pos_no`,`qt`) VALUES ('".$sell_row['pro_id']."','".$_SESSION["username"]."','".$row_view['id']."','".$sell_row['qui']."')";
+                        $sell_res = $conn->query($sell_infor_insrt);
+
+                        if($sell_res == true){
+                            $del = "DELETE FROM sales WHERE users = '".$_SESSION["username"]."' ";
+                            $del_res = $conn->query($del);
+
+                            if($del_res == true ){
+                                   echo "<script>
+                                   window.print();
+                                   </script>";
+                            }
+                        }
+
+                    }
+                }
+                   
+
+?>
+<style>
+    .az-header{
+        display: none;
+    }
+</style>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,17 +75,33 @@
     <title>AUE</title>
 </head>
 <body>
+
+
+
+<script type="text/javascript">   
+    function Redirect() 
+    {  
+        window.location="./p.php"; 
+    } 
+    document.write("You will be redirected to a new page in 5 seconds"); 
+    setTimeout('Redirect()', 500);   
+</script>
     <style>
-        /* @media print{
-            .image{
+        /* @media print{ */
+            /* .image{
                 background-color: black;
                 padding: 1cm;
                 width: 1cm;
-            }
-        } */
+            } */
+        /* } */
 
+        body{
+            display: none;
+        }
         @media print{
-
+            body{
+            display: block;
+        }
         .image{
                 background-color: black;
                 /* padding: 1cm; */
@@ -71,7 +156,7 @@ while ($row28 = $result29->fetch_assoc()) {
    <?php }} ?>
                         
                         </div>
-                          <div>
+                          <div style=" margin-top: 15px; position: relative;  right: 0px; " >
 
                           <?php
 
@@ -105,7 +190,7 @@ if ($result29->num_rows > 0){
 while ($row28 = $result29->fetch_assoc()) {
 ?>
   
-   <p style="font-size: 20px; font-family: Arial black; position: relative; bottom: 10px; width: ;    "> <?php echo $row28['name']; ?></p>
+   <p style="font-size: 20px; font-family: Arial black; position: relative; bottom: 10px;   "> <?php echo $row28['name']; ?></p>
 
 
    <?php }} ?>
@@ -142,14 +227,48 @@ while ($row28 = $result29->fetch_assoc()) {
 
    <?php }} ?>
                         </div>
-                        <div style="width: 7.8cm; font-size: 15px; font-family: Arial black; margin-bottom: 5px; position: relative; bottom: 15px; text-align: center; " >POS / 591317</div>
+                        <div style="width: 7.8cm; font-size: 15px; font-family: Arial black; margin-bottom: 5px; position: relative; bottom: 15px; text-align: center; " >POS / <?php echo $row_view['id']; ?></div>
                       
                         <br>
                         <br>
                             
                         <br>
-                        <div style="width: 7.8cm; font-size: 11px; font-family: Arial black; margin-bottom: 5px; position: relative; bottom: 15px; " >Date: 22/02/2024 &#160 &#160 Sale No/Ref: /POS/ 591317</div>
-                        <div style="width: 7.8cm; font-size: 11px; font-family: Arial black; margin-bottom: 5px; position: relative; bottom: 15px; " >Sales Associate : SHADEVI AZAD</div>
+                 <div style="width: 7.8cm; font-size: 11px; font-family: Arial black; margin-bottom: 5px; position: relative; bottom: 15px; " >
+                         
+                 <?php
+
+$sells_information_pos = " SELECT * FROM sell_info WHERE users = '".$_SESSION["username"]."' && pos_no = '".$row_view['id']."' ";
+// SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = 'Ap2002' GROUP BY product_id  ;
+$sells_information_pos_result = $conn->query($sells_information_pos);
+
+if ($sells_information_pos_result->num_rows > 0){
+
+while ($sells_information_pos_row = $sells_information_pos_result->fetch_assoc()) {
+?>
+                        
+                        Date: <?php echo $sells_information_pos_row['date']; ?> &#160 &#160 Sale No/Ref: /POS/ <?php echo $sells_information_pos_row['pos_no']; ?>
+                    
+        <?php 
+}}
+
+?>
+                    </div>
+                        <div style="width: 7.8cm; font-size: 11px; font-family: Arial black; margin-bottom: 5px; position: relative; bottom: 15px; " >Sales Associate : 
+                            <?php
+
+$sells_information_pos = " SELECT * FROM users WHERE username = '".$_SESSION["username"]."' ";
+// SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = 'Ap2002' GROUP BY product_id  ;
+$sells_information_pos_result = $conn->query($sells_information_pos);
+
+if ($sells_information_pos_result->num_rows > 0){
+
+while ($sells_information_pos_row = $sells_information_pos_result->fetch_assoc()) {
+    echo $sells_information_pos_row['namuser'];
+
+}}
+?>
+
+                        </div>
                        <hr>
                        <br> <div>
                             <style>
@@ -177,36 +296,31 @@ while ($row28 = $result29->fetch_assoc()) {
                                         <th>value</th>                                    
                                     </tr>
                                 </tbody>
+
+                                <?php
+                                            $sells_information_pos = " SELECT product_name , qt , gstret , cess,product_price,  ((product_price*gstret)/100)+product_price AS price , qt*(((product_price*gstret)/100)+product_price) As total , igst FROM sell_fach_info WHERE users = '".$_SESSION["username"]."' && pos_no = '".$row_view['id']."' ";
+                                            // SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = 'Ap2002' GROUP BY product_id  ;
+                                            $res = $conn->query($sells_information_pos);
+                                            
+                                            if ($res->num_rows > 0){
+                                            
+                                                $i=0;
+                                            while ($row = $res->fetch_assoc()) {
+
+                                                
+                                                $i++;
+                                ?>
                                 <tr>
-                                    <th >1</th>
-                                    <td>rice vita 5g value</td>
-                                    <td>5</td>
-                                    <td>200</td>
-                                    <td>gst</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>200.00</td>                                    
+                                    <th ><?php echo $i; ?></th>
+                                    <td><?php echo $row['product_name']; ?></td>
+                                    <td><?php echo $row['qt']; ?></td>
+                                    <td><?php echo $row['price']; ?></td>
+                                    <td><?php echo $row['gstret']; ?></td>
+                                    <td><?php echo $row['cess']; ?></td>
+                                    <td><?php echo $row['igst']; ?></td>
+                                    <td><?php echo $row['total']; ?></td>                                    
                                 </tr>
-                                <tr>
-                                    <th >2</th>
-                                    <td>rice vita 5g value</td>
-                                    <td>5</td>
-                                    <td>200</td>
-                                    <td>gst</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>200.00</td>                                    
-                                </tr>
-                                <tr>
-                                    <th >3</th>
-                                    <td>rice vita 5g value</td>
-                                    <td>5</td>
-                                    <td>200</td>
-                                    <td>gst</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>200.00</td>                                    
-                                </tr>
+                           <?php }} ?>
                             
                             </table>
                         </div>
@@ -237,52 +351,62 @@ while ($row28 = $result29->fetch_assoc()) {
                                     <th>value</th>                                    
                                 </tr>
                             </tbody>
-                            <tr>
-                                <th >1</th>
-                                <td>500</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <th>200.00</th>                                    
+
+                            <?php
+                                            $sells_information_pos = " SELECT product_name , ((product_price*igst)/100) AS i_gst, gstret, ((product_price*cess)/100) AS cessamt , qt , (product_price*gstret)/100 AS gst , cess , product_price,  ((product_price*gstret)/100)+product_price AS price , qt*((product_price*gstret)/100)+((product_price*cess)/100)+((product_price*igst)/100)+(product_price) As total , igst FROM sell_fach_info WHERE users = '".$_SESSION["username"]."' && pos_no = '".$row_view['id']."' ";
+                                            // SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = 'Ap2002' GROUP BY product_id  ;
+                                            $res = $conn->query($sells_information_pos);
+                                            
+                                            if ($res->num_rows > 0){
+                                            
+                                                // texamout*cess/100 +gst_amount
+                                                $i=0;
+                                            while ($row = $res->fetch_assoc()) {
+
+                                                
+                                                $i++;
+                                ?>
+                            <tr>    
+                                <th ><?php echo $i; ?></th>
+                                <td><?php echo $row['product_price']; ?></td>
+                                <td><?php echo $row['gst']; ?></td>
+                                <td><?php echo $row['cessamt']; ?></td>
+                                <td><?php echo $row['i_gst']; ?></td>
+                                <th><?php echo $row['total']; ?></th>                                    
                             </tr>
-                            <tr>
-                                <th >2</th>
-                                <td>50</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <th>200.00</th>                                    
-                            </tr>
-                            <tr>
-                                <th >3</th>
-                                <td>50</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <th>200.00</th>                                    
-                            </tr>
-                            <tr>
-                                <th >4</th>
-                                <td>50</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <th>200.00</th>                                    
-                            </tr>
+                            <?php }} ?>
+                          
                         </table>
 
                         <br><hr><br><br>
                         <div>
-                            <div style="width: 7.8cm; font-size: 20px; font-family: Arial black; margin-bottom: 5px; position: relative; bottom: 15px; " >Total  &#160 &#160&#160 &#160&#160 &#160&#160 &#160&#160 &#160&#160 &#160 140.00</div>
-                            <br><hr><br>
-                            <div style="width: 7.8cm; font-size: 11px; font-family: Arial black; margin-bottom: 5px; position: relative; bottom: 15px; " >Paid by: Cash &#160 &#160 Amount: 140.00 &#160 &#160 Change: 0</div>
+                            <div style="width: 7.8cm; font-size: 20px; font-family: Arial black; margin-bottom: 5px; position: relative; bottom: 15px; " >Total  &#160 &#160&#160 &#160&#160 &#160&#160 &#160&#160 &#160&#160 &#160 
+                                <?php
+   $sells_information_pos = " SELECT total_price , given_rs, round(given_rs - total_price,0) AS ch FROM sell_info WHERE pos_no = '".$row_view['id']."' ";
+   // SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = 'Ap2002' GROUP BY product_id  ;
+   $res = $conn->query($sells_information_pos);
+   
+   if ($res->num_rows > 0){
+   
+       // texamout*cess/100 +gst_amount
+    //    $i=0;
+   while ($row = $res->fetch_assoc()) {
 
+
+?>
+<?php echo $row['total_price']; ?>
+
+                            </div>
+                            <br><hr><br>
+                            <div style="width: 7.8cm; font-size: 11px; font-family: Arial black; margin-bottom: 5px; position: relative; bottom: 15px; " >Paid by: Cash <br><br>  Amount: <?php echo $row['given_rs']; ?> <br><br> Change: <?php echo $row['ch']; ?></div>
+                            <?php }} ?>
                             <br>
                             <div style="width: 7.8cm; font-size: 15px; font-family: Arial black; margin-bottom: 5px; position: relative; bottom: 15px;  text-align: center;" >Thank You for visit !!</div>
                             <br><hr><br>
                             <!-- <div style="width: 7.8cm; font-size: 11px;  margin-bottom: 5px; position: relative; bottom: 15px;  text-align: center;" ><b  style="font-family: Arial black;"  >Designed & Developed BY &#160</b> <b style="font-family: Arial black; font-size: 15px; " >A.U.E</b></div> -->
                             <!-- <br> -->
-                            <div style="width: 7.8cm; font-size: 11px;  margin-bottom: 5px; position: relative; bottom: 15px;  text-align: center;" ><b  style="font-family: Arial black;"  >Contact No &#160</b> <b style="font-family: Arial black; font-size: 15px; " >    <?php     $sql98 = " SELECT * FROM company_create ";
+                        
+                          <div style="width: 7.8cm; font-size: 11px;  margin-bottom: 5px; position: relative; bottom: 15px;  text-align: center;" ><b  style="font-family: Arial black;"  >Contact No &#160</b> <b style="font-family: Arial black; font-size: 15px; " >    <?php     $sql98 = " SELECT * FROM company_create ";
 // SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = 'Ap2002' GROUP BY product_id  ;
 $result29 = $conn->query($sql98);
 
@@ -303,5 +427,24 @@ while ($row28 = $result29->fetch_assoc()) {
         <!-- <br><br><br> -->
         
     </div>
+
+<?php
+
+}
+else{
+    echo "No";
+}
+
+
+// SELECT * FROM `sells_information_pos` WHERE users = 'akshaychavan07695@gmail.com' && pos_no = '614';
+
+
+
+
+}}
+}
+
+?>
+
 </body>
 </html>

@@ -68,6 +68,12 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !==true)
 
   </head>
   <body>
+        
+
+<script>
+  window.history.forward()
+</script>
+
 
     <div class="az-header">
       <div class="container">
@@ -214,7 +220,7 @@ while ($row28 = $result29->fetch_assoc()) {
                 <span>Premium Member</span>
               </div><!-- az-header-profile -->
 
-              <a href="" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>
+              <a href="/project/template/profile.php" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>
               <a href="" class="dropdown-item"><i class="typcn typcn-edit"></i> Edit Profile</a>
               <a href="" class="dropdown-item"><i class="typcn typcn-time"></i> Activity Logs</a>
               <a href="/project/template/createcompany.php" class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Company Settings

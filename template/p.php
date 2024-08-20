@@ -565,7 +565,7 @@ if ($resln ->num_rows > 0) {
               if($row_view['coun'] == 0){
                   echo 0;
               }else{
-              echo  $row_view['total'];
+              echo  round($row_view['total'],0);
               }
               
               ?></b> Rs</h3>
@@ -768,15 +768,17 @@ echo "Error deleting record: " . $conn->error;
 
 <style>
   .pay{
-    width: 15cm;
+    width: 6cm;
+    padding: 0.5cm;
     border-radius: 10px;
     background-color: green;
     font-family: Arial black;
-    height: 2cm;
-    margin: 6cm;
+    /* height: 1.cm; */
+    /* margin: 0cm; */
+    margin-left: 20cm;
   }
 </style>
-<input type="button" class="btn btn-purple pay" placeholder="POS SELL" value="POS SELL"  data-toggle="modal" data-target="#exampleModal" >
+<a href="./pay.php" class="btn btn-purple pay"  > POS SELL</a>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -866,10 +868,32 @@ echo "Error deleting record: " . $conn->error;
 
 
 
+
+
+
+                                  <!-- CREATE VIEW sell_fach_info AS SELECT sell.pro_code , sell.qt , sell.users , sell.date , sell.pos_no , P.product_name , P.product_code , P.gstret , P.cess , P.product_price , P.MRP  FROM sells_information_pos AS sell CROSS JOIN product AS P ON sell.pro_code = P.product_code -->
               </div>
               
               
+              <!-- $users = " SELECT * FROM users WHERE username = '".$_SESSION["username"]."'  ";
+// SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = 'Ap2002' GROUP BY product_id  ;
+$users_res = $conn->query($users);
 
+if ($users_res->num_rows > 0){
+
+while ($users_res_row = $users_res->fetch_assoc()) {
+?> -->
+
+
+
+
+<!-- $sells_information_pos = " SELECT * FROM sells_information_pos WHERE users = '".$_SESSION["username"]."' && pos_no = ' ";
+// SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = 'Ap2002' GROUP BY product_id  ;
+$sells_information_pos_result = $conn->query($sells_information_pos);
+
+if ($sells_information_pos_result->num_rows > 0){
+
+while ($sells_information_pos_row = $sells_information_pos_result->fetch_assoc()) { -->
 
               <script>
 

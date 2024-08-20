@@ -336,7 +336,7 @@
         <td><?php echo $row1['product_name'];  ?></td>
         <td><?php echo $row1['product_code'];  ?></td>
         <td><?php echo $row1['net_unit'];  ?></td>
-        <td><?php echo  round($row1['qui'] ,2);  ?></td>
+        <td><?php echo $row1['qui'] ;  ?></td>
         <td><?php echo $row1['cgst'];  ?></td>
         <td><?php echo $row1['cgst_amount'];  ?></td>
         <td><?php echo $row1['sgst'];  ?></td>
@@ -345,7 +345,7 @@
         <td><?php echo $row1['igst_amout'];  ?></td>
         <td><?php echo $row1['cess'];  ?></td>
         <td><?php echo $row1['cess_amount'];  ?></td>
-        <td><?php echo round($row1['qui']*$row1['net_unit'],3);  ?></td>
+        <td><?php echo $row1['qui']*$row1['net_unit'];  ?></td>
 
      
         <td>

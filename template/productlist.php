@@ -122,22 +122,30 @@ body{
   overflow-y: hidden;
   overflow-x: hidden;
 }
+.l1{
+
+  /* background-color: red; */
+  /* border: 1px solid; */
+  text-align: left;
+  width: 2px;
+}
 </style>
 
 <table class="table table-striped mg-b-0  " >
-              <thead style="text-align: center;" >
+              <thead  >
                 <tr>
                   
-                  <th>ID</th>
-                  <th>product_name</th>
-                  <th>product_code</th>
-                  <th>product_type</th>
-                  <th>product_category</th>
-                  <th>GST</th>
-                  <th>purchese_price</th>
-                  <th>product_price</th>
-                  <th>CESS</th>
-                  <th>Activity</th>
+                  <th class="l1" >ID</th>
+                  <th class="l1" >product_name</th>
+                  <th class="l1" >product_code</th>
+                  <th class="l1" >product_type</th>
+                  <th class="l1"  >product_category</th>
+                  <th class="l1" style="width: 3cm;">GST</th>
+                  <th class="l1"  >purchese_price</th>
+                  <th class="l1" >product_price</th>
+                  <th class="l1" >CESS</th>
+                  <th class="l1" >Activity</th>
+                  
                 </tr>
               </thead>
               </table>

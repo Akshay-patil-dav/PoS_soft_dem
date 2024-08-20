@@ -58,8 +58,12 @@
   </head>
   <body>
 
-  
-        
+  <?php  require_once("./navbar/nav.php"); ?>
+        <style>
+            .az-header{
+                display: none;
+            }
+        </style>
         <!-- <div class="az-content-body pd-lg-l-40 d-flex flex-column">
   
           <div class="wd-250 mg-b-20" style="display: none;" >
@@ -93,11 +97,17 @@
 
         <div class="container">
 
-<form action="#">
+<form action="./pri.php" method="POST" >
 
     <div class="row">
 
+  
         <div class="col">
+        <a href="./p.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-add-fill" viewBox="0 0 16 16">
+  <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 1 1-1 0v-1h-1a.5.5 0 1 1 0-1h1v-1a.5.5 0 0 1 1 0"/>
+  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+  <path d="m8 3.293 4.712 4.712A4.5 4.5 0 0 0 8.758 15H3.5A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+</svg>&#160&#160Back</a><br><br>
             <h3 class="title">
                 Billing Address
             </h3>
@@ -108,7 +118,7 @@
             <label for="name">
                       Full Name:
                   </label>
-      <select class="form-control select2">
+      <select class="form-control select2" name="full_name" required >
         <option label="Choose one"></option>
         <option value="Firefox">Firefox</option>
         <option value="Chrome">Chrome</option>
@@ -125,6 +135,7 @@
                 <input type="text" id="email" 
                        placeholder=" Phone No " 
                        value="00-000-000"
+                       name="Phonr_No"
                        required>
             </div>
 
@@ -132,26 +143,68 @@
                 <label for="address">
                       Total Price :
                   </label>
-                <input type="text" id="address" 
-                       placeholder="Enter address" 
-                       value="2"
-                       onchange="myFunction(this.value)"
+
+                  
+    <?php
+  // $view = "SELECT SUM(price_GS) AS TOTAL_VALUE , COUNT(pro_id) AS No_item FROM sell_cal WHERE users = '".$_SESSION["username"]."'  ";
+  //  $view = "select id AS pos_id , COUNT(pro_id) AS pro_id , users ,  round(SUM(price_GS*qui),3) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."' " ;
+  $view = "SELECT id , users , COUNT(pro_id) AS coun , qui , price ,GST , SUM((price+((price*gst)/100))*qui) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."'";
+
+  // $view = " SELECT users , COUNT(pro_id) AS idpro , SUM(qui) AS val , SUM(gst_price) AS TOTAL_VALUE FROM dem2 where users = '".$_SESSION["username"]."' " ;
+
+  $resview = $conn->query($view);
+
+  if ($resview ->num_rows > 0) {
+    while ($row_view = $resview -> fetch_assoc()) {
+
+
+            ?>
+                <input type="text" id="purcheseprice" 
+                value=" <?php
+              
+              if($row_view['coun'] == 0){
+                  echo 0;
+              }else{
+              echo  round($row_view['total']);
+              }
+              
+              ?>" name="Total_price"
                        required >
 
-
+<?php  }} ?>
 
                        <script>
-function myFunction(val) {
-  alert("The input value has changed. The new value is: " + val);
-  document.getElementById('state').innerHTML=val;
-}
+     document.getElementById("purcheseprice").
+     disabled = true;
 
-function GIVRS(v1) {
-    // myFunction   
-  document.getElementById('state').innerHTML=v1+myFunction();
+                document.addEventListener('DOMContentLoaded', (event) => {
+    // Get the input elements and the gap display element
+    const number1Input = document.getElementById('purcheseprice');
+    const number2Input = document.getElementById('productprice');
+    const gapDisplay = document.getElementById('gap');
 
-}
+    // Function to calculate and display the gap
+    function calculateGap() {
+        // Get the values of the input elements
+        const number1 = parseFloat(number1Input.value);
+        const number2 = parseFloat(number2Input.value);
 
+        // Calculate the gap
+
+        
+        const gap = Math.abs(number1 - number2);
+
+        // Display the gap
+        gapDisplay.textContent = isNaN(gap) ? '0' : ""+gap.toPrecision(10);
+    }
+
+    // Add event listeners to the input elements
+    number1Input.addEventListener('input', calculateGap);
+    number2Input.addEventListener('input', calculateGap);
+});
+
+              </script>
+              
 
 </script>
 
@@ -161,11 +214,14 @@ function GIVRS(v1) {
                 <label for="city">
                 Given Rs :
                   </label>
-                <input type="text" id="city" 
+                <input type="text" id="productprice" 
                        placeholder="Enter city" 
-                       value=""
-                       onchange="GIVRS(this.value)"
+                      name="Given_Rs"
+                      
                        required>
+
+
+                       
             </div>
 
             <div class="flex">
@@ -175,14 +231,18 @@ function GIVRS(v1) {
                     Change :
                       </label>
                       <style>
-                        #state{
-                            border: 1px solid;
-                            height: 1cm;
+                        #gap{
+                            /* border: 1px solid; */
+                            /* height: 1cm; */
                             font-size: 0.5cm;
-                            text-align: center;
+                            /* text-align: center; */
+                            color: red;
                         }
                       </style>
-                    <p  id="state" >0</p>
+                    <p  id="gap" >0</p>
+
+                    
+                    
                 </div>
 
 
@@ -190,17 +250,40 @@ function GIVRS(v1) {
 
         </div>
         <div class="col">
+            <br><br>
             <h3 class="title">Payment</h3>
 
           
 
             <div class="inputBox">
                 <label for="cardName">
-                      Name On Card:
+                      POS / No:
                   </label>
+
+                  <?php
+  // $view = "SELECT SUM(price_GS) AS TOTAL_VALUE , COUNT(pro_id) AS No_item FROM sell_cal WHERE users = '".$_SESSION["username"]."'  ";
+  //  $view = "select id AS pos_id , COUNT(pro_id) AS pro_id , users ,  round(SUM(price_GS*qui),3) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."' " ;
+  $view = "SELECT id , users , COUNT(pro_id) AS coun , qui , price ,GST , SUM((price+((price*gst)/100))*qui) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."'";
+
+  // $view = " SELECT users , COUNT(pro_id) AS idpro , SUM(qui) AS val , SUM(gst_price) AS TOTAL_VALUE FROM dem2 where users = '".$_SESSION["username"]."' " ;
+
+  $resview = $conn->query($view);
+
+  if ($resview ->num_rows > 0) {
+    while ($row_view = $resview -> fetch_assoc()) {
+
+
+            ?>
                 <input type="text" id="cardName" 
-                       placeholder="Enter card name" 
+                      placeholder="POS/<?php echo $row_view['id']; ?>"  value="POS<?php echo $row_view['id']; ?>"
+                      name="Pos_No"
                        required>
+                       <script>
+                            document.getElementById("cardName").
+                            disabled = true;
+                       </script>
+
+                       <?php  }} ?>
             </div>
 
            
@@ -243,13 +326,14 @@ function GIVRS(v1) {
     <!-- </div> -->
     <div class=" inputBox">
     <label for="">Pay :</label>
-      <select class="form-control select2">
+      <select class="form-control select2" name="Pay" required >
         <option label="Choose one"></option>
-        <option value="Firefox">Firefox</option>
-        <option value="Chrome">Chrome</option>
-        <option value="Safari">Safari</option>
-        <option value="Opera">Opera</option>
-        <option value="Internet Explorer">Internet Explorer</option>
+        <option value="paypal">Pending</option>
+        <option value="Cash">Cash</option>
+        <option value="Online">Online</option>
+        <option value="check"> check</option>
+        <option value="paypal">paypal</option>
+       
       </select>
     </div>
   
@@ -263,7 +347,7 @@ function GIVRS(v1) {
     </div>
 
     <input type="submit" value="Proceed to Checkout" 
-           class="submit_btn">
+           class="submit_btn" name="pospay" >
 </form>
 
 </div>
@@ -537,5 +621,7 @@ input::-webkit-outer-spin-button {
 
       });
     </script>
+
+    
   </body>
 </html>

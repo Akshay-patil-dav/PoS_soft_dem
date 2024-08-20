@@ -42,6 +42,7 @@ if ($result ->num_rows > 0) {
             echo "<script>
             window.location.href=' ./Additems.php';
             </script>";
+            
           
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
