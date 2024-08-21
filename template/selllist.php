@@ -115,26 +115,31 @@ body{
                 </style>
             <div class="ex4">
               
+            <style>
+
+                th{
+                  /* background-color: red; */
+                  /* border: 1px solid; */
+                  text-align: left;
+                }
+
+            </style>
             <!-- <div class="ex4"> -->
             <table class="table table-striped mg-b-0" id="myTable">
               <thead>
                 <tr>
                   
                   <th>ID</th>
-                  <th>company_name</th>
-                  <th>sup_name</th>
-                  <th>gstin</th>
-                  <th>email_id</th>
+                  <th>Client Name </th>
+                  <th>Phone_NO</th>
+                  <th>TOTAL_AMOUNT</th>
+                  <th>POS_NO</th>
                   <!-- <th>GST</th> -->
-                  <th>phone_no</th>
-                  <th>city</th>
-                  <th>state</th>
-                    <!-- <th>state</th> -->
-                    <th>postal_code</th>
-                    <th>date</th>
-                    <th>refercode</th>
-                    <th>payment</th>
+                  <th>DATE</th>
+                  <th>PAY </th>
                   <th>Activity</th>
+                    <!-- <th>state</th> -->
+                
                 </tr>
               </thead>
               <tbody>
@@ -143,7 +148,7 @@ body{
             require_once("./conn/dbconn.php");
 // $tbl="users"; // Table name 
 // $sql = "SELECT I.company_name AS company_name, I.name AS sup_name, S.gstin AS gstin, I.email_id AS email , I.phone_no AS phone , I.city AS city, I.state AS state , I.postal_code , I.country , I.addr_comp AS  addr_comp , S.date  AS date, S.payment AS pay FROM suppro_purchese S CROSS JOIN supplier_info I GROUP BY date;";
-$sql = "SELECT * FROM sup_in GROUP BY refercode ";
+$sql = "SELECT * FROM sell_info GROUP BY pos_no ";
 $result = $conn->query($sql);
 $i =1;
 if ($result->num_rows > 0) {
@@ -159,17 +164,12 @@ if ($result->num_rows > 0) {
              
 
                   <th scope="row"><?php echo $i++ ; ?></th>
-                  <td><?php echo  $row['company_name']; ?></td>
-                  <td><?php echo  $row['sup_name']; ?></td>
-                  <td><?php echo  $row['gstin']; ?></td>
-                  <td><?php echo  $row['email_id']; ?></td>
+                  <td><?php echo  $row['full_name']; ?></td>
                   <td><?php echo  $row['phone_no']; ?></td>
-                  <td><?php echo  $row['city']; ?></td>
-                  <td><?php echo  $row['state']; ?></td>
-                  <td><?php echo  $row['postal_code']; ?></td>
+                  <td><?php echo  $row['total_price']; ?></td>
+                  <td><?php echo  $row['pos_no']; ?></td>
                   <td><?php echo  $row['date']; ?></td>
-                  <td><?php echo  $row['refercode']; ?></td>
-                  <td><?php  if($row['payment'] == 'Pending'){
+                  <td><?php  if($row['pay'] == 'Pending'){
                     echo "<p class='Pending' > Pending <p>";
                   }else{
                     echo "<p class='Pay' > Pay <p>";
@@ -182,12 +182,13 @@ if ($result->num_rows > 0) {
                             </button>
                             <div class="dropdown-menu tx-13" aria-labelledby="droprightMenuButton">
                             <form action="./seepurchasesup.php" method="post" >
-                              <button class="dropdown-item" value="<?php echo  $row['refercode']; ?>" name="seepur" ><i class="far fa-eye"></i> &#160&#160View </button>
+                              <button class="dropdown-item" value="<?php echo  $row['pos_no']; ?>" name="seepur" ><i class="far fa-eye"></i> &#160&#160View </button>
                               </form>
                             <a class="dropdown-item" href="#">Another action</a>
                               <a class="dropdown-item" href="#">Something else here</a>
                             </div>
                           </div></td>
+
                   </tr>
                   
                     <style>
@@ -289,7 +290,7 @@ if ($result->num_rows > 0) {
 
 <?php
 
-$sql = "SELECT COUNT(id) AS count FROM suppro_purchese  ";
+$sql = "SELECT COUNT(pos_no) AS count FROM sell_info   ";
 $result = $conn->query($sql);
 $i =1;
 if ($result->num_rows > 0) {
@@ -324,7 +325,7 @@ if ($result->num_rows > 0) {
 
 <?php
 
-$sql = "SELECT COUNT(id) AS count FROM suppro_purchese WHERE payment = 'Pay' ";
+$sql = "SELECT COUNT(pos_no) AS count FROM sell_info  WHERE  pay = 'paypal' OR pay = 'check' OR pay = 'Online' OR pay = 'Cash'   ";
 $result = $conn->query($sql);
 $i =1;
 if ($result->num_rows > 0) {
@@ -345,7 +346,7 @@ if ($result->num_rows > 0) {
 
 <?php
 
-$sql = "SELECT COUNT(id) AS count FROM suppro_purchese WHERE payment = 'Pending' ";
+$sql = "SELECT COUNT(pos_no) AS count FROM sell_info WHERE  pay = 'Pending' ";
 $result = $conn->query($sql);
 $i =1;
 if ($result->num_rows > 0) {

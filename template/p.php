@@ -779,7 +779,8 @@ echo "Error deleting record: " . $conn->error;
     margin-left: 20cm;
   }
 </style>
-<a href="./pay.php" class="btn btn-purple pay"  > POS SELL</a>
+<a href="./pay.php" class="btn btn-purple pay"  > POS SELL</a><br><br>
+<a href="./invoicepay.php" class="btn btn-purple pay"  > INVOICE SELL</a>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

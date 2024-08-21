@@ -98,7 +98,7 @@
 
         <div class="container">
 
-<form action="./pri.php" method="POST" >
+<form action="./invoice.php" method="POST" >
 
     <div class="row">
 

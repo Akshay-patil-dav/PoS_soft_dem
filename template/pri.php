@@ -59,6 +59,7 @@
                     }
                 }
                    
+        
 
 ?>
 <style>
@@ -383,7 +384,7 @@ while ($sells_information_pos_row = $sells_information_pos_result->fetch_assoc()
                         <div>
                             <div style="width: 7.8cm; font-size: 20px; font-family: Arial black; margin-bottom: 5px; position: relative; bottom: 15px; " >Total  &#160 &#160&#160 &#160&#160 &#160&#160 &#160&#160 &#160&#160 &#160 
                                 <?php
-   $sells_information_pos = " SELECT total_price , given_rs, round(given_rs - total_price,0) AS ch FROM sell_info WHERE pos_no = '".$row_view['id']."' ";
+   $sells_information_pos = " SELECT total_price , given_rs, round(given_rs - total_price,0) AS ch , pay FROM sell_info WHERE pos_no = '".$row_view['id']."' ";
    // SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = 'Ap2002' GROUP BY product_id  ;
    $res = $conn->query($sells_information_pos);
    
@@ -399,7 +400,7 @@ while ($sells_information_pos_row = $sells_information_pos_result->fetch_assoc()
 
                             </div>
                             <br><hr><br>
-                            <div style="width: 7.8cm; font-size: 11px; font-family: Arial black; margin-bottom: 5px; position: relative; bottom: 15px; " >Paid by: Cash <br><br>  Amount: <?php echo $row['given_rs']; ?> <br><br> Change: <?php echo $row['ch']; ?></div>
+                            <div style="width: 7.8cm; font-size: 11px; font-family: Arial black; margin-bottom: 5px; position: relative; bottom: 15px; " >Paid by: <?php echo $row['pay']; ?> <br><br>  Amount: <?php echo $row['given_rs']; ?> <br><br> Change: <?php echo $row['ch']; ?></div>
                             <?php }} ?>
                             <br>
                             <div style="width: 7.8cm; font-size: 15px; font-family: Arial black; margin-bottom: 5px; position: relative; bottom: 15px;  text-align: center;" >Thank You for visit !!</div>
