@@ -18,7 +18,7 @@
         
             // $view = "SELECT SUM(price_GS) AS TOTAL_VALUE , COUNT(pro_id) AS No_item FROM sell_cal WHERE users = '".$_SESSION["username"]."'  ";
             //  $view = "select id AS pos_id , COUNT(pro_id) AS pro_id , users ,  round(SUM(price_GS*qui),3) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."' " ;
-            $view = "SELECT id , users , COUNT(pro_id) AS coun , qui , price ,GST , round(SUM((price+((price*gst)/100))*qui)) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."'";
+            $view = "SELECT product_name , qt , gstret , cess,product_price,  ((product_price*gstret)/100)+product_price AS price , qt*( ( ((product_price*gstret)/100) + ((product_price*igst)/100) + ((product_price*cess)/100)  ) +product_price) As total , igst FROM sell_fach_info WHERE users = '".$_SESSION["username"]."' && pos_no = '".$row_view['id']."' ";
           
             // $view = " SELECT users , COUNT(pro_id) AS idpro , SUM(qui) AS val , SUM(gst_price) AS TOTAL_VALUE FROM dem2 where users = '".$_SESSION["username"]."' " ;
           
@@ -51,21 +51,19 @@
                             $del_res = $conn->query($del);
 
                             if($del_res == true ){
-                                   echo "<script>
-                                   window.print();
-                                   </script>";
+                                //    echo "<script>
+                                //    window.print();
+                                //    </script>";
                             }
                         }
 
                     }
                 }
             }
-        }
-    }
-}
-        
 
-?>
+            ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -121,20 +119,20 @@
 
   </head>
   <body>
-  <script type="text/javascript">   
+  <!-- <script type="text/javascript">   
     function Redirect() 
     {  
         window.location="./p.php"; 
     } 
     // document.write("You will be redirected to a new page in 5 seconds"); 
     setTimeout('Redirect()', 500);   
-</script>
+</script> -->
         <style>
             .az-header{
                 display: none;
             }
             body{
-                display: none;
+                /* display: none; */
             }
             @media print{
                 body{
@@ -248,13 +246,27 @@
                             <!-- <h6 ><b>Online</b> -->
 
                             <ul>
-                                <li><b>Name: RCJA</b></li>
-                                <li><b>Address: 1 Unknown Street VIC
+
+                            <?php
+
+$users = "SELECT * FROM company_create ";
+          
+            // $view = " SELECT users , COUNT(pro_id) AS idpro , SUM(qui) AS val , SUM(gst_price) AS TOTAL_VALUE FROM dem2 where users = '".$_SESSION["username"]."' " ;
+          
+            $usersres = $conn->query($users);
+          
+            if ($usersres ->num_rows > 0) {
+              while ($useres = $usersres -> fetch_assoc()) {
+?>
+                                <li><b>Name: <?php echo $useres['name']; ?></b></li>
+                                <li><b>Address: <?php echo $useres['location'].",&#160".$useres['city'].",&#160".$useres['state']; ?>
                                 </b></li>
-                                <li><b>Phone: (+61)404123123</b></li>
-                                <li><b>Email: admin@rcja.com</b></li>
-                                <li><b>GSTIN NO : A35454F254S253</b></li>
-                                <li><b>Name: RCJA</b></li>
+                                <li><b>Phone: <?php echo $useres['1p'].", &#160 ".$useres['2p']; ?></b></li>
+                              
+                                <li><b>GSTIN NO : <?php echo $useres['gst']; ?></b></li>
+                                <li><b>Name: <?php echo $useres['user']; ?></b></li>
+
+                    <?php }} ?>
                             </ul>
                         
                         </h6>
@@ -266,14 +278,27 @@
                             </h5>
                             <hr>
                             <ul>
-                                <li><b>Name: RCJA</b></li>
-                                <li><b>Address: 1 Unknown Street VIC
+
+                            <?php
+
+$supplier_info = "SELECT * FROM supplier_info WHERE company_name = '".$full_name."'";
+          
+            // $view = " SELECT users , COUNT(pro_id) AS idpro , SUM(qui) AS val , SUM(gst_price) AS TOTAL_VALUE FROM dem2 where users = '".$_SESSION["username"]."' " ;
+          
+            $supres = $conn->query($supplier_info);
+          
+            if ($supres ->num_rows > 0) {
+              while ($sup_row = $supres -> fetch_assoc()) {
+?>
+                                <li><b>Name: <?php echo $sup_row['company_name']; ?></b></li>
+                                <li><b>Address: <?php echo $sup_row['addr_comp'].", &#160".$sup_row['state']; ?>
                                 </b></li>
-                                <li><b>Phone: (+61)404123123</b></li>
-                                <li><b>Email: admin@rcja.com</b></li>
-                                <li><b>GSTIN NO : A35454F254S253</b></li>
-                                <li><b>Name: RCJA</b></li>
-                                <li><b>INVOICE NO : 5635452</b></li>
+                                <li><b>Phone: <?php echo $sup_row['phone_no']; ?></b></li>
+                                <li><b>Email: <?php echo $sup_row['email_id']; ?></b></li>
+                                <li><b>GSTIN NO : <?php echo $sup_row['gstin_no']; ?></b></li>
+                                <li><b>Name: <?php echo $sup_row['name']; ?></b></li>
+                                <li><b>INVOICE NO : <?php echo $row_view['id']; ?></b></li>
+            <?php }} ?>
                             </ul>
                         </div>
                        </div>
@@ -296,96 +321,35 @@
                 </tr>
               </thead>
               <tbody>
+  
+              <?php
+                                            // $sells_information_pos = " SELECT product_name , qt , gstret , cess,product_price ,  (product_price*qt)   As total , igst FROM sell_fach_info WHERE users = '".$_SESSION["username"]."' && pos_no = '".$row_view['id']."' ";
+                                           
+                                           
+                                        $sells_information_pos= " SELECT product_name , qt , gstret , cess,product_price,  ((product_price*gstret)/100)+product_price AS price , qt*( ( ((product_price*gstret)/100) + ((product_price*igst)/100) + ((product_price*cess)/100)  ) +product_price) As total , igst FROM sell_fach_info WHERE users = '".$_SESSION["username"]."' && pos_no = '".$row_view['id']."' ";
+                                            // SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = 'Ap2002' GROUP BY product_id  ;
+                                            $respp = $conn->query($sells_information_pos);
+                                            
+                                            if ($respp->num_rows > 0){
+                                            
+                                                $i=0;
+                                            while ($rowpp = $respp->fetch_assoc()) {
+
+                                                
+                                                $i++;
+                                ?>
                 <tr>
                   <th scope="row">1</th>
-                  <td>Tiger Nixon</td>
-                  <td>1</td>
-                  <th>500</th>
-                  <th>5</th>
-                  <th>0</th>
-                  <th>0</th>
-                  <td>$320,800</td>
+                  <td><?php echo $rowpp['product_name']; ?> </td>
+                  <td><?php echo $rowpp['qt']; ?>           </td>
+                  <th><?php echo $rowpp['product_price']; ?>        </th>
+                  <th><?php echo $rowpp['gstret']; ?>       </th>
+                  <th><?php echo $rowpp['cess']; ?>         </th>
+                  <th><?php echo $rowpp['igst']; ?>         </th>
+                  <td><?php echo $rowpp['total']; ?>        </td>
                 </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Garrett Winters</td>
-                  <td>1</td>
-                  <th>500</th>
-                  <th>5</th>
-                  <th>0</th>
-                  <th>0</th>
-                  <td>$320,800</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Ashton Cox</td>
-                  <td>1</td>
-                  <th>500</th>
-                  <th>5</th>
-                  <th>0</th>
-                  <th>0</th>
-                  <td>$320,800</td>
-                </tr>
-                <tr>
-                  <th scope="row">4</th>
-                  <td>Cedric Kelly</td>
-                  <td>1</td>
-                  <th>500</th>
-                  <th>5</th>
-                  <th>0</th>
-                  <th>0</th>
-                  <td>$320,800</td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>Airi Satou</td>
-                  <td>1</td>
-                  <th>500</th>
-                  <th>5</th>
-                  <th>0</th>
-                  <th>0</th>
-                  <td>$320,800</td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>Airi Satou</td>
-                  <td>1</td>
-                  <th>500</th>
-                  <th>5</th>
-                  <th>0</th>
-                  <th>0</th>
-                  <td>$320,800</td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>Airi Satou</td>
-                  <td>1</td>
-                  <th>500</th>
-                  <th>5</th>
-                  <th>0</th>
-                  <th>0</th>
-                  <td>$320,800</td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>Airi Satou</td>
-                  <td>1</td>
-                  <th>500</th>
-                  <th>5</th>
-                  <th>0</th>
-                  <th>0</th>
-                  <td>$320,800</td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>Airi Satou</td>
-                  <td>1</td>
-                  <th>500</th>
-                  <th>5</th>
-                  <th>0</th>
-                  <th>0</th>
-                  <td>$320,800</td>
-                </tr>
+<?php }}  ?>
+               
               </tbody>
             </table>
           </div><!-- bd -->
@@ -423,3 +387,12 @@
             </div>
   </body>
   </html>
+
+  
+<?php
+        }
+    }
+}
+        
+
+?>

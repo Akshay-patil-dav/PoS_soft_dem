@@ -17,7 +17,7 @@
         
             // $view = "SELECT SUM(price_GS) AS TOTAL_VALUE , COUNT(pro_id) AS No_item FROM sell_cal WHERE users = '".$_SESSION["username"]."'  ";
             //  $view = "select id AS pos_id , COUNT(pro_id) AS pro_id , users ,  round(SUM(price_GS*qui),3) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."' " ;
-            $view = "SELECT id , users , COUNT(pro_id) AS coun , qui , price ,GST , round(SUM((price+((price*gst)/100))*qui)) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."'";
+            $view = "SELECT id , users , COUNT(pro_id) AS coun , igst , cess, qui , price_GS ,GST , round( SUM(((((price_GS*GST)/100)+((price_GS*cess)/100)+((price_GS*igst)/100))*qui)+price_GS),0) AS total FROM sell_d1 WHERE users = '".$_SESSION["username"]."' ";
           
             // $view = " SELECT users , COUNT(pro_id) AS idpro , SUM(qui) AS val , SUM(gst_price) AS TOTAL_VALUE FROM dem2 where users = '".$_SESSION["username"]."' " ;
           
@@ -300,7 +300,7 @@ while ($sells_information_pos_row = $sells_information_pos_result->fetch_assoc()
                                 </tbody>
 
                                 <?php
-                                            $sells_information_pos = " SELECT product_name , qt , gstret , cess,product_price,  ((product_price*gstret)/100)+product_price AS price , qt*(((product_price*gstret)/100)+product_price) As total , igst FROM sell_fach_info WHERE users = '".$_SESSION["username"]."' && pos_no = '".$row_view['id']."' ";
+                                            $sells_information_pos = " SELECT product_name , qt , gstret , cess,product_price,  ((product_price*gstret)/100)+product_price AS price , qt*( ( ((product_price*gstret)/100) + ((product_price*igst)/100) + ((product_price*cess)/100)  ) +product_price) As total , igst FROM sell_fach_info WHERE users = '".$_SESSION["username"]."' && pos_no = '".$row_view['id']."' ";
                                             // SELECT product_id,SUM(quantity) AS qui , users FROM sales WHERE users = 'Ap2002' GROUP BY product_id  ;
                                             $res = $conn->query($sells_information_pos);
                                             
@@ -314,13 +314,13 @@ while ($sells_information_pos_row = $sells_information_pos_result->fetch_assoc()
                                 ?>
                                 <tr>
                                     <th ><?php echo $i; ?></th>
-                                    <td><?php echo $row['product_name']; ?></td>
-                                    <td><?php echo $row['qt']; ?></td>
-                                    <td><?php echo $row['price']; ?></td>
-                                    <td><?php echo $row['gstret']; ?></td>
-                                    <td><?php echo $row['cess']; ?></td>
-                                    <td><?php echo $row['igst']; ?></td>
-                                    <td><?php echo $row['total']; ?></td>                                    
+                                    <td><?php echo $row['product_name']; ?> </td>
+                                    <td><?php echo $row['qt']; ?>           </td>
+                                    <td><?php echo $row['price']; ?>        </td>
+                                    <td><?php echo $row['gstret']; ?>       </td>
+                                    <td><?php echo $row['cess']; ?>         </td>
+                                    <td><?php echo $row['igst']; ?>         </td>
+                                    <td><?php echo $row['total']; ?>        </td>                                    
                                 </tr>
                            <?php }} ?>
                             

@@ -218,8 +218,27 @@ while ($row28 = $result29->fetch_assoc()) {
                 <div class="az-img-user">
                   <img src="../img/faces/face1.jpg" alt="">
                 </div><!-- az-img-user -->
-                <div><?php echo  $_SESSION["username"]; ?></div>
-                <span>Premium Member</span>
+                <!-- <div><?php echo  $_SESSION["username"]; ?></div> -->
+                <!-- <span>Premium Member -->
+                  <style>
+                    .name{
+                      font-family: Arial black;
+                    }
+                  </style>
+                  <?php
+
+        $sqlname = "SELECT * FROM users WHERE username = '".$_SESSION["username"]."'";
+        $sqlres = $conn->query($sqlname);
+        if ($sqlres->num_rows > 0) {
+          // output data of each row
+        
+          while($sqlrow = $sqlres->fetch_assoc()) {
+
+            echo "<div class='name' >".$sqlrow['namuser']."</div> <span>".$sqlrow['roll']."</span>";
+
+          }}
+?>
+                <!-- </span> -->
               </div><!-- az-header-profile -->
 
               <a href="/project/template/profile.php" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>

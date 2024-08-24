@@ -28,7 +28,7 @@ if ($result ->num_rows > 0) {
       $cgst_amount = ($row['purchese_price']*($row['gstret']/2))/100;
       $sgst_amount = ($row['purchese_price']*($row['gstret']/2))/100;
       $igst_amount = ($row['purchese_price']*$row['igst'])/100;
-      $tex_price = $row['purchese_price']+(($row['purchese_price']*$row['gstret'])/100)+(($row['purchese_price']*$row['cess'])/100);
+      $tex_price = $row['purchese_price']+(($row['purchese_price']*$row['gstret'])/100)+(($row['purchese_price']*$row['cess'])/100)+$igst_amount;
       $cess_amount =   (($row['purchese_price']*$row['cess'])/100);
 
 

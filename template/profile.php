@@ -83,9 +83,14 @@
         height: 15cm;
     }
     .form{
-        background-color: blue;
+        background-color:white;
+        /* border: 1px solid; */
+        background-color: beige;
+        /* box-shadow: 20px 8px 50px black ;  */
+        /* opacity: 5; 1 */
         width: 100%;
-        height: 5cm;
+        height: 11cm;
+        border-radius: 20px;
     }
     .img{
         width: 7cm;
@@ -124,9 +129,49 @@
                     <input type="submit" class="sub" placeholder="Uplode" value="Uplode" >
         </div>
         <div class="form" >
+            <br><br>
+            <h1 style="font-family: Arial black; margin-left: 9cm; " >Edit Profile</h1>
+         <br><br><br>
+          <div style="display: flex;" >
+            <div class="col-lg" style="width: 8cm;" >
+                <label for="">Full Name</label>
+              <input class="form-control" placeholder="Full Name" type="text" style="border-radius: 5px;" >
+            </div><!-- col -->
 
+            <div class="col-lg" style="width: 8cm;" >
+                <label for="">Email-ID</label>
+              <input class="form-control" placeholder="Email-ID" type="text" style="border-radius: 5px;" >
+            </div><!-- col -->
+            </div>
+          
+
+<br>
+        <div style="display: flex;" >
+            <div class="col-lg" style="width: 8cm;" >
+                <label for="">Phone No </label>
+              <input class="form-control" placeholder="Phone No " type="text" style="border-radius: 5px;" >
+            </div><!-- col -->
+
+            <div class="col-lg" style="width: 8cm;" >
+                <label for="">Password</label>
+              <input class="form-control" placeholder="Password" type="text" style="border-radius: 5px;" >
+            </div><!-- col -->
+            </div>
+
+<br><br>
+            <div style="margin-left: 9cm;" >
+
+            <div class="col-lg" style="width: 8cm;" >
+              
+              <input class="form-control" placeholder="Password" type="submit"  style="border-radius: 5px; background-color:green; font-family:Arial black; color: white; border-radius: 10px; " >
+            </div><!-- col -->
+            </div>
         </div>
+        </div>
+
+   
     </div>
+
 
   </body>
   </html>

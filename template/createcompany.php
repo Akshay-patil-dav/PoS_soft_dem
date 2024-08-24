@@ -58,6 +58,10 @@
             <p class="mg-b-10">State *</p>
               <input class="form-control" placeholder="State" type="text" name="State" style="width: 8.2cm;"  >
             </div><!-- col -->
+            <div class="col-lg"  >
+            <p class="mg-b-10">User Name *</p>
+              <input class="form-control" placeholder="User Name" type="text" name="gstin" style="width: 8.2cm;"  >
+            </div><!-- col -->
             
             
             </div>
@@ -199,6 +203,7 @@ $gst = $_POST['gst'];
 $p1 = $_POST['1p'];
 $p2 = $_POST['2p'];
 $bio = $_POST['info'];
+$GSTIN = $_POST['gstin'];
 // $img = $_FILES["imguplode"]["name"];
 // $tempname = $_FILES["imguplode"]["tmp_name"];
 // $folder = "./image/" . $filename;
@@ -211,7 +216,7 @@ $folder = "./logo/" . $filename;
 
 
 
-$up = "UPDATE company_create SET name = '".$name."', city = '".$city."' ,state = '".$state."', category = '".$category."' , location = '".$location."' , country = '".$Country."' , pin_code = '".$PIN."' , img = '".$filename."' , gst= '".$gst."', 1p = '".$p1."' , 2p = '".$p2."', bio = '".$bio."'  WHERE id = 1 ";
+$up = "UPDATE company_create SET name = '".$name."', city = '".$city."' ,state = '".$state."', category = '".$category."' , location = '".$location."' , country = '".$Country."' , pin_code = '".$PIN."' , img = '".$filename."' , gst= '".$gst."', 1p = '".$p1."' , 2p = '".$p2."', bio = '".$bio."' , user = '".$GSTIN."'  WHERE id = 1 ";
 $reup = $conn -> query($up);
 
           

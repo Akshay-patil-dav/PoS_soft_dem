@@ -84,7 +84,7 @@
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   width: 120%;
-  height: 10cm;
+  height: auto;
   text-align: center;
   border-radius: 20px;
   cursor: pointer;
@@ -284,15 +284,17 @@ if ($result ->num_rows > 0) {
                                               <h4><b><?php echo $row['product_name']; ?></b></h4> 
                                              <div style="display: flex; margin-left:60px; " >
                                              <p> Rs.<?php echo $row['product_price'];  ?></p> &#160 &#160
-                                             <p> GST : <?php echo $row['gstret'];  ?>%</p> 
-                                             </div>
+                                             <p> GST : <?php echo $row['gstret'];  ?>%</p> <br>
                                              
+                                             </div>
+                                             <div style="display: flex; position: relative; left: 1.5cm;  width: 5cm; "  ><p> IGST : <?php echo $row['igst'];  ?>%</p> &#160 &#160
+                                             <p> IGST : <?php echo $row['cess'];  ?>%</p> </div>
                                              <div>
                                                Que:  <input  type="text" style="width: 1.5cm;" value="1" name="qui" >
                                              </div>
                                              
                                              <div>  <p> Code : <?php echo $row['product_code'];  ?></p> </div>
-                                              <div><button class="btn btn-purple but"  id="add" name="add" value="<?php  echo $row['product_code']; ?>"  >ADD</button></div>
+                                              <div><button class="btn btn-purple but"  id="add" name="add" value="<?php  echo $row['product_code']; ?>"  >ADD</button></div><br><br>
                                </div>
                                </form>
                                
@@ -379,9 +381,12 @@ if ($result ->num_rows > 0) {
  
 </style>
  <!-- #region -->
-<table class="table table-striped mg-b-0  " >
-              <!-- <thead style="text-align: center;" > -->
-                <tr>
+
+            <div class="table-responsive ex5">
+              
+            <table class="table table-striped mg-b-0  " id="mytab" >
+            <!-- <thead style="text-align: center;" > -->
+            <tr>
                   
                   <th style=" width: 2.5cm; "  >ID</th>
                   <th style="text-align: center; width: 1cm;   " >Product_Name</th>
@@ -389,21 +394,12 @@ if ($result ->num_rows > 0) {
                   <th style=" width: 3.2cm; text-align: center; "  >Price </th>
                   <th style="  width: 2cm; text-align: center; "  >quienity</th>
                   <th style="  width: 2.5cm;  text-align: center; " >GST</th>
-                  <th  style="  width: 1.5cm;  text-align: center; ">Cess</th>
+                  <th  style="  width: 1.5cm;  text-align: right; ">Cess</th>
+                  <th  style="  width: 1.5cm;  text-align: right; ">IGST</th>
                   <th style="   text-align: center; " >Total</th>
                   <th  >Action</th>
                   <!-- <th>CESS</th> -->
                   <!-- <th>Activity</th> -->
-                </tr>
-              <!-- </thead> -->
-</table>
-            <div class="table-responsive ex5">
-              
-            <table class="table table-striped mg-b-0  " id="mytab" >
-            <!-- <thead style="text-align: center;" > -->
-                <tr>
-                  
-               
                 </tr>
               <!-- </thead> -->
            
@@ -433,7 +429,7 @@ if ($result->num_rows > 0) {
 
 
     
-$query = "SELECT cess ,product_name, MRP , gstret, ( product_price * (gstret))/100 AS totcost , product_price  AS price  FROM product  WHERE product_code = ".$row1['product_id']." ";
+$query = "SELECT cess ,product_name, MRP , gstret, ( product_price * (gstret))/100 AS totcost , ( product_price * (cess))/100  AS ceees , ( product_price * (igst))/100  AS IGST , product_price  AS price , igst  FROM product  WHERE product_code = ".$row1['product_id']." ";
 $resln = $conn->query($query);
 
 
@@ -444,7 +440,7 @@ if ($resln ->num_rows > 0) {
 
     while ($roln = $resln -> fetch_assoc()) {
 
-      $price = $roln['price'] + $roln['totcost'];
+      $price = $roln['price'] + $roln['totcost']+$roln['ceees']+$roln['IGST'];
       // $price =$roln['totcost'];
 
      
@@ -462,6 +458,7 @@ if ($resln ->num_rows > 0) {
                   <td class="td"><?php echo  round($row1['qui'],3); ?></td>
                   <td class="td"><?php echo  $roln['gstret']; ?></td>
                   <td class="td"><?php echo  $roln['cess']; ?></td>
+                  <td class="td"><?php echo  $roln['igst']; ?></td>
                   <td class="td"><?php echo round($row1['qui']*$price,3);  ?></td>
                   <td class="td">  
                     <style>
@@ -544,9 +541,10 @@ if ($resln ->num_rows > 0) {
     <?php
   // $view = "SELECT SUM(price_GS) AS TOTAL_VALUE , COUNT(pro_id) AS No_item FROM sell_cal WHERE users = '".$_SESSION["username"]."'  ";
   //  $view = "select id AS pos_id , COUNT(pro_id) AS pro_id , users ,  round(SUM(price_GS*qui),3) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."' " ;
-  $view = "SELECT id , users , COUNT(pro_id) AS coun , qui , price ,GST , SUM((price+((price*gst)/100))*qui) AS total FROM sell_demo WHERE users = '".$_SESSION["username"]."'";
+  // $view = "SELECT id , users , COUNT(pro_id) AS coun , igst , cess, qui , price_GS ,GST , ((price_GS+((price_GS*GST)/100))*qui) AS total    FROM sell_d1 WHERE users = '".$_SESSION["username"]."'";
+  $view = "SELECT id , users , COUNT(pro_id) AS coun , igst , cess, qui , price_GS ,GST , round( SUM(((((price_GS*GST)/100)+((price_GS*cess)/100)+((price_GS*igst)/100))*qui)+price_GS),0) AS total FROM sell_d1 WHERE users = '".$_SESSION["username"]."'";
 
-  // $view = " SELECT users , COUNT(pro_id) AS idpro , SUM(qui) AS val , SUM(gst_price) AS TOTAL_VALUE FROM dem2 where users = '".$_SESSION["username"]."' " ;
+  // $view = " SELECT users , COUNT(pro_id) AS coun   , SUM(qui) AS val , SUM(gst_price) AS total FROM dem2 where users = '".$_SESSION["username"]."' " ;
 
   $resview = $conn->query($view);
 
@@ -563,14 +561,26 @@ if ($resln ->num_rows > 0) {
             <br><br>
               <h3 class="total" > Total Value : &#160  <b style=" color: green; " > <?php
               
-              if($row_view['coun'] == 0){
-                  echo 0;
-              }else{
-              echo  round($row_view['total'],0);
-              }
+              echo  $row_view['total']; 
               
               ?></b> Rs</h3>
-              <h3 class="total" > Total Items : &#160  <b style=" color: blue; " > <?php   echo  $row_view['coun']; ?></b> </h3>
+              <h3 class="total" > Total Items : &#160  <b style=" color: blue; " > <?php 
+              
+              
+              $sell_demo = "SELECT COUNT(pro_id) AS id_coun FROM sell_demo WHERE users =  '".$_SESSION["username"]."'";
+  $ressell_demo = $conn->query($sell_demo);
+
+  if ($ressell_demo ->num_rows > 0) {
+    while ($view = $ressell_demo -> fetch_assoc()) {
+              
+              
+              echo  $view['id_coun'];
+              
+              
+    }}
+              
+              
+              ?></b> </h3>
 
 
 
