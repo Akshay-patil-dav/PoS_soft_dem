@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="./logo/Untitled design (1).png" type="image/icon type">
+  <!-- <link rel="icon" href="./logo/Untitled design (1).png" type="image/icon type"> -->
+  <link rel="stylesheet" href="./logo/Untitled design (1).png">
   <title>AUE</title>
 </head>
 
@@ -12,50 +13,14 @@
   <?php
 
   require_once("./navbar/nav.php");
+  // require_once('./n')
   ?>
   <br><br>
   <h5 style="margin-left: 9.9cm;"><i class="typcn typcn-chart-area-outline"></i>
-    / Dashboard / Supplier List</h5>
+    / <a href="./index.php">Dashboard</a> / Client Information</h5>
 
   <div style="position: relative; bottom: 1.8cm; ">
     <div class="search">
-      <div style="position: relative; left: 5cm; top: 3.5cm; ">
-        <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate">
-
-        <label for="endDate">End Date:</label>
-        <input type="date" id="endDate">
-        <button onclick="filterByDate()" class="btn btn-warning " style="border-radius: 10%; color: white; font-family: Arial black; ">Filter</button>
-      </div>
-
-      <script>
-        function filterByDate() {
-          // Get the input dates
-          const startDate = document.getElementById('startDate').value;
-          const endDate = document.getElementById('endDate').value;
-
-          // Convert input dates to Date objects
-          const start = new Date(startDate);
-          const end = new Date(endDate);
-
-          // Get all table rows
-          const rows = document.querySelectorAll("#myTable tbody tr");
-
-          // Loop through the table rows
-          rows.forEach(row => {
-            // Get the date from the second column (index 1)
-            const dateCell = row.cells[9].innerText;
-            const rowDate = new Date(dateCell);
-
-            // Check if the date is within the range
-            if (rowDate >= start && rowDate <= end) {
-              row.style.display = ""; // Show the row
-            } else {
-              row.style.display = "none"; // Hide the row
-            }
-          });
-        }
-      </script>
       <div class="col-lg">
 
 
@@ -112,7 +77,7 @@
       div.ex4 {
         /* background-color: lightblue; */
         width: 100%;
-        height: 14.5cm;
+        height: 16cm;
         overflow: auto;
 
       }
@@ -172,7 +137,7 @@
               <th>postal_code</th>
               <th>date</th>
               <th>refercode</th>
-              <th>payment</th>
+              <!-- <th>payment</th> -->
               <th>Activity</th>
             </tr>
           </thead>
@@ -182,7 +147,7 @@
             require_once("./conn/dbconn.php");
             // $tbl="users"; // Table name 
             // $sql = "SELECT I.company_name AS company_name, I.name AS sup_name, S.gstin AS gstin, I.email_id AS email , I.phone_no AS phone , I.city AS city, I.state AS state , I.postal_code , I.country , I.addr_comp AS  addr_comp , S.date  AS date, S.payment AS pay FROM suppro_purchese S CROSS JOIN supplier_info I GROUP BY date;";
-            $sql = "SELECT * FROM sup_in GROUP BY refercode ";
+            $sql = "SELECT * FROM client_info  ";
             $result = $conn->query($sql);
             $i = 1;
             if ($result->num_rows > 0) {
@@ -199,20 +164,16 @@
 
                   <th scope="row"><?php echo $i++; ?></th>
                   <td><?php echo  $row['company_name']; ?></td>
-                  <td><?php echo  $row['sup_name']; ?></td>
-                  <td><?php echo  $row['gstin']; ?></td>
+                  <td><?php echo  $row['name']; ?></td>
+                  <td><?php echo  $row['gstin_no']; ?></td>
                   <td><?php echo  $row['email_id']; ?></td>
                   <td><?php echo  $row['phone_no']; ?></td>
                   <td><?php echo  $row['city']; ?></td>
                   <td><?php echo  $row['state']; ?></td>
                   <td><?php echo  $row['postal_code']; ?></td>
-                  <td><?php echo  $row['date']; ?></td>
-                  <td><?php echo  $row['refercode']; ?></td>
-                  <td><?php if ($row['payment'] == 'Pending') {
-                        echo "<p class='Pending' > Pending <p>";
-                      } else {
-                        echo "<p class='Pay' > Pay <p>";
-                      } ?></td>
+                  <td><?php echo  $row['country']; ?></td>
+                  <td><?php echo  $row['addr_comp']; ?></td>
+
 
 
                   <td>
@@ -222,12 +183,13 @@
                       </button>
                       <div class="dropdown-menu tx-13" aria-labelledby="droprightMenuButton">
                         <form action="./seepurchasesup.php" method="post">
-                          <button class="dropdown-item" value="<?php echo  $row['refercode']; ?>" name="seepur"><i class="far fa-eye"></i> &#160&#160View </button>
+                          <button class="dropdown-item" value="<?php echo  $row['gstin_no']; ?>" name="seepur"><i class="far fa-eye"></i> &#160&#160View </button>
                         </form>
                         <form action="./transfer/delpurch.php" method="post">
-                          <button class="dropdown-item" value="<?php echo  $row['refercode']; ?>" name="seepur"><i class="typcn typcn-document-text"></i>&#160&#160&#160Delete</button>
+                          <button class="dropdown-item" value="<?php echo  $row['gstin_no']; ?>" name="seepur"><i class="typcn typcn-document-text"></i>&#160&#160&#160Delete</button>
                           <!-- <a class="dropdown-item" href="#">Something else here</a> -->
                         </form>
+                        <!-- <a class="dropdown-item" href="#">Something else here</a> -->
                       </div>
                     </div>
                   </td>
@@ -336,90 +298,21 @@
     </div>
   </div>
 
-  <?php
-
-  $sql = "SELECT COUNT(id) AS count FROM suppro_purchese  ";
-  $result = $conn->query($sql);
-  $i = 1;
-  if ($result->num_rows > 0) {
-    // output data of each row
-
-    while ($row = $result->fetch_assoc()) {
-  ?>
-
-      <style>
-        .ppcount {
-          background-color: blue;
-          color: white;
-          border-radius: 10px;
-          padding: 0.2cm;
-          text-align: center;
-          width: 6cm;
-          position: relative;
-          margin-left: 1cm;
-          left: 4cm;
-          bottom: 26.3cm;
-        }
-      </style>
-      <div style="display: flex;">
-        <div class="ppcount">
-          <b>Total Purchese </b>
-          <?php
-          echo $row['count'];
-          ?>
-        </div>
-    <?php }
-  } ?>
-
-
-    <?php
-
-    $sql = "SELECT COUNT(id) AS count FROM suppro_purchese WHERE payment = 'Pay' ";
-    $result = $conn->query($sql);
-    $i = 1;
-    if ($result->num_rows > 0) {
-      // output data of each row
-
-      while ($row = $result->fetch_assoc()) {
-    ?>
-
-        <div class="ppcount" style="background-color: green;">
-          <b>Total Pay </b>
-          <?php
-          echo $row['count'];
-          ?>
-        </div>
-    <?php }
-    } ?>
-
-
-
-    <?php
-
-    $sql = "SELECT COUNT(id) AS count FROM suppro_purchese WHERE payment = 'Pending' ";
-    $result = $conn->query($sql);
-    $i = 1;
-    if ($result->num_rows > 0) {
-      // output data of each row
-
-      while ($row = $result->fetch_assoc()) {
-    ?>
-
-        <div class="ppcount" style="background-color: red;">
-          <b>Total Pending : </b>
-          <?php
-          echo $row['count'];
-          ?>
-        </div>
-    <?php }
-    } ?>
-      </div>
 
 
 
 
 
-      <!-- **********/************************************************************* */ -->
+
+
+
+  </div>
+
+
+
+
+
+  <!-- **********/************************************************************* */ -->
 </body>
 
 </html>

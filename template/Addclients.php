@@ -2,50 +2,10 @@
 <html lang="en">
 
 <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90680653-2"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-
-    gtag('config', 'UA-90680653-2');
-  </script>
-
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Twitter -->
-  <!-- <meta name="twitter:site" content="@bootstrapdash">
-    <meta name="twitter:creator" content="@bootstrapdash">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Azia">
-    <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
-    <meta name="twitter:image" content="https://www.bootstrapdash.com/azia/img/azia-social.png"> -->
-
-  <!-- Facebook -->
-  <!-- <meta property="og:url" content="https://www.bootstrapdash.com/azia">
-    <meta property="og:title" content="Azia">
-    <meta property="og:description" content="Responsive Bootstrap 4 Dashboard Template">
-
-    <meta property="og:image" content="https://www.bootstrapdash.com/azia/img/azia-social.png">
-    <meta property="og:image:secure_url" content="https://www.bootstrapdash.com/azia/img/azia-social.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="600"> -->
-
-  <!-- Meta -->
-  <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
-  <meta name="author" content="BootstrapDash">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="./logo/Untitled design (1).png" type="image/icon type">
   <title>AUE</title>
-
-  <!-- vendor css -->
   <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
   <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
@@ -59,46 +19,158 @@
 
   <!-- azia CSS -->
   <link rel="stylesheet" href="../css/azia.css">
-
 </head>
 
 <body>
+  <?php
+  require_once('./navbar/nav.php');
+  ?>
 
 
 
-  <div class="az-content-body pd-lg-l-40 d-flex flex-column">
+  <?php
 
-    <div class="wd-250 mg-b-20" style="display: none;">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <div class="input-group-text">
-            <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
-          </div>
-        </div>
-        <input type="text" value="January 20, 2019 09:00" id="datetimepicker3" class="form-control">
-      </div>
-    </div>
+  // require_once("./nav.php");
+  // require_once("./conn/dbconn.php");
+  // require_once "/wamp64/www/project/conn/dbconn.php";
+  // require_once("./conn/dbconn.php");
 
 
 
-    <div class="row row-sm mg-b-20">
-      <div class="col-lg-4">
 
-      </div><!-- col-4 -->
-      <div class="col-lg-4 mg-t-20 mg-lg-t-0">
-        <p class="mg-b-10">Single Select with Search</p>
-        <select class="form-control select2">
-          <option label="Choose one"></option>
-          <option value="Firefox">Firefox</option>
-          <option value="Chrome">Chrome</option>
-          <option value="Safari">Safari</option>
-          <option value="Opera">Opera</option>
-          <option value="Internet Explorer">Internet Explorer</option>
-        </select>
-      </div><!-- col-4 -->
+  ?>
 
-    </div><!-- row -->
-  </div><!-- az-content-body -->
+
+  <br><br>
+  <h5 style="margin-left: 9.9cm;"><i class="typcn typcn-chart-area-outline"></i>
+    / Dashboard / Add Client</h5>
+
+
+  <style>
+    body {
+      overflow-x: hidden;
+    }
+
+    .box {
+      margin-left: 9.9cm;
+      margin-top: 2cm;
+    }
+
+    .width {
+      width: 8cm;
+    }
+  </style>
+  <div class="box">
+    <form action="./clientadddb.php" method="post" class="needs-validation was-validated">
+      <div class="row row-sm">
+        <div class="col-lg-4" style="display: grid; grid-template-columns: auto auto auto ; gap: 1.5cm; ">
+          <div class="form-group has-success mg-b-0">
+            <p class="mg-b-10">Company Name *</p>
+            <input class="form-control width" placeholder="Company Name" name="Company_Name" required type="text">
+          </div><!-- form-group -->
+
+          <div class="form-group has-success mg-b-0">
+            <p class="mg-b-10">Name *</p>
+            <input class="form-control width" placeholder="Name" name="Name" required type="text">
+          </div><!-- form-group -->
+
+          <div class="form-group has-success mg-b-0">
+            <p class="mg-b-10">GSTIN Number *</p>
+            <input class="form-control width" placeholder="GSTIN Number " name="GSTIN_Number" required type="text">
+          </div><!-- form-group -->
+
+          <div class="form-group has-success mg-b-0">
+            <p class="mg-b-10">E-mail *</p>
+            <input class="form-control width" placeholder="E-mail " name="Email" required type="email">
+          </div><!-- form-group -->
+
+          <div class="form-group has-success mg-b-0">
+            <p class="mg-b-10">Phone Number *</p>
+            <input class="form-control width" placeholder="Phone Number" name="Phone_Number" value="+91-" required type="text">
+          </div><!-- form-group -->
+
+          <div class="form-group has-success mg-b-0">
+            <p class="mg-b-10">Address *</p>
+            <input class="form-control width" placeholder="Address" name="Address" required type="text">
+          </div><!-- form-group -->
+
+
+          <div class="form-group has-success mg-b-0">
+            <p class="mg-b-10">City *</p>
+            <input class="form-control width" placeholder="City" name="City" required type="text">
+          </div><!-- form-group -->
+
+          <div class="form-group has-success mg-b-0">
+            <p class="mg-b-10">State *</p>
+            <input class="form-control width" placeholder="State" name="State" required type="text">
+          </div><!-- form-group -->
+
+          <div class="form-group has-success mg-b-0">
+            <p class="mg-b-10">Postal Code *</p>
+            <input class="form-control width" placeholder="Postal Code" name="Postal_Code" required type="text">
+          </div><!-- form-group -->
+
+
+          <div class="form-group has-success mg-b-0">
+            <p class="mg-b-10">Country *</p>
+            <input class="form-control width" placeholder="Postal Code" name="Country" required type="text">
+          </div><!-- form-group -->
+
+
+          <div class="form-group has-success mg-b-0">
+            <p class="mg-b-10">Supplier Custome Field 1 </p>
+            <input class="form-control width" placeholder="Supplier Custome Field 1" name="f1" type="text">
+          </div><!-- form-group -->
+
+          <div class="form-group has-success mg-b-0">
+            <p class="mg-b-10">Supplier Custome Field 2 </p>
+            <input class="form-control width" placeholder="Supplier Custome Field 2" name="f2" type="text">
+          </div><!-- form-group -->
+
+          <div class="form-group has-success mg-b-0">
+            <p class="mg-b-10">Supplier Custome Field 3 </p>
+            <input class="form-control width" placeholder="Supplier Custome Field 3" name="f3" type="text">
+          </div><!-- form-group -->
+
+          <div class="form-group has-success mg-b-0">
+            <p class="mg-b-10">Supplier Custome Field 4 </p>
+            <input class="form-control width" placeholder="Supplier Custome Field 4" name="f4" type="text">
+          </div><!-- form-group -->
+
+          <div class="form-group has-success mg-b-0">
+            <p class="mg-b-10">Supplier Custome Field 5 </p>
+            <input class="form-control width" placeholder="Supplier Custome Field 5" name="f5" type="text">
+          </div><!-- form-group -->
+
+
+          <style>
+            .btn-az-secondary {
+              width: 7cm;
+              font-size: 20px;
+              font-family: Arial black;
+              border-radius: 20px;
+              margin-top: 1.8cm;
+              /* right: 10cm; */
+            }
+          </style>
+
+          <!-- <div class="form-group has-success mg-b-0"> -->
+
+
+
+        </div><!-- col -->
+
+        <div class="row row-xs wd-xl-80p"></div>
+        <div class="col-sm-6 col-md-3 mg-t-10 mg-sm-t-0"><button class="btn btn-az-secondary btn-block" name="submit">SUBMIT</button></div>
+      </div><!-- form-group -->
+    </form>
+
+  </div><!-- row -->
+
+
+
+
+
 
 
 
@@ -259,6 +331,7 @@
 
     });
   </script>
+  </div>
 </body>
 
 </html>

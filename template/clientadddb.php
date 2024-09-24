@@ -29,7 +29,7 @@ if (isset($_POST["submit"])) {
    $f5 = $_POST['f5'];
 
 
-   $query = "SELECT * FROM supplier_info WHERE gstin_no = '" . $GSTIN_Number . "' ";
+   $query = "SELECT * FROM client_info WHERE gstin_no = '" . $GSTIN_Number . "' ";
 
    $result = $conn->query($query);
 
@@ -37,14 +37,14 @@ if (isset($_POST["submit"])) {
       if (mysqli_num_rows($result) > 0) {
 
          echo "<script>alert('This item is already available');
-      window.location.href=' ./Addsupplier.php';
+      window.location.href=' ./Addclients.php';
       </script>";
       } else {
 
 
 
 
-         $sql1 = "INSERT INTO supplier_info (company_name , gstin_no , email_id  , phone_no  , city , state , postal_code , country , f1 , f2 , f3 , f4 , f5 , name  ,addr_comp)
+         $sql1 = "INSERT INTO client_info (company_name , gstin_no , email_id  , phone_no  , city , state , postal_code , country , f1 , f2 , f3 , f4 , f5 , name  ,addr_comp)
                             VALUES ('$Company_Name','$GSTIN_Number','$Email','$Phone_Number','$City','$State','$Postal_Code' , '$Country' , '$f1', '$f2' , '$f3', '$f4' , '$f5' , '$Name' ,'$Address') ";
          // , product_code , product_type , product_category , purchese_price , product_price , gstret , kg , img , product_info 
 
@@ -52,7 +52,7 @@ if (isset($_POST["submit"])) {
          if ($conn->query($sql1) === TRUE) {
 
             echo "<script>alert('New record created successfully');
-                 window.location.href=' ./Addsupplier.php';
+                 window.location.href=' ./Addclients.php';
                  </script>";
          } else {
             echo "Error: " . $sql1 . "<br>" . $conn->error;

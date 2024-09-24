@@ -3,18 +3,16 @@
 require_once('./conn/dbconn.php');
 
 if (isset($_POST['add']) == true) {
-    $product_PO = $_POST['productname'];
+    $product_name = $_POST['productname'];
     $qui = $_POST['quantity'];
     $quantity = floatval($qui);
 
-    //   echo $product_name;
+
 
     //  $sql6 = "SELECT * FROM addcard WHERE product_code = ".$product_name.";
 
 
-    // $query = 'SELECT *  FROM product  WHERE product_code = '.$product_name.'';
-    $query = "SELECT * FROM marze WHERE product_code = '" . $product_PO . "'";
-
+    $query = "SELECT * FROM raw_product  WHERE product_code = '" . $product_name . "'";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
@@ -29,17 +27,18 @@ if (isset($_POST['add']) == true) {
             $sgst_amount = ($row['purchese_price'] * ($row['gstret'] / 2)) / 100;
             $igst_amount = ($row['purchese_price'] * $row['igst']) / 100;
             $tex_price = $row['purchese_price'] + (($row['purchese_price'] * $row['gstret']) / 100) + (($row['purchese_price'] * $row['cess']) / 100) + $igst_amount;
-            $cess_amount = (($row['purchese_price'] * $row['cess']) / 100);
+            $cess_amount =   (($row['purchese_price'] * $row['cess']) / 100);
 
 
-            $sql = "INSERT INTO `addcard`( `product_code`, `product_name`, `net_unit`, `quantity`, `cgst`, `sgst`, `igst`, `cess`, `cgst_amount`, `sgst_amount`, `igst_amout`, `cess_amount`) VALUES ('" . $row['product_code'] . "','" . $row['product_name'] . "','" . $tex_price . "','" . $quantity . "','" . $net  . "','" . $net . "','" . $row['igst'] . "','" . $row['cess'] . "','" . $cgst_amount . "','" . $sgst_amount . "','" . $igst_amount . "','" . $cess_amount . "')";
+            $sql = "INSERT INTO `addcard_raw`( `product_name`, `net_unit`, `quantity`, `cgst`, `sgst`, `igst`, `cess`, `cgst_amount`, `sgst_amount`, `igst_amout`, `cess_amount` , `product_code`) VALUES
+         ('" . $row['product_name'] . "','" . $tex_price . "','" . $quantity . "','" . $net  . "','" . $net . "','" . $row['igst'] . "','" . $row['cess'] . "','" . $cgst_amount . "','" . $sgst_amount . "','" . $igst_amount . "','" . $cess_amount . "','" . $row['product_code'] . "')";
             $stmt = $conn->prepare($sql);
 
 
             if ($stmt->execute()) {
                 echo "Product added to cart successfully.";
                 echo "<script>
-            window.location.href=' ./Additems.php';
+            window.location.href=' ./purchAddrawmet.php';
             </script>";
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;

@@ -1,36 +1,36 @@
 <?php
-        require_once("./navbar/nav.php");
-        require_once("./conn/dbconn.php");
+require_once("./navbar/nav.php");
+require_once("./conn/dbconn.php");
 
 
-    //     $pro_code = $_POST['add'];
-    //     $qui = $_POST['qui'];
+//     $pro_code = $_POST['add'];
+//     $qui = $_POST['qui'];
 
-    //   $user = $_SESSION["username"]; 
+//   $user = $_SESSION["username"]; 
 
-    //   echo $user;
-      
-
-    //     // echo $pro_code;
-    //     $sql = "SELECT * FROM product WHERE product_code = '$pro_code' ";
-
-    //     $result1 = $conn->query($sql);
+//   echo $user;
 
 
-    //     if ($result1->num_rows > 0){
-    //         while ($row = $result1->fetch_assoc()) {
-    //                 echo $row['product_name'];
+//     // echo $pro_code;
+//     $sql = "SELECT * FROM product WHERE product_code = '$pro_code' ";
 
-    //         }
-    //     }
+//     $result1 = $conn->query($sql);
 
-    //     echo $qui;
-      
+
+//     if ($result1->num_rows > 0){
+//         while ($row = $result1->fetch_assoc()) {
+//                 echo $row['product_name'];
+
+//         }
+//     }
+
+//     echo $qui;
+
 
 ?>
 
 <style>
-    .az-header{
+    .az-header {
         display: none;
     }
 </style>
@@ -39,75 +39,72 @@
 <?php
 
 
-if(isset($_POST['add']) == true){
+if (isset($_POST['add']) == true) {
 
     // $product_name = $_POST['productname'];
     // $qui = $_POST['quantity'];
     // $quantity = floatval($qui);
 
-  
-        $pro_code = $_POST['add'];
-        $qui = $_POST['qui'];
 
-      $user = $_SESSION["username"]; 
-    
- $quichk = "SELECT * FROM product WHERE product_code = ".$pro_code."";
- $quires = $conn -> query($quichk);
+    $pro_code = $_POST['add'];
+    $qui = $_POST['qui'];
 
- 
-if ($quires ->num_rows > 0) {
+    $user = $_SESSION["username"];
+
+    $quichk = "SELECT * FROM product WHERE product_code = " . $pro_code . "";
+    $quires = $conn->query($quichk);
 
 
-    while ($quirow = $quires -> fetch_assoc()) {
+    if ($quires->num_rows > 0) {
 
-        if( $qui >= $quirow['quentity'] ){
 
-            echo "<script>
+        while ($quirow = $quires->fetch_assoc()) {
+
+            if ($qui >= $quirow['quentity']) {
+
+                echo "<script>
             window.location.href=' ./p.php';
             </script>";
-               
-
-        }else{
+            } else {
 
 
-$up = "UPDATE product SET quentity  =  quentity - '".$qui."'  WHERE product_code = '".$pro_code."' ";
-$reup = $conn -> query($up);
+                $up = "UPDATE product SET quentity  =  quentity - '" . $qui . "'  WHERE product_code = '" . $pro_code . "' ";
+                $reup = $conn->query($up);
 
-if($reup == true){
-$query = "SELECT *  FROM users  WHERE username = '".$user."'";
-$result = $conn->query($query);
+                if ($reup == true) {
+                    $query = "SELECT *  FROM users  WHERE username = '" . $user . "'";
+                    $result = $conn->query($query);
 
-if ($result ->num_rows > 0) {
-
-
-    while ($row = $result -> fetch_assoc()) {
-
-     
+                    if ($result->num_rows > 0) {
 
 
-        $sql = "INSERT INTO `sales`( `product_id`, `quantity`, `users`) VALUES
-         (".$pro_code.",'".$qui."','".$row["code"]."')";
-        $stmt = $conn->query($sql);
+                        while ($row = $result->fetch_assoc()) {
 
 
-        if ($stmt == true ) {
-            // echo "Product added to cart successfully.";
-            echo "<script>
+
+
+                            $sql = "INSERT INTO `sales`( `product_id`, `quantity`, `users`) VALUES
+         (" . $pro_code . ",'" . $qui . "','" . $row["code"] . "')";
+                            $stmt = $conn->query($sql);
+
+
+                            if ($stmt == true) {
+                                // echo "Product added to cart successfully.";
+                                echo "<script>
             window.location.href=' ./p.php';
             </script>";
-          
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+                            } else {
+                                echo "Error: " . $sql . "<br>" . $conn->error;
+                            }
+
+                            $stmt->close();
+                        }
+                    }
+
+                    // }
+                }
+            }
         }
-    
-        $stmt->close();
     }
-}
-        
-// }
-    }
-}
-    }
-}
 }
 ?>

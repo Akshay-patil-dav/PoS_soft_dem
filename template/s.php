@@ -29,17 +29,16 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
-    <div id="display-image">
-        <?php
-        $query = " select * from product ";
-        $result = mysqli_query($conn, $query);
+<div id="display-image">
+    <?php
+    $query = " select * from product ";
+    $result = mysqli_query($conn, $query);
 
-        while ($data = mysqli_fetch_assoc($result)) {
-        ?>
-            <img src="./image/<?php echo $data['filename']; ?>">
+    while ($data = mysqli_fetch_assoc($result)) {
+    ?>
+        <img src="./image/<?php echo $data['filename']; ?>">
 
-        <?php
-        }
-        ?>
-    </div>
-
+    <?php
+    }
+    ?>
+</div>

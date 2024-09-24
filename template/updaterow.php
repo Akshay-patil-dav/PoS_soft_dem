@@ -29,7 +29,7 @@ $pro_id = $_POST['valueid'];
 
 echo '' . $pro_id . '';
 
-$sql = "SELECT * FROM product WHERE id = $pro_id";
+$sql = "SELECT * FROM raw_product WHERE id = '" . $pro_id . "'";
 $result = $conn->query($sql);
 $i = 1;
 if ($result->num_rows > 0) {
@@ -51,7 +51,7 @@ if ($result->num_rows > 0) {
       }
     </style>
     <div class="box">
-      <form action="./updateproduct.php" method="post">
+      <form action="./updaterowproduct.php" method="post">
 
 
         <!-- <div class="col-lg-4"  > -->

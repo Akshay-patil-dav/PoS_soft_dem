@@ -70,7 +70,7 @@ if (isset($_POST["submit"])) {
 
 
 
-  $sql = "UPDATE product SET   product_type = '$producttype', product_name ='$productname' ,product_category = '$productcategory' ,purchese_price = '$purcheseprice',product_price = '$productprice' ,gstret = '$gst',kg = '$kg' ,img = '$img' ,product_info = '$productinfo'  WHERE id =$sub";
+  $sql = "UPDATE raw_product SET   product_type = '$producttype', product_name ='$productname' ,product_category = '$productcategory' ,purchese_price = '$purcheseprice',product_price = '$productprice' ,gstret = '$gst',kg = '$kg' ,img = '$img' ,product_info = '$productinfo'  WHERE id =$sub";
   // , product_code , product_type , product_category , purchese_price , product_price , gstret , kg , img , product_info 
 
   // $sql = "UPDATE product SET product_type ='$producttype'  WHERE id =$sub";
@@ -78,7 +78,7 @@ if (isset($_POST["submit"])) {
   if ($conn->query($sql) === TRUE) {
 
     echo "<script>alert('Record Update successfully');
-                  window.location.href=' ./productlist.php';
+                  window.location.href=' ./row.php';
                   </script>";
   } else {
     echo "Error: " . $sql . "<br>" . $conn->error;

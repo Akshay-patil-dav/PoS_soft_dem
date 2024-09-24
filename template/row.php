@@ -101,7 +101,7 @@ require_once("./navbar/nav.php");
           width: 8cm;
           border-radius: 20px;
           position: relative;
-          left: 80vw;
+          left: 35cm;
           top: 2.5cm;
         }
 
@@ -134,12 +134,12 @@ require_once("./navbar/nav.php");
 
           /* background-color: red; */
           /* border: 1px solid; */
-          text-align: center;
-          width: 5px;
+          text-align: left;
+          width: 2px;
         }
       </style>
 
-<!-- 
+
       <table class="table table-striped mg-b-0  ">
         <thead>
           <tr>
@@ -153,32 +153,20 @@ require_once("./navbar/nav.php");
             <th class="l1">purchese_price</th>
             <th class="l1">product_price</th>
             <th class="l1">CESS</th>
-            <th class="l1">Quentity</th>
             <th class="l1">Activity</th>
 
           </tr>
         </thead>
-      </table> -->
+      </table>
       <div class="table-responsive ex4">
 
         <table class="table table-striped mg-b-0  " id="myTable">
-        <thead>
-          <tr>
+          <thead style="text-align: center;">
+            <tr>
 
-            <th class="l1">ID</th>
-            <th class="l1">product_name</th>
-            <th class="l1">product_code</th>
-            <th class="l1">product_type</th>
-            <th class="l1">product_category</th>
-            <th class="l1" style="width: 3cm;">GST</th>
-            <th class="l1">purchese_price</th>
-            <th class="l1">product_price</th>
-            <th class="l1">CESS</th>
-            <th class="l1">Quentity</th>
-            <th class="l1">Activity</th>
 
-          </tr>
-        </thead>
+            </tr>
+          </thead>
 
           <tbody>
 
@@ -189,7 +177,7 @@ require_once("./navbar/nav.php");
 
             <?php
             // $tbl="users"; // Table name 
-            $sql = "SELECT * FROM product WHERE product_type != 'Raw'";
+            $sql = "SELECT * FROM product WHERE  product_type = 'Raw'";
             $result = $conn->query($sql);
             $i = 1;
             if ($result->num_rows > 0) {
@@ -202,20 +190,6 @@ require_once("./navbar/nav.php");
             ?>
                 <tr>
 
-                <style>
-                  .greeencolorqui{
-                    background-color: green;
-                    padding: 8px;
-                    color: white;
-                    
-                  }
-                  .redcolorqui{
-                    background-color: red;
-                    padding: 8px;
-                    color: white;
-                    
-                  }
-                </style>
                   <th scope="row"><?php echo $i++; ?></th>
                   <td><?php echo  $row['product_name']; ?></td>
                   <td><?php echo  $row['product_code']; ?></td>
@@ -225,19 +199,7 @@ require_once("./navbar/nav.php");
                   <td><?php echo  $row['purchese_price']; ?></td>
                   <td><?php echo  $row['product_price']; ?></td>
                   <td><?php echo  $row['cess']; ?></td>
-                  <td>
-                    <?php
-                    
-                    if($row['quentity'] <10){
 
-                      echo "<b class='redcolorqui' >".$row['quentity']."</b>";
-                    }else{
-                      echo "<b class='greeencolorqui' >".$row['quentity']."</b>"; 
-                    }
-                    
-                    
-                    ?>
-                </td>
                   <td>
                     <style>
                       .btn-primary {
@@ -263,14 +225,14 @@ require_once("./navbar/nav.php");
                       }
                     </style>
                     <div style="display: flex; gap: 1cm; ">
-                      <form action="./Updateproductt.php" method="post" class="btndel">
+                      <form action="./updaterow.php" method="post" class="btndel">
                         <button class="btn btn-primary btn-block" name=" valueid" value="<?php echo $row['id']; ?>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                             <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                           </svg></button>
                       </form>
 
-                      <form action="./deleteitem.php" method="get" class="btndel">
+                      <form action="./updaterow.php" method="get" class="btndel">
 
                         <button name=" id" value="<?php echo $row['id']; ?>" class="btn btn-danger btn-block"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                             <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
@@ -309,7 +271,7 @@ require_once("./navbar/nav.php");
   <?php
 
 
-  $sql = "SELECT COUNT(id) AS count FROM product WHERE product_type != 'Raw' ";
+  $sql = "SELECT COUNT(id) AS count FROM product  WHERE  product_type = 'Raw' ";
   $result = $conn->query($sql);
   $i = 1;
   if ($result->num_rows > 0) {
@@ -328,11 +290,11 @@ require_once("./navbar/nav.php");
           width: 6cm;
           position: relative;
           margin-left: 10cm;
-          bottom: 25.7cm;
+          bottom: 26.3cm;
         }
       </style>
       <div class="ppcount">
-        <b>Total Product </b>
+        <b>Total Purchese </b>
         <?php
         echo $row['count'];
         ?>

@@ -1,32 +1,35 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90680653-2"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      gtag('config', 'UA-90680653-2');
-    </script>
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90680653-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
 
-    <!-- Twitter -->
-    <!-- <meta name="twitter:site" content="@bootstrapdash">
+    gtag('config', 'UA-90680653-2');
+  </script>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel>
+  <!-- Twitter -->
+  <!-- <meta name="twitter:site" content="@bootstrapdash">
     <meta name="twitter:creator" content="@bootstrapdash">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Azia">
     <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
     <meta name="twitter:image" content="https://www.bootstrapdash.com/azia/img/azia-social.png"> -->
 
-    <!-- Facebook -->
-    <!-- <meta property="og:url" content="https://www.bootstrapdash.com/azia">
+  <!-- Facebook -->
+  <!-- <meta property="og:url" content="https://www.bootstrapdash.com/azia">
     <meta property="og:title" content="Azia">
     <meta property="og:description" content="Responsive Bootstrap 4 Dashboard Template">
 
@@ -36,269 +39,355 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="600"> -->
 
-    <!-- Meta -->
-    <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
-    <meta name="author" content="BootstrapDash">
+  <!-- Meta -->
+  <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
+  <meta name="author" content="BootstrapDash">
 
-    <!-- <title>Azia Responsive Bootstrap 4 Dashboard Template</title> -->
+  <!-- <title>Azia Responsive Bootstrap 4 Dashboard Template</title> -->
 
-    <!-- vendor css -->
-    <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
-    <link href="../lib/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+  <!-- vendor css -->
+  <link href="../lib/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="../lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="../lib/typicons.font/typicons.css" rel="stylesheet">
+  <link href="../lib/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
 
-    <!-- azia CSS -->
-    <link rel="stylesheet" href="../css/azia.css">
-    <link rel="icon" href="./logo/Untitled design (1).png" type="image/icon type">
-    <title>AUE</title>
+  <!-- azia CSS -->
+  <link rel="stylesheet" href="../css/azia.css">
+  <link rel="icon" href="./logo/Untitled design (1).png" type="image/icon type">
+  <title>AUE</title>
 
-  </head>
-  <body>
-  <?php 
+</head>
 
-    // include("./nav.html");
-    require_once("./navbar/nav.php");
-?>
-<br><br>
-    <h5 style="margin-left: 9.9cm;" ><i class="typcn typcn-chart-area-outline"></i> / Dashboard</h5>
-    <style>
-              #datetime{
-                font-family: Arial black;
-                margin-left: 34cm;
-                position: relative;
-                bottom: 0.8cm;
-              }
-            </style>
-            <div id="datetime"></div>
-            <script>
-        function updateDateTime() {
-            const now = new Date();
-            const options = { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric', 
-                hour: '2-digit', 
-                minute: '2-digit', 
-                second: '2-digit', 
-                hour12: true 
-            };
-            const dateTimeString = now.toLocaleDateString('en-US', options);
-            document.getElementById('datetime').textContent = dateTimeString;
-        }
+<body>
+  <?php
 
-        // Update date and time every second
-        setInterval(updateDateTime, 1000);
+  // include("./nav.html");
+  require_once("./navbar/nav.php");
+  ?>
+  <br><br>
+  <h5 class="Dashboard"><i class="typcn typcn-chart-area-outline"></i> / Dashboard</h5>
+  <style>
+    @media only screen and (max-width: 1780px) {
+      #datetime {
+        font-family: Arial black;
+        /* margin-left: 24cm; */
+        position: relative;
+        right: 5cm;
+        bottom: 0.8cm;
+      }
 
-        // Initial call to display date and time immediately
-        updateDateTime();
-    </script>
-    <div class="az-content az-content-dashboard">
-      <div class="container">
-        <div class="az-content-body">
-          <div class="az-dashboard-one-title">
-            <div>
-              <h2 class="az-dashboard-title">Hi, welcome back!</h2>
-              <p class="az-dashboard-text">Your web analytics dashboard template.</p>
-            </div>
+      .Dashboard {
+        position: relative;
+        right: 3cm;
+      }
+    }
 
-          
-            <div class="az-content-header-right">
-              <div class="media">
-                <div class="media-body">
-                  <label>Start Date</label>
-                  <h6>Oct 10, 2018</h6>
-                </div><!-- media-body -->
-              </div><!-- media -->
-              <div class="media">
-                <div class="media-body">
-                  <label>End Date</label>
-                  <h6>Oct 23, 2018</h6>
-                </div><!-- media-body -->
-              </div><!-- media -->
-              <div class="media">
-                <div class="media-body">
-                  <label>Event Category</label>
-                  <h6>All Categories</h6>
-                </div><!-- media-body -->
-              </div><!-- media -->
+    @media only screen and (max-width: 1780px) {
+      #datetime {
+        display: none;
+      }
 
-              <input type="button" class="btn btn-purple" placeholder="POS SELL" value="POS SELL"  data-toggle="modal" data-target="#exampleModal" data-whatever="<?php echo  $_SESSION["username"]; ?>">
+      .Dashboard {
+        position: relative;
+        right: 9cm;
+      }
+    }
 
+    #datetime {
+      font-family: Arial black;
+      margin-left: 33cm;
+      position: relative;
+      bottom: 0.8cm;
+    }
 
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name" value="<?php echo  $_SESSION["username"]; ?>" placeholder="<?php echo  $_SESSION["username"]; ?>" >
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-      
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <form action="./p.php" >
+    .Dashboard {
+      margin-left: 10cm;
+    }
+  </style>
+  <div id="datetime"></div>
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      };
+      const dateTimeString = now.toLocaleDateString('en-US', options);
+      document.getElementById('datetime').textContent = dateTimeString;
+    }
 
-        <script>
-          function next(){
-            window.location.href=' ./p.php';
-          }
-          </script>
-        <button class="btn btn-purple" onclick="next()" >Continue</button>
-        </form>
-      </div>
-      
-    </div>
-  </div>
-</div>
+    // Update date and time every second
+    setInterval(updateDateTime, 1000);
 
-
-<script>
-  $('#exampleModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var recipient = button.data('whatever') // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-  var modal = $(this)
-  modal.find('.modal-title').text('Cass in hand ' + recipient)
-  modal.find('.modal-body input').val(recipient)
-})
-</script>
-            </div>
-          </div><!-- az-dashboard-one-title -->
-
-          <div class="az-dashboard-nav"> 
-            <nav class="nav">
-              <a class="nav-link active" data-toggle="tab" href="#">Overview</a>
-              <a class="nav-link" data-toggle="tab" href="#">Audiences</a>
-              <a class="nav-link" data-toggle="tab" href="#">Demographics</a>
-              <a class="nav-link" data-toggle="tab" href="#">More</a>
-            </nav>
-
-            <nav class="nav">
-              <a class="nav-link" href="#"><i class="far fa-save"></i> See Report</a>
-              <a class="nav-link" href="#"><i class="far fa-file-pdf"></i> Export to PDF</a>
-              <a class="nav-link" href="#"><i class="far fa-envelope"></i>Send to Email</a>
-              <a class="nav-link" href="#"><i class="fas fa-ellipsis-h"></i></a>
-            </nav>
+    // Initial call to display date and time immediately
+    updateDateTime();
+  </script>
+  <div class="az-content az-content-dashboard">
+    <div class="container">
+      <div class="az-content-body">
+        <div class="az-dashboard-one-title">
+          <div>
+            <h2 class="az-dashboard-title">Hi, welcome back!</h2>
+            <p class="az-dashboard-text">Your web analytics dashboard template.</p>
           </div>
 
-          <div class="row row-sm mg-b-20">
-            <div class="col-lg-7 ht-lg-100p">
-              <div class="card card-dashboard-one">
-                <div class="card-header">
-                  <div>
-                    <h6 class="card-title">Website Audience Metrics</h6>
-                    <p class="card-text">Audience to which the users belonged while on the current date range.</p>
+
+          <div class="az-content-header-right">
+            <div class="media">
+              <div class="media-body">
+                <label>Start Date</label>
+
+
+                <?php
+
+
+                $query2 = 'SELECT * FROM start_now_value';
+                $result2 = $conn->query($query2);
+
+
+                if ($result2->num_rows > 0) {
+
+                  while ($row2 = $result2->fetch_assoc()) {
+                ?>
+                    <h6><?php echo $row2['d1_start'] ?></h6>
+
+
+              </div><!-- media-body -->
+            </div><!-- media -->
+            <div class="media">
+              <div class="media-body">
+                <label>End Date</label>
+                <h6><?php echo $row2['d2_stop'] ?></h6>
+
+            <?php }
+                } ?>
+              </div><!-- media-body -->
+            </div><!-- media -->
+            <div class="media">
+              <div class="media-body">
+                <label>Event Category</label>
+                <h6>All Categories</h6>
+              </div><!-- media-body -->
+            </div><!-- media -->
+
+            <input type="button" class="btn btn-purple" placeholder="POS SELL" value="POS SELL" data-toggle="modal" data-target="#exampleModal" data-whatever="<?php echo  $_SESSION["username"]; ?>">
+
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
                   </div>
-                  <div class="btn-group">
+                  <div class="modal-body">
+
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Recipient:</label>
+                      <input type="text" class="form-control" id="recipient-name" value="<?php echo  $_SESSION["username"]; ?>" placeholder="<?php echo  $_SESSION["username"]; ?>">
+                    </div>
+                    <div class="form-group">
+                      <label for="message-text" class="col-form-label">Message:</label>
+                      <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form action="./p.php">
+
+                      <script>
+                        function next() {
+                          window.location.href = ' ./p.php';
+                        }
+                      </script>
+                      <button class="btn btn-purple" onclick="next()">Continue</button>
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+            <script>
+              $('#exampleModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var recipient = button.data('whatever') // Extract info from data-* attributes
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                var modal = $(this)
+                modal.find('.modal-title').text('Cass in hand ' + recipient)
+                modal.find('.modal-body input').val(recipient)
+              })
+            </script>
+          </div>
+        </div><!-- az-dashboard-one-title -->
+
+        <div class="az-dashboard-nav">
+          <nav class="nav">
+            <a class="nav-link active" data-toggle="tab" href="#">Overview</a>
+            <a class="nav-link" data-toggle="tab" href="#">Audiences</a>
+            <a class="nav-link" data-toggle="tab" href="#">Demographics</a>
+            <a class="nav-link" data-toggle="tab" href="#">More</a>
+          </nav>
+
+          <nav class="nav">
+            <a class="nav-link" href="#"><i class="far fa-save"></i> See Report</a>
+            <a class="nav-link" href="#"><i class="far fa-file-pdf"></i> Export to PDF</a>
+            <a class="nav-link" href="#"><i class="far fa-envelope"></i>Send to Email</a>
+            <a class="nav-link" href="#"><i class="fas fa-ellipsis-h"></i></a>
+          </nav>
+        </div>
+
+        <div class="row row-sm mg-b-20">
+          <div class="col-lg-7 ht-lg-100p">
+            <div class="card card-dashboard-one">
+              <div class="card-header">
+                <div>
+                  <h6 class="card-title">Website Audience Metrics</h6>
+                  <p class="card-text">Audience to which the users belonged while on the current date range.</p>
+                </div>
+                <!-- <div class="btn-group">
                     <button class="btn active">Day</button>
                     <button class="btn">Week</button>
                     <button class="btn">Month</button>
+                  </div> -->
+              </div><!-- card-header -->
+              <div class="card-body">
+                <div class="card-body-top">
+                  <div>
+                    <label class="mg-b-0">Users</label>
+
+                    <?php
+                    require_once("./conn/dbconn.php");
+
+                    $sql98 = " SELECT COUNT(id) AS PP FROM users ";
+                    $result2 = $conn->query($sql98);
+
+                    if ($result2->num_rows > 0) {
+
+                      while ($row2 = $result2->fetch_assoc()) {
+                    ?>
+                        <h2><?php echo $row2['PP']; ?></h2>
+                    <?php
+                      }
+                    }
+                    ?>
                   </div>
-                </div><!-- card-header -->
-                <div class="card-body">
-                  <div class="card-body-top">
-                    <div>
-                      <label class="mg-b-0">Users</label>
-                      
-                      <?php   
-                      require_once("./conn/dbconn.php");
+                  <div>
+                    <label class="mg-b-0">Selling Items</label>
+                    <?php
+                    require_once("./conn/dbconn.php");
 
-                          $sql98 = " SELECT COUNT(id) AS PP FROM users ";
-                          $result2 = $conn->query($sql98);
+                    $sql98 = " SELECT SUM(quentity) AS PP FROM product ";
+                    $result2 = $conn->query($sql98);
 
-                           if ($result2->num_rows > 0){
-                
-                            while ($row2 = $result2->fetch_assoc()) {
-                      ?>
-                          <h2><?php echo $row2['PP']; ?></h2>
-                      <?php
-                            }}
-                      ?>
-                    </div>
-                    <div>
-                      <label class="mg-b-0">Selling Items</label>
-                      <?php   
-                      require_once("./conn/dbconn.php");
+                    if ($result2->num_rows > 0) {
 
-                          $sql98 = " SELECT SUM(quentity) AS PP FROM product ";
-                          $result2 = $conn->query($sql98);
+                      while ($row2 = $result2->fetch_assoc()) {
+                    ?>
+                        <h2><?php echo $row2['PP']; ?></h2>
+                    <?php
+                      }
+                    }
+                    ?>
+                  </div>
+                  <div>
+                    <label class="mg-b-0">customers</label>
 
-                           if ($result2->num_rows > 0){
-                
-                            while ($row2 = $result2->fetch_assoc()) {
-                      ?>
-                          <h2><?php echo $row2['PP']; ?></h2>
-                      <?php
-                            }}
-                      ?>
-                    </div>
-                    <div>
-                      <label class="mg-b-0">customers</label>
-                      <h2>83,123</h2>
-                    </div>
-                    <div>
-                      <label class="mg-b-0">Sessions</label>
-                      
-                      <h2>16,869</h2>
-                    </div>
-                  </div><!-- card-body-top -->
-                  <div class="flot-chart-wrapper">
-                    <div id="flotChart" class="flot-chart"></div>
-                  </div><!-- flot-chart-wrapper -->
-                </div><!-- card-body -->
-              </div><!-- card -->
-            </div><!-- col -->
-            <div class="col-lg-5 mg-t-20 mg-lg-t-0">
-              <div class="row row-sm">
-                <div class="col-sm-6">
-                  <div class="card card-dashboard-two">
-                    <div class="card-header">
-                      <h6>33.50 Rs <i class="icon ion-md-trending-up tx-success"></i> </h6>
-                      <p>Sells</p>
-                    </div><!-- card-header -->
-                    <div class="card-body">
-                      <div class="chart-wrapper">
-                        <div id="flotChart1" class="flot-chart"></div>
-                      </div><!-- chart-wrapper -->
-                    </div><!-- card-body -->
-                  </div><!-- card -->
-                </div><!-- col -->
-                <div class="col-sm-6 mg-t-20 mg-sm-t-0">
-                  <div class="card card-dashboard-two">
-                    <div class="card-header">
-                      <h6>86k  </h6>
-                      <p>Total Custamers</p>
-                    </div><!-- card-header -->
-                    <div class="card-body">
-                      <div class="chart-wrapper">
-                        <div id="flotChart2" class="flot-chart"></div>
-                      </div><!-- chart-wrapper -->
-                    </div><!-- card-body -->
-                  </div><!-- card -->
-                </div><!-- col -->
-                <div class="col-sm-12 mg-t-20">
-                  <div class="card card-dashboard-three">
-                    <div class="card-header">
-                      <p>All Sessions</p>
-                      <h6>16,869 <small class="tx-success"><i class="icon ion-md-arrow-up"></i> 2.87%</small></h6>
-                      <small>The total number of sessions within the date range. It is the period time a user is actively engaged with your website, page or app, etc.</small>
-                    </div><!-- card-header -->
-                    <div class="card-body">
-                      <div class="chart"><canvas id="chartBar5"></canvas</div>
+
+
+                    <?php
+                    $sql = "SELECT COUNT(id) AS count FROM sell_info WHERE date = CURRENT_DATE() AND users = '" . $_SESSION["username"] . "' ";
+                    $result = $conn->query($sql);
+                    $i = 1;
+                    if ($result->num_rows > 0) {
+                      // output data of each row
+
+                      while ($row = $result->fetch_assoc()) {
+                    ?>
+
+                        <h2><?PHP echo $row['count']; ?></h2>
+
+
+
+                    <?PHP }
+                    } ?>
+                  </div>
+                  <div>
+                    <label class="mg-b-0">Sessions</label>
+
+                    <h2>16,869</h2>
+                  </div>
+                </div><!-- card-body-top -->
+                <div class="flot-chart-wrapper">
+                  <div id="flotChart" class="flot-chart"></div>
+                </div><!-- flot-chart-wrapper -->
+              </div><!-- card-body -->
+            </div><!-- card -->
+          </div><!-- col -->
+          <div class="col-lg-5 mg-t-20 mg-lg-t-0">
+            <div class="row row-sm">
+              <div class="col-sm-6">
+                <div class="card card-dashboard-two">
+                  <div class="card-header">
+
+                    <?php
+
+                    // $sql = "SELECT SUM(total_price) AS count FROM sell_info WHERE pay = 'Online' OR pay = 'Cash' OR pay = 'check' OR pay = 'paypal' ";
+                    $sql = "SELECT SUM(total_price) AS count FROM sell_info WHERE  pay != 'Pending' AND date = CURRENT_DATE()  AND users = '" . $_SESSION["username"] . "' ";
+
+                    $result = $conn->query($sql);
+                    $i = 1;
+                    if ($result->num_rows > 0) {
+                      // output data of each row
+
+                      while ($row = $result->fetch_assoc()) {
+                    ?>
+
+                        <h6><?PHP echo $row['count']; ?> Rs <i class="icon ion-md-trending-up tx-success"></i> </h6>
+
+                    <?php }
+                    } ?>
+                    <p>Sells</p>
+                  </div><!-- card-header -->
+                  <div class="card-body">
+                    <div class="chart-wrapper">
+                      <div id="flotChart1" class="flot-chart"></div>
+                    </div><!-- chart-wrapper -->
+                  </div><!-- card-body -->
+                </div><!-- card -->
+              </div><!-- col -->
+              <div class="col-sm-6 mg-t-20 mg-sm-t-0">
+                <div class="card card-dashboard-two">
+                  <div class="card-header">
+                    <h6>86k </h6>
+                    <p>Total Custamers</p>
+                  </div><!-- card-header -->
+                  <div class="card-body">
+                    <div class="chart-wrapper">
+                      <div id="flotChart2" class="flot-chart"></div>
+                    </div><!-- chart-wrapper -->
+                  </div><!-- card-body -->
+                </div><!-- card -->
+              </div><!-- col -->
+              <div class="col-sm-12 mg-t-20">
+                <div class="card card-dashboard-three">
+                  <div class="card-header">
+                    <p>All Sessions</p>
+                    <h6>16,869 <small class="tx-success"><i class="icon ion-md-arrow-up"></i> 2.87%</small></h6>
+                    <small>The total number of sessions within the date range. It is the period time a user is actively engaged with your website, page or app, etc.</small>
+                  </div><!-- card-header -->
+                  <div class="card-body">
+                    <div class="chart"><canvas id="chartBar5"></canvas< /div>
                     </div>
                   </div>
                 </div>
@@ -314,57 +403,36 @@
                   <p class="card-text">This report is based on 100% of sessions.</p>
                 </div><!-- card-header -->
                 <div class="card-body">
-                <?php   
-                      // require_once("./conn/dbconn.php");
+                  <?php
+                  // require_once("./conn/dbconn.php");
 
-                          $sql98 = " SELECT namuser FROM users ";
-                          $result2 = $conn->query($sql98);
+                  $sql98 = " SELECT namuser FROM users ";
+                  $result2 = $conn->query($sql98);
 
-                           if ($result2->num_rows > 0){
-                
-                            while ($row2 = $result2->fetch_assoc()) {
-                      ?>
-                          <!-- <h2></h2> -->
+                  if ($result2->num_rows > 0) {
 
-                          <div class="az-list-item">
-                    <div>
-                      <h6><?php echo $row2['namuser']; ?></h6>
-                      <span>/demo/admin/index.html</span>
-                    </div>
-                    <div>
-                      <h6 class="tx-primary">7,755</h6>
-                      <span>31.74% (-100.00%)</span>
-                    </div>
-                  </div><!-- list-group-item -->
-
-
-                  <div class="az-list-item">
-                    <div>
-                      <h6><?php echo $row2['namuser']; ?></h6>
-                      <span>/demo/admin/index.html</span>
-                    </div>
-                    <div>
-                      <h6 class="tx-primary">7,755</h6>
-                      <span>31.74% (-100.00%)</span>
-                    </div>
-                  </div><!-- list-group-item -->
+                    while ($row2 = $result2->fetch_assoc()) {
+                  ?>
+                      <!-- <h2></h2> -->
 
 
 
-                  <div class="az-list-item">
-                    <div>
-                      <h6><?php echo $row2['namuser']; ?></h6>
-                      <span>/demo/admin/index.html</span>
-                    </div>
-                    <div>
-                      <h6 class="tx-primary">7,755</h6>
-                      <span>31.74% (-100.00%)</span>
-                    </div>
-                  </div><!-- list-group-item -->
-                      <?php
-                            }}
-                      ?>
-            
+
+                      <div class="az-list-item">
+                        <div>
+                          <h6><?php echo $row2['namuser']; ?></h6>
+                          <span>/demo/admin/index.html</span>
+                        </div>
+                        <div>
+                          <h6 class="tx-primary">7,755</h6>
+                          <span>31.74% (-100.00%)</span>
+                        </div>
+                      </div><!-- list-group-item -->
+                  <?php
+                    }
+                  }
+                  ?>
+
                 </div><!-- card-body -->
               </div><!-- card -->
 
@@ -445,7 +513,7 @@
                           <span class="peity-bar" data-peity='{"fill": ["#fff"], "width": 20, "height": 20 }'>6,4,7,5,7</span>
                         </div>
                         <div>
-                            <label>Selling Items</label>
+                          <label>Selling Items</label>
                           <h4>33.50%</h4>
                         </div>
                       </div><!-- col -->
@@ -560,8 +628,10 @@
       </div>
     </div><!-- az-content -->
 
-    
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
 
-  </body>
+</body>
+
 </html>

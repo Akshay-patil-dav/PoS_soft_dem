@@ -51,9 +51,7 @@
   <?php
 
   require_once("./navbar/nav.php");
-
-  $refcode = $_POST['seepur'];
-  // echo $refcode
+  require_once('./conn/dbconn.php');
 
   ?>
 
@@ -74,7 +72,7 @@
   <!-- <p class="mg-b-20">Add zebra-striping to any table row.</p> -->
   <br><br>
   <h5 style="margin-left: 9.9cm;"><i class="typcn typcn-chart-area-outline"></i>
-    / <a href="./index.php">Dashboard</a> /Add Purchese</h5>
+    / <a href="./index.php">Dashboard</a> /Add Raw Purchese</h5>
   <style>
     .box {
       margin-left: 9.9cm;
@@ -84,139 +82,205 @@
 
 
 
-  <form action="./transfer/dataupdate.php" method="post">
-
-
-    <?php
-
-    $sql = "SELECT * FROM sup_in WHERE refercode = '" . $refcode . "' ";
-    $res = $conn->query($sql);
-    // $i =1;
-    if ($res->num_rows > 0) {
-      // output data of each row
-
-      while ($row = $res->fetch_assoc()) {
-        // echo  $row["product_name"]."<br>";
-    ?>
-
-        <div class="box">
-
-
-
-          <div style="display: flex;">
-            <style>
-              .Supplier {
-                width: 7cm;
-              }
-            </style>
+  <form action="./transfer/datatransfer.php" method="post">
+    <div class="box">
 
 
 
 
 
-            <div class="row row-sm mg-b-20">
-              <div class="col-lg-4">
-                <p class="mg-b-10">Supplier *</p>
-                <input type="" class="form-control select2 Supplier" placeholder="<?php echo $row['company_name']; ?>" id="textbox3" name="supname" required>
-
-              </div><!-- col -->
-            </div>
-
-            <div style="width: 20cm;  ">
+      <div style="display: flex;">
+        <style>
+          .Supplier {
+            width: 7cm;
+          }
+        </style>
 
 
-            </div>
-          </div>
-          <br><br>
+        <!-- 
+            <div class="col-lg-4 mg-t-20 mg-lg-t-0">
+              <p class="mg-b-10">Single Select with Search</p>
+              <select class="form-control select2">
+                <option label="Choose one"></option>
+                <option value="Firefox">Firefox</option>
+                <option value="Chrome">Chrome</option>
+                <option value="Safari">Safari</option>
+                <option value="Opera">Opera</option>
+                <option value="Internet Explorer">Internet Explorer</option>
+              </select>
+            </div>col-4 -->
 
-          <div style="display: grid; grid-template-columns:auto auto auto auto ; gap: 1cm;  ">
+
+
+        <div class="row row-sm mg-b-20">
+          <div class="col-lg-4">
+            <p class="mg-b-10">Supplier *</p>
+            <select class="form-control select2 Supplier" name="supname" required>
+              <option label="<?php echo $supname; ?>"><?php echo $supname; ?></option>
+              <?php
+              $query1 = "SELECT * FROM supplier_info ";
+              $result1 = $conn->query($query1);
+
+              if ($result1->num_rows > 0) {
+                while ($row1 = $result1->fetch_assoc()) {
+
+              ?>
+
+                  <option value="<?php echo $row1['gstin_no']; ?>"><?php echo $row1['name'] . $row1['gstin_no'] ?></option>
+              <?php      }
+              } ?>
+            </select>
+          </div><!-- col -->
+        </div>
+
+        <div style="width: 20cm;  ">
+
+          <div class="col-sm-6 col-md-3"><a href="./Addsupplier.php" class="btn btn-az-primary btn-block" style="border-radius: 20px; position: relative; top: 29px; ">
+              <i class="typcn typcn-document-add" style="font-size: 16px;"></i> Add Supplier
+            </a></div>
+
+        </div>
+      </div>
+      <br><br>
+
+      <div style="display: grid; grid-template-columns:auto auto auto auto ; gap: 1cm;  ">
 
 
 
-            <div class="wd-250 mg-b-20">
-              <p class="mg-b-10">Date </p>
+        <div class="wd-250 mg-b-20">
+          <p class="mg-b-10">Date </p>
 
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
-                  </div>
-                </div>
-                <!-- <input type="text" value="January 20, 2019 09:00"  class="form-control"> -->
-                <input type="text" class="form-control " name="date" id="textbox2" placeholder="<?php echo $row['date']; ?>">
-
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
               </div>
             </div>
+            <input type="date" name="date">
+            <!-- <input type="text" value="January 20, 2019 09:00"  class="form-control"> -->
+            <input type="date" class="form-control " name="" id="datetimepicker3" style="display: none;">
 
-
-
-            <div class="col-lg" style="position: relative; right: 3.5cm; ">
-              <p class="mg-b-10">Reference No </p>
-
-              <input class="form-control " style="width: 6cm; " placeholder="<?php echo $row['refercode']; ?>" id="textbox1" name="cess" type="text" required>
-            </div><!-- col -->
-
-
-            <script>
-              $(document).ready(function() {
-                $('#textbox2').prop('disabled', true);
-                $('#textbox1').prop('disabled', true);
-                $('#textbox3').prop('disabled', true);
-                // $('#textbox4').prop('disabled', true);
-
-
-
-              });
-            </script>
-
-
-
-
-
-
-            <div style="position: relative; right: 7.8cm; ">
-              <p class="mg-b-10">Status *</p>
-              <select class="form-control select2-no-search" name="Status" style="width: 5cm; cursor: pointer; " required>
-
-                <option label="<?php echo $row['payment']; ?>"></option>
-                <option value="Pending">Pending</option>
-                <option value="Pay">Pay</option>
-              </select>
-            </div><!-- col-4 -->
-
-
-            <div class="col-lg" style="position: relative; right: 0.5cm; ">
-
-              <style>
-                .cllsub {
-                  width: 6cm;
-                  height: 1.5cm;
-                  border-radius: 20px;
-                  position: relative;
-                  left: 10cm;
-                  /* top: 3.2cm; */
-                  bottom: 6.5cm;
-                  z-index: +2;
-                  font-family: Arial black;
-                }
-
-                .fa-check-circle {
-                  font-size: 0.5cm;
-                }
-              </style>
-            </div><!-- col -->
-            <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><button class="btn btn-success btn-block cllsub" name="submitform" value="<?php echo $refcode; ?>"><i class="far fa-check-circle"></i> &#160 &#160 Submit Purchese </button></div>
           </div>
+        </div>
 
-      <?php  }
-    }  ?>
+
+
+        <div class="col-lg" style="position: relative; right: 3.5cm; ">
+          <p class="mg-b-10">Reference No </p>
+
+          <input class="form-control " style="width: 6cm;" name="refcode" placeholder="Reference No" type="text" required>
+        </div><!-- col -->
+
+        <div class="col-lg" style="position: relative; right: 7.5cm; ">
+          <p class="mg-b-10">Select Warehouse </p>
+
+          <input class="form-control " style="width: 6cm;" name="Warehouse" placeholder="Select Warehouse" type="text">
+        </div><!-- col -->
+
+
+
+
+
+        <div style="position: relative; right: 11cm; ">
+          <p class="mg-b-10">Status *</p>
+          <select class="form-control select2-no-search" name="Status" style="width: 5cm;" required>
+            <option label="Choose one"></option>
+            <option value="Pending">Pending</option>
+            <option value="Pay">Pay</option>
+          </select>
+        </div><!-- col-4 -->
+
+
+        <div class="col-lg" style="position: relative; right: 0.5cm; ">
+          <p class="mg-b-10">Attach Doc </p>
+
+
+          <input class="form-control " style="width: 6cm;" name="filedoc" placeholder="Input box" type="file">
+
+          <style>
+            .cllsub {
+              width: 6cm;
+              height: 1.5cm;
+              border-radius: 20px;
+              position: relative;
+              left: 10cm;
+              /* top: 3.2cm; */
+              bottom: 6.5cm;
+              z-index: +2;
+              font-family: Arial black;
+            }
+
+            .fa-check-circle {
+              font-size: 0.5cm;
+            }
+          </style>
+        </div><!-- col -->
+        <div class="col-sm-6 col-md-3 mg-t-10 mg-md-t-0"><button class="btn btn-success btn-block cllsub" name="submitdata"><i class="far fa-check-circle"></i> &#160 &#160 Submit Purchese </button></div>
+      </div>
+
+
   </form>
 
   <br><br><br>
 
 
 
+  <!-- <form action="" method="post" > -->
+  <form action="./insproraw.php" method="post" id="productForm">
 
+
+    <div style="display: flex;">
+      <style>
+        .Supplier {
+          width: 9cm;
+
+        }
+      </style>
+      <div class="row row-sm mg-b-20">
+        <div class="input-group-text" style="width: 1.6cm; height: 1cm; ">
+          <i class="icon ion-md-paper" style=" font-size: 1cm; "></i>
+
+        </div>
+        <div class="col-lg-4">
+          <!-- <p class="mg-b-10">Supplier *</p> -->
+          <!-- <select class="form-control select2 Supplier" multiple="multiple" required > -->
+          <!-- <p class="mg-b-10">Supplier *</p> -->
+          <select class="form-control select2 Supplier" id="productname" name="productname">
+            <option label=""></option>
+
+            <?php
+
+            $query2 = 'SELECT * FROM raw_product';
+            $result2 = $conn->query($query2);
+            if ($result2->num_rows > 0) {
+              while ($row2 = $result2->fetch_assoc()) {
+
+
+            ?>
+                <option value="<?php echo $row2['product_code'] ?>"><?php echo $row2['product_name'] . $row2['product_code'] ?></option>
+            <?php }
+            } ?>
+          </select>
+        </div><!-- col -->
+      </div>
+
+      <div class="col-lg">
+        <!-- <p class="mg-b-10">Reference No </p> -->
+
+        <input class="form-control " style="width: 2cm;" id="quantity" name="quantity" placeholder="Quentity" type="text">
+      </div><!-- col -->
+
+      <div class="col-sm-6 col-md-3" style="position: relative; right:17.5cm;"><button id="reloadButton" class="btn btn-az-primary btn-block" style=" width: 3cm; border-radius: 20px; " name="add" onclick="addToCart()">
+          <i class="typcn typcn-document-add" style="font-size: 16px;"></i> Add
+        </button></div>
+
+
+
+
+
+    </div>
+
+  </form>
 
 
 
@@ -224,7 +288,7 @@
     .table-responsive {
       position: relative;
       right: 17cm;
-      bottom: 4cm;
+      bottom: 1cm;
       width: 45cm;
     }
 
@@ -265,7 +329,7 @@
         <?php
 
 
-        $query1 = "SELECT * FROM purchese_info WHERE inv_no = '" . $refcode . "' ";
+        $query1 = 'SELECT product_name,product_code,net_unit,SUM(quantity) AS qui , cgst ,cgst_amount,sgst,sgst_amount,igst,igst_amout,cess,cess_amount FROM addcard_raw GROUP BY product_code';
         $result1 = $conn->query($query1);
 
         if ($result1->num_rows > 0) {
@@ -280,7 +344,7 @@
               <td><?php echo $row1['product_name'];  ?></td>
               <td><?php echo $row1['product_code'];  ?></td>
               <td><?php echo $row1['net_unit'];  ?></td>
-              <td><?php echo $row1['quantity'];  ?></td>
+              <td><?php echo $row1['qui'];  ?></td>
               <td><?php echo $row1['cgst'];  ?></td>
               <td><?php echo $row1['cgst_amount'];  ?></td>
               <td><?php echo $row1['sgst'];  ?></td>
@@ -289,11 +353,16 @@
               <td><?php echo $row1['igst_amout'];  ?></td>
               <td><?php echo $row1['cess'];  ?></td>
               <td><?php echo $row1['cess_amount'];  ?></td>
-              <td><?php echo $row1['quantity'] * $row1['net_unit'];  ?></td>
+              <td><?php echo $row1['qui'] * $row1['net_unit'];  ?></td>
 
 
               <td>
+                <form action="./delpurch.php" method="get" class="btndel">
 
+                  <button name=" id" value="<?php echo $row1['product_code'];  ?>" class="btn btn-danger btn-block"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                      <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+                    </svg></button>
+                </form>
               </td>
             </tr>
         <?php  }
@@ -316,7 +385,7 @@
           <th class="th">IGST Amount</th>
           <th class="th">CESS %</th>
           <th class="th">CESS Amount</th>
-          <?php $sql5 = "SELECT SUM((net_unit *quantity) ) AS total_sum FROM purchese_info WHERE inv_no = '" . $refcode . "'";
+          <?php $sql5 = "SELECT round(SUM((net_unit *quantity) ),3) AS total_sum FROM addcard";
           $resultl = $conn->query($sql5);
 
           // Check if the query was successful
@@ -325,7 +394,7 @@
             $rowl = $resultl->fetch_assoc(); ?>
             <th class="th" style="font-size: 0.4cm;"><?php
 
-                                                      echo  $rowl['total_sum'];
+                                                      echo $rowl['total_sum'];
 
                                                       ?></th><?php } ?>
           <th class="th">action</th>

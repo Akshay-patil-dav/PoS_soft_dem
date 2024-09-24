@@ -14,6 +14,3 @@ header("location: Additems.php");
 // header("location: Additems.php");
 // exit();
 ?>
-
-
-
