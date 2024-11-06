@@ -12,6 +12,16 @@
   9) When you login in the phpmyadmin then create the new database  name project .
   10) then you create the database then go to the import option > select the Chose_file option  .
   11) when you select the chose file option dialog box be appeared in your windows for selecting the file sql_DB.sql.
-  12) ![image](https://github.com/user-attachments/assets/918ef724-e5eb-457e-86aa-7e3d87b447cd)
+   ![image](https://github.com/user-attachments/assets/918ef724-e5eb-457e-86aa-7e3d87b447cd)
+  12) Select the file press the open .
+   ![image](https://github.com/user-attachments/assets/cb093e19-a9ab-4951-8d28-e08df887d2b3)
+  13) click on the import buttion given bellow.
+  14) the ALL Database created autometicaly.
+  15) open the new table in Web browser and search : http://localhost/pos/ to open the project then login the page using the given image ![image](https://github.com/user-attachments/assets/28fae960-5532-4643-ada8-99c5750bae96)
+
+  16) website look ![image](https://github.com/user-attachments/assets/5145c83a-9ddb-48ef-9b19-c4f98b9bbe17)
+
+ 
+
 
  
