@@ -7,4 +7,4 @@
   4) when the zip file download then unzip it , and download all the drivers present in it .
   5) when the all download process done then install wampServer application in your machine.
   6) when the application install open the the folder C:\wamp64\www , create a new folder (POS) in it .
-  7) open cmd in that new folder(POS) and paste this code ### git clone  https://github.com/Akshay-patil-dav/PoS_soft_dem.git  in it for download the file in that location
+  7) open cmd in that new folder(POS) and paste this code $ git clone  https://github.com/Akshay-patil-dav/PoS_soft_dem.git  in it for download the file in that location
